@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 public class Item {
-
     private int itemId;
     private String name;
     private String model;
