@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Transportation {
 
     private TransportType transportType;
-    private String direction;
+    private String direction; //shayad class beshe
     private Country country;
     private String origin;
     private float freight;
