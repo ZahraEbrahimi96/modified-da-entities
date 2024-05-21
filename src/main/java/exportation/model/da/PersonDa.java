@@ -2,7 +2,6 @@ package exportation.model.da;
 
 import lombok.extern.log4j.Log4j;
 import exportation.model.entity.Person;
-import exportation.model.entity.enums.City;
 import exportation.model.entity.enums.Gender;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
