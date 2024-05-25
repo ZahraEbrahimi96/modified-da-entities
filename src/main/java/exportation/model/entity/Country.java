@@ -14,11 +14,11 @@ import java.util.ArrayList;
 @SuperBuilder(toBuilder = true)
 
 
-public class Country {
+public class Country{
     private int countryId;
     private String countryName;
     private String countryPhoneCode;
-    private String relatedMarket;
+    private String relatedMarket;  //BE IN FEKR MIKONAM KE HAZFESH KONIM YA TYPESHO BE COMPANY TAGHIR BEDIM
     private ArrayList<Company> company;
     private ArrayList<Info> info;
 

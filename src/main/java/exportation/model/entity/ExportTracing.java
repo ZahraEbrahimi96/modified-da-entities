@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder(toBuilder = true)
 public class ExportTracing {
-
+    private int exportId;
     private LocalDateTime transferTime;
     private LocalDateTime receiveTime;
     private boolean loadingStatus;
