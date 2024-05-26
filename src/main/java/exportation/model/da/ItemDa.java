@@ -3,7 +3,6 @@ import exportation.model.entity.enums.Brand;
 import exportation.model.entity.enums.Type;
 import lombok.extern.log4j.Log4j;
 import exportation.model.entity.Item;
-import exportation.model.entity.enums.Gender;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 
@@ -21,6 +20,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
+    //SAVE
     @Override
     public Item save(Item item) throws Exception {
         Item.setItemId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
@@ -43,6 +43,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return item;
     }
 
+    //EDIT
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
@@ -63,6 +64,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return item;
     }
 
+    //REMOVE
     @Override
     public Item remove(int itemId) throws Exception {
         preparedStatement = connection.prepareStatement(
@@ -73,6 +75,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return null;
     }
 
+    //FINDALL
     @Override
     public List<Item> findAll() throws Exception {
         List<Item> itemList = new ArrayList<>();
@@ -103,7 +106,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     }
 
 
-
+    //FIND BY ID
     @Override
     public Item findById(int itemId) throws Exception {
         preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ITEM_ID=?");
@@ -129,6 +132,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return item;
     }
 
+    //FIND BY NAME
     public List<Item> findByName(String name) throws Exception {
         List<Item> itemList = new ArrayList<>();
 
