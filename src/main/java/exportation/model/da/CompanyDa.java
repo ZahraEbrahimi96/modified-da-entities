@@ -35,7 +35,6 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     preparedStatement.setString(6, company.getCompanyAddress());
     preparedStatement.setString(7, company.getCompanyEmail());
     preparedStatement.setString(8, company.getCompanyPhone());
-    preparedStatement.setString(9,String.valueOf(company.getCountryName()));
     preparedStatement.execute();
     return company;
     }
@@ -51,7 +50,6 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
             preparedStatement.setString(5, company.getCompanyAddress());
             preparedStatement.setString(6, company.getCompanyEmail());
             preparedStatement.setString(7, company.getCompanyPhone());
-            preparedStatement.setString(8,String.valueOf(company.getCountryName()));
             preparedStatement.setInt(9, company.getCompanyId());
             preparedStatement.execute();
             return company;
@@ -78,7 +76,6 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
                     .companyId(resultSet.getInt("COMPANY_ID"))
                     .companyName(resultSet.getString("COMPANY_NAME"))
                     .companyType(RoleAccess.valueOf(resultSet.getString("COMPANY_TYPE")))
-                    .companyManager(resultSet.getString("COMPANY_MANAGER"))
                     .companyProduct(resultSet.getString("COMPANY_PRODUCT"))
                     .companyAddress(resultSet.getString("COMPANY_ADDRESS"))
                     .companyEmail(resultSet.getString("COMPANY_EMAIL"))
@@ -104,7 +101,6 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
                  .companyId(resultSet.getInt("COMPANY_ID"))
                  .companyName(resultSet.getString("COMPANY_NAME"))
                  .companyType(RoleAccess.valueOf(resultSet.getString("COMPANY_TYPE")))
-                 .companyManager(resultSet.getString("COMPANY_MANAGER"))
                  .companyProduct(resultSet.getString("COMPANY_PRODUCT"))
                  .companyAddress(resultSet.getString("COMPANY_ADDRESS"))
                  .companyEmail(resultSet.getString("COMPANY_EMAIL"))
@@ -129,12 +125,10 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
                     .companyId(resultSet.getInt("COMPANY_ID"))
                     .companyName(resultSet.getString("COMPANY_NAME"))
                     .companyType(RoleAccess.valueOf(resultSet.getString("COMPANY_TYPE")))
-                    .companyManager(resultSet.getString("COMPANY_MANAGER"))
                     .companyProduct(resultSet.getString("COMPANY_PRODUCT"))
                     .companyAddress(resultSet.getString("COMPANY_ADDRESS"))
                     .companyEmail(resultSet.getString("COMPANY_EMAIL"))
                     .companyPhone(resultSet.getString("COMPANY_PHONE"))
-                    .countryName(resultSet.getString("COUNTRY_NAME"))
                     .build();
             companyList.add(company);
         }

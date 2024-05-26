@@ -72,13 +72,13 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
                     .countryName(resultSet.getString("COUNTRY_NAME"))
                     .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                     .relatedMarket(resultSet.getString("RELATED_MARKET"))
-                    .company(resultSet.getString("COMPANY"))
-                    .info(resultSet.getString("INFO"))
                     .build();
             countryList.add(country);
         }
         return countryList;
     }
+
+//    BL-findAll()
 
     @Override
     public Country findById(int countryId) throws Exception {
@@ -94,8 +94,6 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
                    .countryName(resultSet.getString("COUNTRY_NAME"))
                    .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                    .relatedMarket(resultSet.getString("RELATED_MARKET"))
-                   .company(resultSet.getString("COMPANY"))
-                   .info(resultSet.getString("INFO"))
                    .build();
        }
         return country;
@@ -114,8 +112,6 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
                    .countryName(resultSet.getString("COUNTRY_NAME"))
                    .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                    .relatedMarket(resultSet.getString("RELATED_MARKET"))
-                   .company(resultSet.getString("COMPANY"))
-                   .info(resultSet.getString("INFO"))
                    .build();
            countryList.add(country);
        }
