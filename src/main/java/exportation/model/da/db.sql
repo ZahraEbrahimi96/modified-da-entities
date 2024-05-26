@@ -47,7 +47,7 @@ create table payment_table
     payment_id         number primary key,
     payment_total_cost number,
     payment_tax        number,
-    paymet_insurance   number
+    payment_insurance   number
 );
 
 create table itemTable
