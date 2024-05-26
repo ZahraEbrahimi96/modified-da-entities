@@ -1,4 +1,4 @@
-create table Person
+create table personTable
 (
     id          number primary key,
     name        nvarchar2(30),
@@ -9,10 +9,10 @@ create table Person
     city        nvarchar2(20),
     nationalId  nvarchar2(10),
     position    nvarchar2(30),
-    address     nvarchar(250)
+    address     nvarchar2(30)
 );
 
-create table Company
+create table companyTable
 (
     id          number primary key,
     name        nvarchar2(30),
@@ -20,18 +20,18 @@ create table Company
     product     nvarchar2(30),
     address     nvarchar2(250),
     email       nvarchar2(30),
-    phoneNumber nvarchar2(11),
+    phoneNumber nvarchar2(11)
 );
 
-create table Country
+create table countryTable
 (
     id             number primary key,
     name           nvarchar2(30),
     phoneCode      nvarchar2(4),
-    realatedMarket nvarchar2(30),
+    realatedMarket nvarchar2(30)
 );
 
-create table Item
+create table itemTable
 (
     id                number primary key,
     name              nvarchar2(30),
@@ -41,6 +41,6 @@ create table Item
     weightOfUnit      number,
     weightOfPallet    number,
     palletCapacity    number,
-    cost              number,
+    cost              number
 );
 
