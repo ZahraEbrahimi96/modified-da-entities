@@ -1,6 +1,7 @@
 package exportation.model.da;
 
-import exportation.model.entity.Trade;
+import exportation.model.entity.Item;
+import exportation.model.entity.Payment;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -10,50 +11,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j
-public class TradeDa implements AutoCloseable, CRUD<Trade> {
+public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     private final Connection connection;
     private PreparedStatement preparedStatement;
 
-    public TradeDa() throws SQLException {
+    public PaymentDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
     //save
     @Override
-    public Trade save(Trade trade) throws Exception {
-        trade.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
+    public Payment save(Payment payment) throws Exception {
+        payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO TRADE (ID,STATUS,CORRESPONDENCES,CONTRACT,AGREEMENT,INVOICE) VALUES (?,?,?,?,?,?,?,?,?)"
         );
-        preparedStatement.setInt(1, trade.getId());
-        preparedStatement.setString(2, trade.getStatus());
-        preparedStatement.setString(3, trade.getCorrespondences());
-        preparedStatement.setString(4, trade.getContract());
-        preparedStatement.setString(5, trade.getAgreement());
-        preparedStatement.setString(6, trade.getInvoice());
+        preparedStatement.setInt(1, payment.getId());
+        preparedStatement.setLong(2, payment.getTotalCost());
+        preparedStatement.setFloat(3, payment.getTax());
+        preparedStatement.setFloat(4, payment.getInsurance());
+//        preparedStatement.setFloat(5, string.valueOf(payment.getCost()));
+//        preparedStatement.setFloat(6,payment.);
         preparedStatement.execute();
-        return trade;
+        return payment;
     }
 
     //Edit
     @Override
-    public Trade edit(Trade trade) throws Exception {
+    public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "UPDATE TRADE SET STATUS=?, CORRESPONDENCES=?, CONTRACT=?, AGREEMENT=?, INVOICE=?, WHERE ID=?"
         );
-        preparedStatement.setInt(1, trade.getId());
-        preparedStatement.setString(2, trade.getStatus());
-        preparedStatement.setString(3, trade.getCorrespondences());
-        preparedStatement.setString(4, trade.getContract());
-        preparedStatement.setString(5, trade.getAgreement());
-        preparedStatement.setString(6, trade.getInvoice());
+        preparedStatement.setInt(1, payment.getId());
+        preparedStatement.setString(2, payment.getStatus());
+        preparedStatement.setString(3, payment.getCorrespondences());
+        preparedStatement.setString(4, payment.getContract());
+        preparedStatement.setString(5, payment.getAgreement());
+        preparedStatement.setString(6, payment.getInvoice());
         preparedStatement.execute();
-        return trade;
+        return payment;
     }
 
     //Remove
     @Override
-    public Trade remove(int id) throws Exception {
+    public Payment remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
                 "DELETE FROM TRADE WHERE ID=?"
         );
@@ -64,13 +65,13 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
 
     //FindALl
     @Override
-    public List<Trade> findAll() throws Exception {
-        List<Trade> tradeList = new ArrayList<>();
+    public List<Payment> findAll() throws Exception {
+        List<Payment> paymentList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM TRADE ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            Trade trade = Trade
+            Payment payment = Payment
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .status(resultSet.getString("STATUS"))
@@ -80,21 +81,21 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
                     .invoice(resultSet.getString("INVOICE"))
                     .build();
 
-            tradeList.add(trade);
+            paymentList.add(payment);
         }
 
-        return tradeList;
+        return paymentList;
     }
 
     //FindById
     @Override
-    public Trade findById(int id) throws Exception {
+    public Payment findById(int id) throws Exception {
         preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        Trade trade = null;
+        Payment payment = null;
         if (resultSet.next()) {
-            trade = Trade
+            payment = Payment
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .status(resultSet.getString("STATUS"))
@@ -104,26 +105,26 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
                     .invoice(resultSet.getString("INVOICE"))
                     .build();
         }
-        return trade;
+        return payment;
     }
 
     //FindByClient
-    public List<Trade> findByClient(String client) throws Exception {
-        List<Trade> tradeList = new ArrayList<>();
+    public List<Payment> findByClient(String client) throws Exception {
+        List<Payment> paymentList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE CLIENT LIKE? ORDER BY ID");
         preparedStatement.setString(1, client + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            Trade trade = Trade
+            Payment payment = Payment
                     .builder()
                     .id(resultSet.getInt("ID"))
 
                     .build();
 
-            tradeList.add(trade);
+            paymentList.add(payment);
         }
-        return tradeList;
+        return paymentList;
     }
 
     //Close
