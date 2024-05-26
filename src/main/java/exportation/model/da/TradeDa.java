@@ -23,7 +23,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     public Trade save(Trade trade) throws Exception {
         trade.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRADE (ID,STATUS,CORRESPONDENCES,CONTRACT,AGREEMENT,INVOICE) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO TRADE (ID,STATUS,CORRESPONDENCES,CONTRACT,AGREEMENT,INVOICE) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, trade.getId());
         preparedStatement.setString(2, trade.getStatus());
