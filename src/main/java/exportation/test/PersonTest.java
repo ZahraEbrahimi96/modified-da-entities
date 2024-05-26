@@ -1,5 +1,8 @@
 package exportation.test;
 
+import exportation.model.bl.PersonBl;
+import exportation.model.entity.Person;
+
 //package exportation.test;
 //
 //import exportation.model.bl.PersonBl;
@@ -11,6 +14,10 @@ package exportation.test;
 //
 public class PersonTest {
     public static void main(String[] args) throws Exception {
+        System.out.println(PersonBl.getPersonBl().save(
+                Person.builder().name("ali").family("alipour").build()
+        ));
+
 //        Person->Company>Item>Country>Company>Tax
 
 

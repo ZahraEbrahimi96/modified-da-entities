@@ -15,9 +15,9 @@ public class Payment {
     private long totalCost;
     private float tax;
     private float insurance;
-    private Item cost;
-    private Transportation freight;
-    private Info tariff;
+    private Item item;
+    private Transportation transportation;
+    private Info info;
 
     @Override
     public String toString() {

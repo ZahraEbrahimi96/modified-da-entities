@@ -1,8 +1,6 @@
 package exportation.model.da;
 
-import exportation.model.entity.Item;
 import exportation.model.entity.Payment;
-import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 
@@ -10,7 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Log4j
 public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     private final Connection connection;
     private PreparedStatement preparedStatement;
@@ -24,13 +21,15 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (ID,TOTALCOST,TAX,INSURANCE,COST,FREIGHT,TARIF) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (ID,TOTALCOST,TAX,INSURANCE,COST,FREIGHT,TARIFF) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setLong(2, payment.getTotalCost());
         preparedStatement.setFloat(3, payment.getTax());
         preparedStatement.setFloat(4, payment.getInsurance());
-        //      5,6,7 write
+        preparedStatement.setFloat(5, payment.getItem().getCost());
+        preparedStatement.setFloat(6, payment.getTransportation().getFreight());
+        preparedStatement.setString(7, payment.getInfo().getTariff());
         preparedStatement.execute();
         return payment;
     }
