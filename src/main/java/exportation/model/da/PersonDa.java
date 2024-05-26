@@ -31,11 +31,6 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(2, person.getName());
         preparedStatement.setString(3, person.getFamily());
         preparedStatement.setString(4, person.getGender().name());
-        preparedStatement.setDate(5, Date.valueOf(person.getBirthDate()));
-        preparedStatement.setString(6, person.getCity().name());
-        preparedStatement.setBoolean(7, person.isAlgorithmSkill());
-        preparedStatement.setBoolean(8, person.isJavaSESkill());
-        preparedStatement.setBoolean(9, person.isJavaEESkill());
         preparedStatement.execute();
         return person;
     }
