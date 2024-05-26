@@ -1,3 +1,5 @@
+package exportation.test;
+
 //package exportation.test;
 //
 //import exportation.model.bl.PersonBl;
@@ -7,8 +9,11 @@
 //
 //import java.time.LocalDate;
 //
-//public class PersonTest {
-//    public static void main(String[] args) throws Exception {
+public class PersonTest {
+    public static void main(String[] args) throws Exception {
+//        Person->Company>Item>Country>Company>Tax
+
+
 ////        System.out.println(PersonBl.getPersonBl().findAll());
 ////        System.out.println(PersonBl.getPersonBl().findById(3));
 ////        System.out.println(PersonBl.getPersonBl().findByFamily("alipour"));
@@ -35,5 +40,5 @@
 ////        ));
 //
 //
-//    }
-//}
+    }
+}

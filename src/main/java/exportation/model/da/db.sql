@@ -1,6 +1,6 @@
-create table personTable
+create table person_table
 (
-    id          number primary key,
+    person_id          number primary key,
     name        nvarchar2(30),
     family      nvarchar2(30),
     gender      varchar2(6),
@@ -12,28 +12,28 @@ create table personTable
     address     nvarchar2(30)
 );
 
-create table companyTable
+create table company_table
 (
-    id          number primary key,
+    company_id          number primary key,
     name        nvarchar2(30),
     type        nvarchar2(30),
     product     nvarchar2(30),
     address     nvarchar2(250),
     email       nvarchar2(30),
-    phoneNumber nvarchar2(11)
+    phone_number nvarchar2(11)
 );
 
-create table countryTable
+create table country_table
 (
-    id             number primary key,
+    country_id             number primary key,
     name           nvarchar2(30),
-    phoneCode      nvarchar2(4),
-    realatedMarket nvarchar2(30)
+    phone_code      nvarchar2(4),
+    related_market nvarchar2(30)
 );
 
 create table itemTable
 (
-    id                number primary key,
+    item_id                number primary key,
     name              nvarchar2(30),
     model             nvarchar2(30),
     dimensionOfUnite  nvarchar2(30),
@@ -44,3 +44,15 @@ create table itemTable
     cost              number
 );
 
+create table country_company(
+    int number primary key,
+    c_country_id references country_table,
+    c_company_id references company_table
+);
+
+create view country_company_report as
+select * from country_table
+join country_company  on country_table.id = country_company.c_country_id
+join company_table  on company_table.id = country_company.c_company_id
+
+-- todo : create sequences

@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Person {
-    private int personId;
+    private int id;
     private String name;
     private String family;
     private Gender gender;
