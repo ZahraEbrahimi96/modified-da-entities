@@ -1,5 +1,6 @@
 package exportation.model.entity;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 public class Payment {
-
+    private int id;
     private long totalCost;
     private float tax;
     private float insurance;
@@ -18,6 +19,8 @@ public class Payment {
     private Transportation freight;
     private Info tariff;
 
-    // return: cif, pish pardakht, mablaghe kol, mande hesab
-
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

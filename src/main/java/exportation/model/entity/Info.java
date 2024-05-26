@@ -7,13 +7,14 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
 
 public class Info {
-
+    private int id;
     private long population;
     private long carRate;
     private String climate;
@@ -22,9 +23,6 @@ public class Info {
     private String demand;
     private String tariff;
     private ArrayList<String> neighbors;
-    //private String manufacturingStatus;
-    //private String importationStatus;
-    //private String exportationStatus;
 
     @Override
     public String toString() {

@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 public class Item {
-    private int itemId;
+    private int id;
     private String name;
     private String model;
     private String dimensionOfUnite;

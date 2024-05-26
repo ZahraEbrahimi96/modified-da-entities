@@ -15,6 +15,7 @@ import java.util.ArrayList;
 @SuperBuilder(toBuilder = true)
 
 public class Transportation {
+    private int id;
     private String direction;
     private String origin;
     private float freight;

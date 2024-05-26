@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Trade {
+    private int id;
     private String status;
     private String correspondences;
     private String contract;
