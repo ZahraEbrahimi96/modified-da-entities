@@ -11,11 +11,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Payment {
 
-    private float tax;
-    private Transportation freight;
-    private Item cost;
-    private float insurance;
     private long totalCost;
+    private float tax;
+    private float insurance;
+    private Item cost;
+    private Transportation freight;
     private Info tariff;
 
     // return: cif, pish pardakht, mablaghe kol, mande hesab

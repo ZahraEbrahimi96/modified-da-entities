@@ -13,15 +13,15 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Company {
+
     private int companyId;
     private String companyName;
-    private RoleAccess companyType;
-    private Person companyManager;
     private String companyProduct;
     private String companyAddress;
     private String companyEmail;
     private String companyPhone;
-    private Country countryName;
+    private Person companyManager;
+    private RoleAccess companyType;
 
     @Override
     public String toString() {

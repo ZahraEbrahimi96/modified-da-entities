@@ -13,18 +13,13 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-public class Transportation {
 
-    private TransportType transportType;
-    private String direction; //shayad class beshe
-    private Country country;
+public class Transportation {
+    private String direction;
     private String origin;
     private float freight;
     private Item item;
-
-    // nazdik tarin rah
-    // arzun tarin rahe ersal ra pishnahad dahad
-    // aya be yek khoruji be onvane barname tahvil dahad?
+    private TransportType transportType;
 
     @Override
     public String toString() {

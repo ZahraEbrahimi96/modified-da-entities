@@ -12,9 +12,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Trade {
-
-    private Country country;
-    private Company client;
     private String status;
     private String correspondences;
     private String contract;

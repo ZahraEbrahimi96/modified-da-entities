@@ -16,14 +16,14 @@ public class Item {
     private int itemId;
     private String name;
     private String model;
-    private Type type;
-    private Brand brand;
     private String dimensionOfUnite;
     private String dimensionOfPallet;
-    private float weightOfUnit;
-    private float weightOfPallet;
     private int palletCapacity;
     private float cost;
+    private float weightOfUnit;
+    private float weightOfPallet;
+    private Brand brand;
+    private Type type;
 
 
     @Override

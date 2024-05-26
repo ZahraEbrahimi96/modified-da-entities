@@ -16,15 +16,15 @@ public class Info {
 
     private long population;
     private long carRate;
-    private ArrayList<String> neighbors;
     private String climate;
-    //private String manufacturingStatus;
-    //private String importationStatus;
-    //private String exportationStatus;
     private String accessPath;
     private String lifeExpectancy;
     private String demand;
     private String tariff;
+    private ArrayList<String> neighbors;
+    //private String manufacturingStatus;
+    //private String importationStatus;
+    //private String exportationStatus;
 
     @Override
     public String toString() {

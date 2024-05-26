@@ -18,7 +18,7 @@ public class Person {
     private String family;
     private Gender gender;
     private String email;
-    private String phone;
+    private String phoneNumber;
     private String nationalId;
     private String position;
     private String address;

@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @SuperBuilder(toBuilder = true)
 public class ExportTracing {
     private int exportId;
-    private LocalDateTime transferTime;
-    private LocalDateTime receiveTime;
     private boolean loadingStatus;
-    private String invoice;
-    private String waybill;
     private boolean prePayment;
     private boolean checkout;
+    private String waybill;
+    private String invoice;
+    private LocalDateTime transferTime;
+    private LocalDateTime receiveTime;
     private Person transferee;
 
     @Override
