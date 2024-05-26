@@ -13,7 +13,7 @@ import java.util.List;
 
 @Log4j
 public class ItemDa implements AutoCloseable, CRUD<Item> {
-    private final Connection connection = null;
+    private final Connection connection;
     private PreparedStatement preparedStatement;
 
     public ItemDa() throws SQLException {
@@ -23,7 +23,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     //SAVE
     @Override
     public Item save(Item item) throws Exception {
-        Item.setItemId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
+        item.setItemId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
 
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO ITEM (ITEM_ID, NAME, MODEL, TYPE ,BRAND ,DIMENSION_OF_UNIT ,DIMENSION_OF_PALLET ,WEIGHT_OF_UNIT ,WEIGHT_OF_PALLET, PALLET_CAPACITY, COST) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
