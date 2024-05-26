@@ -26,6 +26,11 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
                 "INSERT INTO TRADE (ID,STATUS,CORRESPONDENCES,CONTRACT,AGREEMENT,INVOICE) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, trade.getId());
+        preparedStatement.setString(2, trade.getStatus());
+        preparedStatement.setString(3, trade.getCorrespondences());
+        preparedStatement.setString(4, trade.getContract());
+        preparedStatement.setString(5, trade.getAgreement());
+        preparedStatement.setString(6, trade.getInvoice());
         preparedStatement.execute();
         return trade;
     }
