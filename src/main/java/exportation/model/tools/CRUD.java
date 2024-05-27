@@ -1,5 +1,8 @@
 package exportation.model.tools;
 
+import exportation.model.entity.Imports;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CRUD<T> {

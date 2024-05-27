@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 
 public class Trade {
     private int id;
-    private String client;
     private String status;
     private String correspondences;
     private String contract;

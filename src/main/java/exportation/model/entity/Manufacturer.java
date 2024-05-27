@@ -1,12 +1,11 @@
 package exportation.model.entity;
 
 import com.google.gson.Gson;
+import exportation.model.entity.enums.RoleAccess;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.ArrayList;
 
 @NoArgsConstructor
 @Getter
@@ -14,15 +13,12 @@ import java.util.ArrayList;
 @SuperBuilder(toBuilder = true)
 
 
-public class Country {
-    private int id;
-    private String name;
-    private String phoneCode;
-    private ArrayList<Info> info;
+public class Manufacturer extends Company{
+
+    private int productionRate;
 
     @Override
-    public String toString() {
-        return new Gson().toJson(this);
-    }
-
+public String toString() {
+    return new Gson().toJson(this);
+}
 }

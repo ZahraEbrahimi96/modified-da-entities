@@ -1,22 +1,20 @@
 package exportation.model.entity;
 
 import com.google.gson.Gson;
-import exportation.model.entity.enums.TransportType;
+import exportation.model.entity.enums.PathType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.ArrayList;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
 public class Transportation {
-    private int transportationId;
-    private TransportType transportType;
-    private String direction; //shayad class beshe
+    private int id;
+    private PathType pathType;
+    private AccessPath accessPath;
     private Country country;
     private String origin;
     private float freight;

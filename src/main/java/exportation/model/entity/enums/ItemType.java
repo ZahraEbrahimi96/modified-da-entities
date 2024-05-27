@@ -1,6 +1,6 @@
 package exportation.model.entity.enums;
 
-public enum Type {
+public enum ItemType {
     automotive,
     ups,
     motorcycle,

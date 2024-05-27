@@ -1,15 +1,14 @@
 package exportation.model.da;
-
 import exportation.model.entity.ExportTracing;
-import lombok.extern.log4j.Log4j;
+import exportation.model.entity.Person;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Log4j
+import static java.sql.Timestamp.valueOf;
+
 public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     private final Connection connection;
     private PreparedStatement preparedStatement;
@@ -21,98 +20,101 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //save
     @Override
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
-        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORTTRACING_SEQ"));
-        preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING (ID,LODINGSTATUS,PREPAYMENT,CHECKOUT,WAYBILL,INVOICE) VALUES (?,?,?,?,?,?)"
-        );
+        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORT_TRACING_SEQ"));
+        preparedStatement = connection.prepareStatement("INSERT INTO EXPORTTRACING (EXPORT_ID, TRANSFER_TIME, RECEIVE_TIME, LOADING_STATUS, INVOICE, WAYBILL, PREPAYMENT, CHECKOUT, TRANSFEREE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setInt(1, exportTracing.getId());
-        preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
-        preparedStatement.setBoolean(3, exportTracing.isPrePayment());
-        preparedStatement.setBoolean(4, exportTracing.isCheckout());
-        preparedStatement.setString(5, exportTracing.getWaybill());
-        preparedStatement.setString(6, exportTracing.getInvoice());
-
+        preparedStatement.setTimestamp(2, valueOf(exportTracing.getTransferTime()));
+        preparedStatement.setTimestamp(3, valueOf(exportTracing.getReceiveTime()));
+        preparedStatement.setBoolean(4,exportTracing.isLoadingStatus());
+        preparedStatement.setString(5, exportTracing.getInvoice());
+        preparedStatement.setString(6, exportTracing.getWaybill());
+        preparedStatement.setBoolean(7,exportTracing.isPrePayment());
+        preparedStatement.setBoolean(8,exportTracing.isCheckout());
+        preparedStatement.setString(9, String.valueOf(exportTracing.getTransferee()));
         preparedStatement.execute();
         return exportTracing;
     }
 
-    //Edit
+    //edit
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
-        preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING SET LODINGSTATUS=?, PREPAYMENT=?, CHECKOUT=?, WAYBILL=?,INVOICE=?, WHERE ID=?"
-        );
-        preparedStatement.setInt(1, exportTracing.getId());
-        preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
-        preparedStatement.setBoolean(3, exportTracing.isPrePayment());
-        preparedStatement.setBoolean(4, exportTracing.isCheckout());
+        preparedStatement = connection.prepareStatement("UPDATE EXPORTTRACING SET TRANSFER_TIME=?, RECEIVE_TIME=?, LOADING_STATUS=?, INVOICE=?, WAYBILL=?, PREPAYMENT=?, CHECKOUT=?, TRANSFEREE=? WHERE EXPORT_ID=? ");
+        preparedStatement.setTimestamp(1, valueOf(exportTracing.getTransferTime()));
+        preparedStatement.setTimestamp(2, valueOf(exportTracing.getReceiveTime()));
+        preparedStatement.setBoolean(3,exportTracing.isLoadingStatus());
+        preparedStatement.setString(4, exportTracing.getInvoice());
         preparedStatement.setString(5, exportTracing.getWaybill());
-        preparedStatement.setString(6, exportTracing.getInvoice());
-
+        preparedStatement.setBoolean(6,exportTracing.isPrePayment());
+        preparedStatement.setBoolean(7,exportTracing.isCheckout());
+        preparedStatement.setString(8, String.valueOf(exportTracing.getTransferee()));
+        preparedStatement.setInt(9, exportTracing.getId());
         preparedStatement.execute();
         return exportTracing;
     }
 
-    //Remove
+    //remove
     @Override
     public ExportTracing remove(int id) throws Exception {
-        preparedStatement = connection.prepareStatement(
-                "DELETE FROM EXPORTTRACING WHERE ID=?"
-        );
+        preparedStatement = connection.prepareStatement("DELETE FROM EXPORTTRACING WHERE EXPORT_ID=?");
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
         return null;
     }
 
-    //FindALl
+    //findAll
     @Override
     public List<ExportTracing> findAll() throws Exception {
         List<ExportTracing> exportTracingList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING ORDER BY EXPORT_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             ExportTracing exportTracing = ExportTracing
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
+                    .id(resultSet.getInt("EXPORT-ID"))
+                    .transferTime(resultSet.getTimestamp("TRANSFER_TIME").toLocalDateTime())
+                    .receiveTime(resultSet.getTimestamp("RECEIVE_TIME").toLocalDateTime())
+                    .loadingStatus(resultSet.getBoolean("LOADING_STATUS"))
+                    .invoice(resultSet.getString("INVOICE"))
+                    .waybill(resultSet.getString("WAYBILL"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .waybill(resultSet.getString("WAYBILL"))
-                    .invoice(resultSet.getString("INVOICE"))
+                    .transferee((Person)resultSet.getObject("TRANSFEREE"))
                     .build();
-
             exportTracingList.add(exportTracing);
         }
-
-        return exportTracingList;
+        return  exportTracingList;
     }
 
-    //FindById
+    //findById
     @Override
     public ExportTracing findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING WHERE EXPORT_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        ExportTracing exportTracing = null;
+        ExportTracing exportTracing= null;
+
         if (resultSet.next()) {
             exportTracing = ExportTracing
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
+                    .id(resultSet.getInt("EXPORT-ID"))
+                    .transferTime(resultSet.getTimestamp("TRANSFER_TIME").toLocalDateTime())
+                    .receiveTime(resultSet.getTimestamp("RECEIVE_TIME").toLocalDateTime())
+                    .loadingStatus(resultSet.getBoolean("LOADING_STATUS"))
+                    .invoice(resultSet.getString("INVOICE"))
+                    .waybill(resultSet.getString("WAYBILL"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .waybill(resultSet.getString("WAYBILL"))
-                    .invoice(resultSet.getString("INVOICE"))
+                    .transferee((Person)resultSet.getObject("TRANSFEREE"))
                     .build();
         }
-        return exportTracing;
-    }
+        return  exportTracing;
+        }
 
-    //Close
+
+
     @Override
     public void close() throws Exception {
-        preparedStatement.close();
-        connection.close();
+
     }
 }

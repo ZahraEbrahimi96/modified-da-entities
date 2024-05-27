@@ -4,7 +4,6 @@ import exportation.model.entity.Country;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 import lombok.extern.log4j.Log4j;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,31 +21,32 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
        connection = ConnectionProvider.getConnectionProvider().getConnection();
    }
 
+   //SAVE
     @Override
     public Country save(Country country) throws Exception {
-       country.setCountryId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
+       country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
 
-       preparedStatement = connection.prepareStatement("INSERT INTO COUNTRY (COUNTRY_ID, COUNTRY_NAME, COUNTRY_PHONE_CODE, RELATED_MARKET, COMPANY, INFO) VALUES(?,?,?,?,?,?)");
-       preparedStatement.setInt(1, country.getCountryId());
-       preparedStatement.setString(2, country.getCountryName());
-       preparedStatement.setString(3, country.getCountryPhoneCode());
-       preparedStatement.setString(4, country.getRelatedMarket());
+       preparedStatement = connection.prepareStatement("INSERT INTO COUNTRY (COUNTRY_ID, COUNTRY_NAME, COUNTRY_PHONE_CODE) VALUES(?,?,?)");
+       preparedStatement.setInt(1, country.getId());
+       preparedStatement.setString(2, country.getName());
+       preparedStatement.setString(3, country.getPhoneCode());
        preparedStatement.execute();
        return country;
     }
 
+    //EDIT
     @Override
     public Country edit(Country country) throws Exception {
-       preparedStatement = connection.prepareStatement("UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?, RELATED_MARKET=?, COMPANY=?, INFO=? WHERE COUNTRY_ID=? ");
+       preparedStatement = connection.prepareStatement("UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?,WHERE COUNTRY_ID=? ");
 
-       preparedStatement.setString(1, country.getCountryName());
-       preparedStatement.setString(2, country.getCountryPhoneCode());
-       preparedStatement.setString(3, country.getRelatedMarket());
-       preparedStatement.setInt(6, country.getCountryId());
+       preparedStatement.setString(1, country.getName());
+       preparedStatement.setString(2, country.getPhoneCode());
+       preparedStatement.setInt(3, country.getId());
        preparedStatement.execute();
        return country;
     }
 
+    //REMOVE
     @Override
     public Country remove(int countryId) throws Exception {
        preparedStatement = connection.prepareStatement("DELETE FROM COUNTRY WHERE COUNTRY_ID=?");
@@ -55,6 +55,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
         return null;
     }
 
+    //FIND-ALL
     @Override
     public List<Country> findAll() throws Exception {
         List<Country> countryList= new ArrayList<>();
@@ -64,48 +65,50 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
         while (resultSet.next()){
             Country country = Country
                     .builder()
-                    .countryId(resultSet.getInt("COUNTRY_ID"))
-                    .countryName(resultSet.getString("COUNTRY_NAME"))
-                    .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
-                    .relatedMarket(resultSet.getString("RELATED_MARKET"))
+                    .id(resultSet.getInt("COUNTRY_ID"))
+                    .name(resultSet.getString("COUNTRY_NAME"))
+                    .phoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                     .build();
             countryList.add(country);
         }
         return countryList;
     }
 
+//    BL-findAll()
+
+    //FIND-BY-ID
     @Override
-    public Country findById(int countryId) throws Exception {
+    public Country findById(int id) throws Exception {
        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE COUNTRY_ID=?");
-       preparedStatement.setInt(1, countryId);
+       preparedStatement.setInt(1, id);
        ResultSet resultSet = preparedStatement.executeQuery();
        Country country=null;
 
        if (resultSet.next()){
            country = Country
                    .builder()
-                   .countryId(resultSet.getInt("COUNTRY_ID"))
-                   .countryName(resultSet.getString("COUNTRY_NAME"))
-                   .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
-                   .relatedMarket(resultSet.getString("RELATED_MARKET"))
+                   .id(resultSet.getInt("COUNTRY_ID"))
+                   .name(resultSet.getString("COUNTRY_NAME"))
+                   .phoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                    .build();
        }
         return country;
     }
 
-    public List<Country> findByName(String countryName) throws Exception {
+
+    //FIND-BY-NAME
+    public List<Country> findByName(String name) throws Exception {
        List<Country> countryList= new ArrayList<>();
        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE COUNTRY_NAME LIKE? ORDER BY COUNTRY_ID");
-       preparedStatement.setString(1, countryName+"%");
+       preparedStatement.setString(1, name+"%");
        ResultSet resultSet = preparedStatement.executeQuery();
 
        while(resultSet.next()){
            Country country= Country
                    .builder()
-                   .countryId(resultSet.getInt("COUNTRY_ID"))
-                   .countryName(resultSet.getString("COUNTRY_NAME"))
-                   .countryPhoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
-                   .relatedMarket(resultSet.getString("RELATED_MARKET"))
+                   .id(resultSet.getInt("COUNTRY_ID"))
+                   .name(resultSet.getString("COUNTRY_NAME"))
+                   .phoneCode(resultSet.getString("COUNTRY_PHONE_CODE"))
                    .build();
            countryList.add(country);
        }

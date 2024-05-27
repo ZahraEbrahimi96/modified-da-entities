@@ -1,6 +1,6 @@
 package exportation.model.entity.enums;
 
-public enum TransportType {
+public enum PathType {
     air,
     rail,
     road,
