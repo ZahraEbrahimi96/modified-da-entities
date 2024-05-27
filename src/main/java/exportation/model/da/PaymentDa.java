@@ -1,6 +1,9 @@
 package exportation.model.da;
 
+import exportation.model.entity.Info;
+import exportation.model.entity.Item;
 import exportation.model.entity.Payment;
+import exportation.model.entity.Transportation;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 
@@ -44,7 +47,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         preparedStatement.setLong(2, payment.getTotalCost());
         preparedStatement.setFloat(3, payment.getTax());
         preparedStatement.setFloat(4, payment.getInsurance());
-        //      5,6,7 write
+        preparedStatement.setFloat(5, payment.getItem().getCost());
+        preparedStatement.setFloat(6, payment.getTransportation().getFreight());
+        preparedStatement.setString(7, payment.getInfo().getTariff());
         preparedStatement.execute();
         return payment;
     }
@@ -74,7 +79,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    //      5,6,7 write
+                    .item(resultSet.getObject("ITEM", Item.class))
+                    .info(resultSet.getObject("INFO", Info.class))
+                    .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
                     .build();
 
             paymentList.add(payment);
@@ -97,7 +104,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    //      5,6,7 write
+                    .item(resultSet.getObject("ITEM", Item.class))
+                    .info(resultSet.getObject("INFO", Info.class))
+                    .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
                     .build();
         }
         return payment;
