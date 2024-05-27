@@ -19,9 +19,6 @@ public class ExportTracing {
     private boolean checkout;
     private String waybill;
     private String invoice;
-    private LocalDateTime transferTime;
-    private LocalDateTime receiveTime;
-    private Person transferee;
 
     @Override
     public String toString() {
