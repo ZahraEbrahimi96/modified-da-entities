@@ -24,3 +24,4 @@ public class Trade {
         return new Gson().toJson(this);
     }
 }
+//...

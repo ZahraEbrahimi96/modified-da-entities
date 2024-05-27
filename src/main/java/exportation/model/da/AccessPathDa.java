@@ -26,7 +26,7 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
         accessPath.setId(ConnectionProvider.getConnectionProvider().getNextId("ACCESS_PATH_SEQ"));
 
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ACCESS_PATH (ID, CITY, PATH_TYPE, DISTANCE, NAVIGATION) VALUES (?,?,?,?,?)"
+                "INSERT INTO ACCESS_PATH (ACCESS_PATH_ID, ACCESS_PATH_CITY, ACCESS_PATH_TYPE, ACCESS_PATH_DISTANCE, ACCESS_NAVIGATION) VALUES (?,?,?,?,?)"
         );
         preparedStatement.setInt(1, accessPath.getId());
         preparedStatement.setString(2, accessPath.getCity());
@@ -42,7 +42,7 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
     @Override
     public AccessPath edit(AccessPath accessPath) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ACCESS_PATH SET CITY=?, PATH_TYPE=?, DISTANCE=?, NAVIGATION=? WHERE ID=?"
+                "UPDATE ACCESS_PATH SET ACCESS_PATH_CITY=?, ACCESS_PATH_TYPE=?, ACCESS_PATH_DISTANCE=?, ACCESS_NAVIGATION=? WHERE ACCESS_PATH_ID=?"
         );
 
         preparedStatement.setString(1, accessPath.getCity());
@@ -59,7 +59,7 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
     @Override
     public AccessPath remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM ACCESS_PATH WHERE ID=?"
+                "DELETE FROM ACCESS_PATH WHERE ACCESS_PATH_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -72,17 +72,17 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
     public List<AccessPath> findAll() throws Exception {
         List<AccessPath> accessPathList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM ACCESS_PATH ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ACCESS_PATH ORDER BY ACCESS_PATH_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             AccessPath accessPath = AccessPath
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .city(resultSet.getString("CITY"))
-                    .pathType(PathType.valueOf(resultSet.getString("PATH_TYPE")))
-                    .distance(resultSet.getFloat(resultSet.getString("DISTANCE")))
-                    .navigation(Navigation.valueOf(resultSet.getString("NAVIGATION")))
+                    .id(resultSet.getInt("ACCESS_PATH_ID"))
+                    .city(resultSet.getString("ACCESS_PATH_CITY"))
+                    .pathType(PathType.valueOf(resultSet.getString("ACCESS_PATH_TYPE")))
+                    .distance(resultSet.getFloat(resultSet.getString("ACCESS_PATH_DISTANCE")))
+                    .navigation(Navigation.valueOf(resultSet.getString("ACCESS_NAVIGATION")))
                     .build();
 
             accessPathList.add(accessPath);
@@ -95,18 +95,18 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
     //findById
     @Override
     public AccessPath findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM ACCESS_PATH WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ACCESS_PATH WHERE ACCESS_PATH_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         AccessPath accessPath = null;
         if (resultSet.next()) {
             accessPath = AccessPath
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .city(resultSet.getString("CITY"))
-                    .pathType(PathType.valueOf(resultSet.getString("PATH_TYPE")))
-                    .distance(resultSet.getFloat(resultSet.getString("DISTANCE")))
-                    .navigation(Navigation.valueOf(resultSet.getString("NAVIGATION")))
+                    .id(resultSet.getInt("ACCESS_PATH_ID"))
+                    .city(resultSet.getString("ACCESS_PATH_CITY"))
+                    .pathType(PathType.valueOf(resultSet.getString("ACCESS_PATH_TYPE")))
+                    .distance(resultSet.getFloat(resultSet.getString("ACCESS_PATH_DISTANCE")))
+                    .navigation(Navigation.valueOf(resultSet.getString("ACCESS_NAVIGATION")))
                     .build();
         }
         return accessPath;
@@ -121,3 +121,4 @@ public class AccessPathDa implements AutoCloseable, CRUD<AccessPath> {
     }
 }
 
+//...

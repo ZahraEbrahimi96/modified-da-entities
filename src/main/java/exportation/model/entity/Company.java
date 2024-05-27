@@ -31,5 +31,6 @@ public abstract class Company {
         return new Gson().toJson(this);
     }
 }
+//....
 
 

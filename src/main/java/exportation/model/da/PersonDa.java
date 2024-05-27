@@ -2,7 +2,6 @@ package exportation.model.da;
 
 import lombok.extern.log4j.Log4j;
 import exportation.model.entity.Person;
-import exportation.model.entity.enums.Gender;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 
@@ -25,12 +24,13 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("PERSON_SEQ"));
 
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON (PERSON_ID, PERSON_NAME, FAMILY, GENDER, BIRTH_DATE, CITY, ALGO, SE, EE) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON (PERSON_ID, PERSON_NAME, PERSON_FAMILY, GENDER, NATIONAL_ID, PERSON_PHONE_NUMPER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
         preparedStatement.setString(3, person.getFamily());
         preparedStatement.setString(4, person.getGender().name());
+        preparedStatement.
         preparedStatement.execute();
         return person;
     }

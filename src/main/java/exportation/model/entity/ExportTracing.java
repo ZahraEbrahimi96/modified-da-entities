@@ -20,8 +20,10 @@ public class ExportTracing {
     private String waybill;
     private String invoice;
 
+
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
 }
+//...

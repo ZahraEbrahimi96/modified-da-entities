@@ -151,3 +151,4 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
 
     }
 }
+//...

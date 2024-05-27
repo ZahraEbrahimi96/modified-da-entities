@@ -7,3 +7,4 @@ public enum RoleAccess {
     retailer,
     manufacturer,
 }
+//...

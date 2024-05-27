@@ -32,5 +32,5 @@ public class Info {
         return new Gson().toJson(this);
     }
 }
-
+//...
 //demand ro hesab kone

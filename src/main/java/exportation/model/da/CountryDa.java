@@ -21,7 +21,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
        connection = ConnectionProvider.getConnectionProvider().getConnection();
    }
 
-   //SAVE
+   //save
     @Override
     public Country save(Country country) throws Exception {
        country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
@@ -34,7 +34,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
        return country;
     }
 
-    //EDIT
+    //edit
     @Override
     public Country edit(Country country) throws Exception {
        preparedStatement = connection.prepareStatement("UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?,WHERE COUNTRY_ID=? ");
@@ -46,16 +46,16 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
        return country;
     }
 
-    //REMOVE
+    //remove
     @Override
-    public Country remove(int countryId) throws Exception {
+    public Country remove(int id) throws Exception {
        preparedStatement = connection.prepareStatement("DELETE FROM COUNTRY WHERE COUNTRY_ID=?");
-       preparedStatement.setInt(1, countryId);
+       preparedStatement.setInt(1, id);
        preparedStatement.execute();
         return null;
     }
 
-    //FIND-ALL
+    //findAll
     @Override
     public List<Country> findAll() throws Exception {
         List<Country> countryList= new ArrayList<>();
@@ -76,7 +76,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
 
 //    BL-findAll()
 
-    //FIND-BY-ID
+    //findById
     @Override
     public Country findById(int id) throws Exception {
        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE COUNTRY_ID=?");
@@ -96,7 +96,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
     }
 
 
-    //FIND-BY-NAME
+    //findByName
     public List<Country> findByName(String name) throws Exception {
        List<Country> countryList= new ArrayList<>();
        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE COUNTRY_NAME LIKE? ORDER BY COUNTRY_ID");
@@ -121,3 +121,4 @@ public class CountryDa implements AutoCloseable, CRUD<Country>{
 
     }
 }
+//...

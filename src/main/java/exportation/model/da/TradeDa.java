@@ -116,3 +116,4 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         connection.close();
     }
 }
+//...

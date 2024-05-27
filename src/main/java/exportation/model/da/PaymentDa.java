@@ -37,7 +37,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         return payment;
     }
 
-    //Edit
+    //edit
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
@@ -54,7 +54,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         return payment;
     }
 
-    //Remove
+    //remove
     @Override
     public Payment remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
@@ -119,3 +119,4 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         connection.close();
     }
 }
+//...
