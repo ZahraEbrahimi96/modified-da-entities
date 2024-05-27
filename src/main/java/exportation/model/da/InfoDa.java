@@ -18,7 +18,6 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
 
-
     //save
     @Override
     public Info save(Info info) throws Exception {
