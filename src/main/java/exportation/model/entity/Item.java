@@ -16,14 +16,16 @@ public class Item {
     private int id;
     private String name;
     private String model;
-    private String dimensionOfUnite;
-    private String dimensionOfPallet;
+    private String dou;         //dimensionOfUnite
+    private String dop;        //dimensionOfPallet
     private int palletCapacity;
     private float cost;
-    private float weightOfUnit;
-    private float weightOfPallet;
-    private Brand brand;
-    private Type type;
+    private float wou;              //weightOfUnit
+    private float wop;             //weightOfPallet
+
+
+//    private Brand brand;
+//    private Type type;
 
 
     @Override

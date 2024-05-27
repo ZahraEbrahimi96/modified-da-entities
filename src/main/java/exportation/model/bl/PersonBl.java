@@ -15,6 +15,7 @@ public class PersonBl implements CRUD<Person> {
     private PersonBl() {
     }
 
+    //save
     @Override
     public Person save(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
@@ -23,6 +24,7 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
+    //edit
     @Override
     public Person edit(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
@@ -35,6 +37,7 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
+    //remove
     @Override
     public Person remove(int id) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
@@ -48,6 +51,7 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
+    //findAll
     @Override
     public List<Person> findAll() throws Exception {
         try (PersonDa personDa = new PersonDa()) {
@@ -60,6 +64,7 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
+    //findById
     @Override
     public Person findById(int id) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
@@ -72,6 +77,7 @@ public class PersonBl implements CRUD<Person> {
         }
     }
 
+    //findByFamily
     public List<Person> findByFamily(String family) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
             List<Person> perosnList = personDa.findByFamily(family);
