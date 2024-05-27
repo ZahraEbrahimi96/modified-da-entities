@@ -19,8 +19,9 @@ public class Transportation {
     private String direction;
     private String origin;
     private float freight;
+
     private Item item;
-    private TransportType transportType;
+
 
     @Override
     public String toString() {
