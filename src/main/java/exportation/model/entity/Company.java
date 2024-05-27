@@ -19,9 +19,9 @@ public class Company {
     private String product;
     private String address;
     private String email;
-    private String phone;
-    private Person manager;
-    private RoleAccess type;
+    private String phoneNumber;
+//    private Person person;
+
 
     @Override
     public String toString() {
