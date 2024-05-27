@@ -16,12 +16,12 @@ public class Person {
     private int id;
     private String name;
     private String family;
-    private Gender gender;
     private String email;
     private String phoneNumber;
     private String nationalId;
     private String position;
     private String address;
+    private Gender gender;
 
 
 
