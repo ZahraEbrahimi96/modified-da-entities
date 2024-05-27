@@ -42,15 +42,23 @@ create table trade_table
     trade_invoice         nvarchar2(30)
 );
 
+create table transportation
+(
+    transportation_id        number primary key,
+    transportation_direction nvarchar2(30),
+    transportation_origin    nvarchar2(30),
+    transportation_freight   number
+);
+
 create table payment_table
 (
     payment_id         number primary key,
     payment_total_cost number,
     payment_tax        number,
-    payment_insurance   number
+    payment_insurance  number
 );
 
-create table itemTable
+create table item_table
 (
     item_id                number primary key,
     item_name              nvarchar2(30),
@@ -75,5 +83,6 @@ select *
 from country_table
          join country_company on country_table.country_id = country_company.c_country_id
          join company_table on company_table.company_id = country_company.c_company_id
+
 
 -- todo : create sequences

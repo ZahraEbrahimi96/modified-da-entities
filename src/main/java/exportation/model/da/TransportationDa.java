@@ -23,9 +23,9 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     //save
     @Override
     public Transportation save(Transportation transportation) throws Exception {
-        transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
+        transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("Transportation_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRADE (ID,DIRECTION,ORIGIN,fREIGHT,ITEM,TRANSPORTTYPE) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO Transportation (ID,DIRECTION,ORIGIN,fREIGHT,ITEM) VALUES (?,?,?,?,?)"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
@@ -40,7 +40,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION SET DIRECTION=?, ORIGIN=?, fREIGHT=?, ITEM=?, TRANSPORTTYPE=?, WHERE ID=?"
+                "UPDATE TRANSPORTATION SET DIRECTION=?, ORIGIN=?, fREIGHT=?, ITEM=?, WHERE ID=?"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
