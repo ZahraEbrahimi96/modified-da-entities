@@ -40,7 +40,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION SET TOTALCOST=?, TAX=?, INSURANCE=?, COST=?, FREIGHT=?,TARIF=?, WHERE ID=?"
+                "UPDATE TRANSPORTATION SET DIRECTION=?, ORIGIN=?, fREIGHT=?, ITEM=?, TRANSPORTTYPE=?, WHERE ID=?"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
