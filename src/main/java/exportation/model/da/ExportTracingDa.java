@@ -1,7 +1,6 @@
 package exportation.model.da;
 
 import exportation.model.entity.ExportTracing;
-import exportation.model.entity.enums.Gender;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;

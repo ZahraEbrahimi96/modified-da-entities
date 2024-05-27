@@ -19,8 +19,8 @@ public class Country {
     private String name;
     private String phoneCode;
     private String relatedMarket;
-    private ArrayList<Company> company;
-    private ArrayList<Info> info;
+//    private ArrayList<Company> company;
+//    private ArrayList<Info> info;
 
     @Override
     public String toString() {
