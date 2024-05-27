@@ -76,16 +76,4 @@ public class ExportTracingBl implements CRUD<ExportTracing> {
             }
         }
     }
-
-    //findByFamily
-    public List<ExportTracing> findByFamily(String family) throws Exception {
-        try (ExportTracingDa exportTracingDa = new ExportTracingDa()) {
-            List<ExportTracing> perosnList = exportTracingDa.findByFamily(family);
-            if (!perosnList.isEmpty()) {
-                return perosnList;
-            } else {
-                throw new NoExportTracingFoundException();
-            }
-        }
-    }
 }
