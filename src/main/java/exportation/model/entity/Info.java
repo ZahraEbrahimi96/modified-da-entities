@@ -22,7 +22,7 @@ public class Info {
     private String lifeExpectancy;
     private String demand;
     private String tariff;
-    private ArrayList<String> neighbors;
+//    private ArrayList<String> neighbors;
 
     @Override
     public String toString() {
