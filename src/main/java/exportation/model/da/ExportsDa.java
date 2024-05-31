@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j
-public class ExportDa implements AutoCloseable, CRUD<Exports> {
+public class ExportsDa implements AutoCloseable, CRUD<Exports> {
     private final Connection connection;
     private PreparedStatement preparedStatement;
 
-    public ExportDa() throws SQLException {
+    public ExportsDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
     //save
@@ -131,4 +131,4 @@ public class ExportDa implements AutoCloseable, CRUD<Exports> {
     }
 }
 
-//...
+//...}

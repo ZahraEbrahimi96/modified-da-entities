@@ -28,7 +28,7 @@ public class PersonBl implements CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         try (PersonDa personDa = new PersonDa()) {
-            if (personDa.findById(person.getId()) != null) {
+            if (personDa.findById(person.getId() != null) {
                 personDa.edit(person);
                 return person;
             } else {
