@@ -18,7 +18,9 @@ public class Country {
     private int id;
     private String name;
     private String phoneCode;
-    private ArrayList<Info> info;
+    private String relatedMarket;
+//    private ArrayList<Company> company;
+//    private ArrayList<Info> info;
 
     @Override
     public String toString() {
@@ -26,4 +28,3 @@ public class Country {
     }
 
 }
-//...

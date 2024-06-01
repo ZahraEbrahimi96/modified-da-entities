@@ -5,4 +5,3 @@ public enum ItemType {
     ups,
     motorcycle,
 }
-//...

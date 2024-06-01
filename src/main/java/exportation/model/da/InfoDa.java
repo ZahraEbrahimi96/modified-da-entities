@@ -1,12 +1,13 @@
 package exportation.model.da;
-import exportation.model.entity.*;
+
+import exportation.model.entity.Info;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Log4j
 public class InfoDa implements AutoCloseable, CRUD<Info> {
@@ -21,77 +22,66 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     @Override
     public Info save(Info info) throws Exception {
         info.setId(ConnectionProvider.getConnectionProvider().getNextId("INFO_SEQ"));
-
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO INFO (INFO_ID, POPULATION, CAR_RATE, CLIMATE, ACCESS_PATH, SUPPLIER, MANUFACTURER, IMPORTING, EXPORTING, DEMAND, TARIFF) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO INFO (ID,POPULATION,CARRATE,CLIMATE,ACCESSPASS,lIFEEXPECTANSY,DEMAND,TARIFF) VALUES (?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, info.getId());
         preparedStatement.setLong(2, info.getPopulation());
         preparedStatement.setLong(3, info.getCarRate());
         preparedStatement.setString(4, info.getClimate());
-        preparedStatement.setString(5, String.valueOf(info.getAccessPath()));
-        preparedStatement.setString(6, String.valueOf(info.getSupplier()));
-        preparedStatement.setString(7, String.valueOf(info.getManufacturer()));
-        preparedStatement.setString(8, String.valueOf(info.getImporting()));
-        preparedStatement.setString(9, String.valueOf(info.getExporting()));
-        preparedStatement.setString(10, info.getDemand());
-        preparedStatement.setString(11, info.getTariff());
+        preparedStatement.setString(5, info.getAccessPath());
+        preparedStatement.setString(6, info.getLifeExpectancy());
+        preparedStatement.setString(7, info.getDemand());
+        preparedStatement.setString(8, info.getTariff());
         preparedStatement.execute();
         return info;
     }
 
-    //edit
+    //Edit
     @Override
     public Info edit(Info info) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE INFO SET  POPULATION=?, CAR_RATE=?, CLIMATE=?, ACCESS_PATH=?, SUPPLIER=?, MANUFACTURER=?, IMPORTING=?, EXPORTING=?, DEMAND=?, TARIFF=? WHERE INFO_ID=?"
+                "UPDATE INFO SET POPULATION=?, CARRATE=?, CLIMATE=?,ACCESSPASS=?,lIFEEXPECTANSY=?,DEMAND=?,TARIFF=?, WHERE ID=?"
         );
-        preparedStatement.setLong(1, info.getPopulation());
-        preparedStatement.setLong(2, info.getCarRate());
-        preparedStatement.setString(3, info.getClimate());
-        preparedStatement.setString(4, String.valueOf(info.getAccessPath()));
-        preparedStatement.setString(5, String.valueOf(info.getSupplier()));
-        preparedStatement.setString(6, String.valueOf(info.getManufacturer()));
-        preparedStatement.setString(7, String.valueOf(info.getImporting()));
-        preparedStatement.setString(8, String.valueOf(info.getExporting()));
-        preparedStatement.setString(9, info.getDemand());
-        preparedStatement.setString(10, info.getTariff());
-        preparedStatement.setInt(11, info.getId());
+        preparedStatement.setInt(1, info.getId());
+        preparedStatement.setLong(2, info.getPopulation());
+        preparedStatement.setLong(3, info.getCarRate());
+        preparedStatement.setString(4, info.getClimate());
+        preparedStatement.setString(5, info.getAccessPath());
+        preparedStatement.setString(6, info.getLifeExpectancy());
+        preparedStatement.setString(7, info.getDemand());
+        preparedStatement.setString(8, info.getTariff());
         preparedStatement.execute();
         return info;
     }
 
-    //remove
+    //Remove
     @Override
     public Info remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM INFO WHERE INFO_ID=?"
+                "DELETE FROM INFO WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
         return null;
     }
 
-    //findAll
+    //FindALl
     @Override
     public List<Info> findAll() throws Exception {
         List<Info> infoList = new ArrayList<>();
-
-        preparedStatement = connection.prepareStatement("SELECT * FROM INFO ORDER BY INFO_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM INFO ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Info info = Info
                     .builder()
-                    .id(resultSet.getInt("INFO_ID"))
+                    .id(resultSet.getInt("ID"))
                     .population(resultSet.getLong("POPULATION"))
-                    .carRate(resultSet.getLong("CAR_RATE"))
-                    .climate(resultSet.getString("CLIMATE")))
-                    .accessPath((AccessPath)resultSet.getObject("ACCESS_PATH"))
-                    .supplier((Supplier)resultSet.getObject("SUPPLIER"))
-                    .manufacturer((Manufacturer)resultSet.getObject("MANUFACTURER"))
-                    .importing((Imports)resultSet.getObject("IMPORTING"))
-                    .exporting((Exports)resultSet.getObject("EXPORTING"))
+                    .carRate(resultSet.getLong("CARRATE"))
+                    .climate(resultSet.getString("CLIMATE"))
+                    .accessPath(resultSet.getString("ACCESSPATH"))
+                    .lifeExpectancy(resultSet.getString("LIFEEXPECTANSY"))
                     .demand(resultSet.getString("DEMAND"))
                     .tariff(resultSet.getString("TARIFF"))
                     .build();
@@ -102,7 +92,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
         return infoList;
     }
 
-    //findById
+    //FindById
     @Override
     public Info findById(int id) throws Exception {
         preparedStatement = connection.prepareStatement("SELECT * FROM INFO WHERE ID=?");
@@ -112,15 +102,12 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
         if (resultSet.next()) {
             info = Info
                     .builder()
-                    .id(resultSet.getInt("INFO_ID"))
+                    .id(resultSet.getInt("ID"))
                     .population(resultSet.getLong("POPULATION"))
-                    .carRate(resultSet.getLong("CAR_RATE"))
-                    .climate(resultSet.getString("CLIMATE")))
-                    .accessPath((AccessPath)resultSet.getObject("ACCESS_PATH"))
-                    .supplier((Supplier)resultSet.getObject("SUPPLIER"))
-                    .manufacturer((Manufacturer)resultSet.getObject("MANUFACTURER"))
-                    .importing((Imports)resultSet.getObject("IMPORTING"))
-                    .exporting((Exports)resultSet.getObject("EXPORTING"))
+                    .carRate(resultSet.getLong("CARRATE"))
+                    .climate(resultSet.getString("CLIMATE"))
+                    .accessPath(resultSet.getString("ACCESSPATH"))
+                    .lifeExpectancy(resultSet.getString("LIFEEXPECTANSY"))
                     .demand(resultSet.getString("DEMAND"))
                     .tariff(resultSet.getString("TARIFF"))
                     .build();
@@ -128,13 +115,10 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
         return info;
     }
 
-
-
+    //Close
     @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
     }
 }
-//...
-

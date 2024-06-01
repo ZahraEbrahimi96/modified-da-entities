@@ -22,9 +22,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     //save
     @Override
     public Payment save(Payment payment) throws Exception {
-        payment.setId(ConnectionProvider.getConnectionProvider().getNextId("PAYMENT_SEQ"));
+        payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (PAYMENT_ID,TOTAL_COST,TAX,INSURANCE,PAYMENT_COST,PAYMENT_FREIGHT,PAYMENT_TARIFF) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (ID,TOTALCOST,TAX,INSURANCE,COST,FREIGHT,TARIFF) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setLong(2, payment.getTotalCost());
@@ -37,28 +37,28 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         return payment;
     }
 
-    //edit
+    //Edit
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT SET TOTAL_COST=?, TAX=?, INSURANCE=?, PAYMENT_COST=?, PAYMENT_FREIGHT=?,PAYMENT_TARIFF=?, WHERE PAYMENT_ID=?"
+                "UPDATE PAYMENT SET TOTALCOST=?, TAX=?, INSURANCE=?, COST=?, FREIGHT=?,TARIF=?, WHERE ID=?"
         );
-        preparedStatement.setLong(1, payment.getTotalCost());
-        preparedStatement.setFloat(2, payment.getTax());
-        preparedStatement.setFloat(3, payment.getInsurance());
-        preparedStatement.setFloat(4, payment.getItem().getCost());
-        preparedStatement.setFloat(5, payment.getTransportation().getFreight());
-        preparedStatement.setString(6, payment.getInfo().getTariff());
-        preparedStatement.setInt(7, payment.getId());
+        preparedStatement.setInt(1, payment.getId());
+        preparedStatement.setLong(2, payment.getTotalCost());
+        preparedStatement.setFloat(3, payment.getTax());
+        preparedStatement.setFloat(4, payment.getInsurance());
+        preparedStatement.setFloat(5, payment.getItem().getCost());
+        preparedStatement.setFloat(6, payment.getTransportation().getFreight());
+        preparedStatement.setString(7, payment.getInfo().getTariff());
         preparedStatement.execute();
         return payment;
     }
 
-    //remove
+    //Remove
     @Override
     public Payment remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM PAYMENT WHERE PAYMENT_ID=?"
+                "DELETE FROM PAYMENT WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -69,19 +69,19 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public List<Payment> findAll() throws Exception {
         List<Payment> paymentList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT ORDER BY PAYMENT_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Payment payment = Payment
                     .builder()
-                    .id(resultSet.getInt("PAYMENT_ID"))
+                    .id(resultSet.getInt("ID"))
                     .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    .item((Item)resultSet.getObject("PAYMENT_COST"))
-                    .transportation((Transportation)resultSet.getObject("PAYMENT_FREIGHT"))
-                    .info((Info)resultSet.getObject("PAYMENT_TARIFF"))
+                    .item(resultSet.getObject("ITEM", Item.class))
+                    .info(resultSet.getObject("INFO", Info.class))
+                    .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
                     .build();
 
             paymentList.add(payment);
@@ -93,20 +93,20 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     //FindById
     @Override
     public Payment findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT WHERE PAYMENT_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT WHERE ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Payment payment = null;
         if (resultSet.next()) {
             payment = Payment
                     .builder()
-                    .id(resultSet.getInt("PAYMENT_ID"))
+                    .id(resultSet.getInt("ID"))
                     .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    .item((Item)resultSet.getObject("PAYMENT_COST"))
-                    .transportation((Transportation)resultSet.getObject("PAYMENT_FREIGHT"))
-                    .info((Info)resultSet.getObject("PAYMENT_TARIFF"))
+                    .item(resultSet.getObject("ITEM", Item.class))
+                    .info(resultSet.getObject("INFO", Info.class))
+                    .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
                     .build();
         }
         return payment;
@@ -119,4 +119,3 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         connection.close();
     }
 }
-//...

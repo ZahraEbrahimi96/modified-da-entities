@@ -20,4 +20,3 @@ public class Supplier extends Company{
         return new Gson().toJson(this);
     }
 }
-//...

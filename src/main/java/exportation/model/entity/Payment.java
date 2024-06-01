@@ -24,4 +24,3 @@ public class Payment {
         return new Gson().toJson(this);
     }
 }
-//...

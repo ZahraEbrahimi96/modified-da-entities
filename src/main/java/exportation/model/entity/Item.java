@@ -2,7 +2,7 @@ package exportation.model.entity;
 
 import com.google.gson.Gson;
 import exportation.model.entity.enums.Brand;
-import exportation.model.entity.enums.ItemType;
+import exportation.model.entity.enums.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,17 +14,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Item {
     private int id;
-    private long hsCode;
     private String name;
     private String model;
-    private String dimensionOfUnite;
-    private String dimensionOfPallet;
+    private String dou;         //dimensionOfUnite
+    private String dop;        //dimensionOfPallet
     private int palletCapacity;
     private float cost;
-    private float weightOfUnit;
-    private float weightOfPallet;
-    private Brand brand;
-    private ItemType type;
+    private float wou;              //weightOfUnit
+    private float wop;             //weightOfPallet
 
 
     @Override
@@ -32,4 +29,3 @@ public class Item {
         return new Gson().toJson(this);
     }
 }
-//...

@@ -23,7 +23,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     public Trade save(Trade trade) throws Exception {
         trade.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRADE (TRADE_ID,TRADE_STATUS,CORRESPONDENCES,TRADE_CONTRACT,TRADE_AGREEMENT,TRADE_INVOICE) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO TRADE (ID,STATUS,CORRESPONDENCES,CONTRACT,AGREEMENT,INVOICE) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, trade.getId());
         preparedStatement.setString(2, trade.getStatus());
@@ -39,7 +39,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     @Override
     public Trade edit(Trade trade) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRADE SET TRADE_STATUS=?, CORRESPONDENCES=?, TRADE_CONTRACT=?, ATRADE_GREEMENT=?, TRADE_INVOICE=?, WHERE TRADE_ID=?"
+                "UPDATE TRADE SET STATUS=?, CORRESPONDENCES=?, CONTRACT=?, AGREEMENT=?, INVOICE=?, WHERE ID=?"
         );
         preparedStatement.setInt(1, trade.getId());
         preparedStatement.setString(2, trade.getStatus());
@@ -55,7 +55,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     @Override
     public Trade remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM TRADE WHERE TRADE_ID=?"
+                "DELETE FROM TRADE WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -66,18 +66,18 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     @Override
     public List<Trade> findAll() throws Exception {
         List<Trade> tradeList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE ORDER BY TRADE_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Trade trade = Trade
                     .builder()
-                    .id(resultSet.getInt("TRADE_ID"))
-                    .status(resultSet.getString("TRADE_STATUS"))
+                    .id(resultSet.getInt("ID"))
+                    .status(resultSet.getString("STATUS"))
                     .correspondences(resultSet.getString("CORRESPONDENCES"))
-                    .contract(resultSet.getString("TRADE_CONTRACT"))
-                    .agreement(resultSet.getString("TRADE_AGREEMENT"))
-                    .invoice(resultSet.getString("TRADE_INVOICE"))
+                    .contract(resultSet.getString("CONTRACT"))
+                    .agreement(resultSet.getString("AGREEMENT"))
+                    .invoice(resultSet.getString("INVOICE"))
                     .build();
 
             tradeList.add(trade);
@@ -89,25 +89,42 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     //FindById
     @Override
     public Trade findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE TRADE_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Trade trade = null;
         if (resultSet.next()) {
             trade = Trade
                     .builder()
-                    .id(resultSet.getInt("TRADE_ID"))
-                    .status(resultSet.getString("TRADE_STATUS"))
+                    .id(resultSet.getInt("ID"))
+                    .status(resultSet.getString("STATUS"))
                     .correspondences(resultSet.getString("CORRESPONDENCES"))
-                    .contract(resultSet.getString("TRADE_CONTRACT"))
-                    .agreement(resultSet.getString("TRADE_AGREEMENT"))
-                    .invoice(resultSet.getString("TRADE_INVOICE"))
+                    .contract(resultSet.getString("CONTRACT"))
+                    .agreement(resultSet.getString("AGREEMENT"))
+                    .invoice(resultSet.getString("INVOICE"))
                     .build();
         }
         return trade;
     }
 
+    //FindByClient
+    public List<Trade> findByClient(String client) throws Exception {
+        List<Trade> tradeList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE CLIENT LIKE? ORDER BY ID");
+        preparedStatement.setString(1, client + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
 
+        while (resultSet.next()) {
+            Trade trade = Trade
+                    .builder()
+                    .id(resultSet.getInt("ID"))
+
+                    .build();
+
+            tradeList.add(trade);
+        }
+        return tradeList;
+    }
 
     //Close
     @Override
@@ -116,4 +133,3 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         connection.close();
     }
 }
-//...

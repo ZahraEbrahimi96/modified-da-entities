@@ -6,4 +6,3 @@ public enum PathType {
     road,
     sea,
 }
-//...

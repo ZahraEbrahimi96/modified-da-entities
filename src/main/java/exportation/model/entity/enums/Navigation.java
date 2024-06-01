@@ -10,4 +10,3 @@ public enum Navigation {
     east,
     west;
 }
-//...

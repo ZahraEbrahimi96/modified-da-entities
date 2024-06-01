@@ -26,4 +26,3 @@ public abstract class Eport {
         return new Gson().toJson(this);
     }
 }
-//...

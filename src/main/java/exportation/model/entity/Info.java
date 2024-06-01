@@ -18,11 +18,8 @@ public class Info {
     private long population;
     private long carRate;
     private String climate;
-    private AccessPath accessPath;
-    private Supplier supplier;
-    private Manufacturer manufacturer;
-    private Imports importing;
-    private Exports exporting;
+    private String accessPath;
+    private String lifeExpectancy;
     private String demand;
     private String tariff;
 //    private ArrayList<String> neighbors;
@@ -32,5 +29,3 @@ public class Info {
         return new Gson().toJson(this);
     }
 }
-//...
-//demand ro hesab kone

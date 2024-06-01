@@ -23,13 +23,8 @@ public class Person {
     private String address;
     private Gender gender;
 
-
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
-
-
 }
-//...

@@ -1,10 +1,12 @@
 package exportation.model.da;
+
 import exportation.model.entity.Country;
 import exportation.model.entity.Person;
 import exportation.model.entity.Supplier;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 import lombok.extern.log4j.Log4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +22,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     public SupplierDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
+
     //save
     @Override
     public Supplier save(Supplier supplier) throws SQLException {
@@ -33,8 +36,8 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
         preparedStatement.setString(5, supplier.getAddress());
         preparedStatement.setString(6, supplier.getEmail());
         preparedStatement.setString(7, supplier.getPhone());
-        preparedStatement.setString(8,String.valueOf(supplier.getCountry()));
-        preparedStatement.setBoolean(9,supplier.isOnlineSale());
+        preparedStatement.setString(8, String.valueOf(supplier.getCountry()));
+        preparedStatement.setBoolean(9, supplier.isOnlineSale());
         preparedStatement.execute();
         return supplier;
     }
@@ -42,7 +45,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //edit
     @Override
     public Supplier edit(Supplier supplier) throws Exception {
-       preparedStatement = connection.prepareStatement("UPDATE SUPPLIER SET SUPPLIER_NAME=?, SUPPLIER_MANAGER=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?, SUPPLIER_EMAIL=?, SUPPLIER_PHONE=?, COUNTRY_NAME=, ONLINE_SALE=? WHERE SUPPLIER_ID=? ");
+        preparedStatement = connection.prepareStatement("UPDATE SUPPLIER SET SUPPLIER_NAME=?, SUPPLIER_MANAGER=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?, SUPPLIER_EMAIL=?, SUPPLIER_PHONE=?, COUNTRY_NAME=, ONLINE_SALE=? WHERE SUPPLIER_ID=? ");
 
         preparedStatement.setString(1, supplier.getName());
         preparedStatement.setString(2, String.valueOf(supplier.getManager()));
@@ -50,8 +53,8 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
         preparedStatement.setString(4, supplier.getAddress());
         preparedStatement.setString(5, supplier.getEmail());
         preparedStatement.setString(6, supplier.getPhone());
-        preparedStatement.setString(7,String.valueOf(supplier.getCountry()));
-        preparedStatement.setBoolean(8,supplier.isOnlineSale());
+        preparedStatement.setString(7, String.valueOf(supplier.getCountry()));
+        preparedStatement.setBoolean(8, supplier.isOnlineSale());
         preparedStatement.setInt(9, supplier.getId());
         preparedStatement.execute();
         return supplier;
@@ -96,12 +99,12 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //findById
     @Override
     public Supplier findById(int id) throws Exception {
-        preparedStatement=connection.prepareStatement("SELECT * FROM SUPPLIER WHERE SUPPLIER_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER WHERE SUPPLIER_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Supplier supplier = null;
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             supplier = Supplier
                     .builder()
                     .id(resultSet.getInt("SUPPLIER_ID"))
@@ -118,16 +121,15 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
         return supplier;
     }
 
-
     //findByName
-    public List<Supplier> findByName (String name) throws Exception{
+    public List<Supplier> findByName(String name) throws Exception {
         List<Supplier> supplierList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER WHERE SUPPLIER_NAME LIKE? ORDER BY SUPPLIER_ID");
         preparedStatement.setString(1, name + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
             Supplier supplier = Supplier
                     .builder()
                     .id(resultSet.getInt("SUPPLIER_ID"))
@@ -145,10 +147,11 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
         return supplierList;
     }
 
-
+    //close
     @Override
     public void close() throws Exception {
-
+        preparedStatement.close();
+        connection.close();
     }
 }
-//...
+

@@ -1,14 +1,13 @@
 package exportation.model.da;
-import exportation.model.entity.enums.Brand;
-import exportation.model.entity.enums.ItemType;
-import lombok.extern.log4j.Log4j;
+
 import exportation.model.entity.Item;
+import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Log4j
 public class ItemDa implements AutoCloseable, CRUD<Item> {
@@ -23,82 +22,71 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
-
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM (ITEM_ID, HS_CODE, ITEM_NAME, ITEM_MODEL, ITEM_TYPE ,ITEM_BRAND ,DIMENSION_OF_UNIT ,DIMENSION_OF_PALLET ,WEIGHT_OF_UNIT ,WEIGHT_OF_PALLET, PALLET_CAPACITY, ITEM_COST) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM (ID,NAME,MODEL,DOU,DOP,PALLETCAPACITY,COST,WOU,WOP) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, item.getId());
-        preparedStatement.setLong(2,item.getHsCode());
-        preparedStatement.setString(3, item.getName());
-        preparedStatement.setString(4, item.getModel());
-        preparedStatement.setString(5, item.getType().name());
-        preparedStatement.setString(6, item.getBrand().name());
-        preparedStatement.setString(7, item.getDimensionOfUnite());
-        preparedStatement.setString(8, item.getDimensionOfPallet());
-        preparedStatement.setFloat(9, item.getWeightOfUnit());
-        preparedStatement.setFloat(10, item.getWeightOfPallet());
-        preparedStatement.setInt(11,item.getPalletCapacity());
-        preparedStatement.setFloat(12, item.getCost());
+        preparedStatement.setString(2, item.getName());
+        preparedStatement.setString(3, item.getModel());
+        preparedStatement.setString(4, item.getDou());
+        preparedStatement.setString(5, item.getDop());
+        preparedStatement.setInt(6, item.getPalletCapacity());
+        preparedStatement.setDouble(7, item.getCost());
+        preparedStatement.setFloat(8, item.getWou());
+        preparedStatement.setFloat(9, item.getWop());
         preparedStatement.execute();
         return item;
     }
 
-    //edit
+    //Edit
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM SET HS_CODE=?,ITEM_NAME, ITEM_MODEL, ITEM_TYPE ,ITEM_BRAND ,DIMENSION_OF_UNIT=? ,DIMENSION_OF_PALLET=? ,WEIGHT_OF_UNIT=? ,WEIGHT_OF_PALLET=?, PALLET_CAPACITY=?, ITEM_COST WHERE ITEM_ID=?"
+                "UPDATE ITEM SET NAME=?, MODEL=?, DOU=?,DOP=?,PALLETCAPACITY=?,COST=?,WOU=?,WOP=?, WHERE ID=?"
         );
-        preparedStatement.setLong(1,item.getHsCode());
+        preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
         preparedStatement.setString(3, item.getModel());
-        preparedStatement.setString(4, item.getType().name());
-        preparedStatement.setString(5, item.getBrand().name());
-        preparedStatement.setString(6, item.getDimensionOfUnite());
-        preparedStatement.setString(7, item.getDimensionOfPallet());
-        preparedStatement.setFloat(8, item.getWeightOfUnit());
-        preparedStatement.setFloat(9, item.getWeightOfPallet());
-        preparedStatement.setInt(10,item.getPalletCapacity());
-        preparedStatement.setFloat(11, item.getCost());
-        preparedStatement.setInt(12, item.getId());
+        preparedStatement.setString(4, item.getDou());
+        preparedStatement.setString(5, item.getDop());
+        preparedStatement.setInt(6, item.getPalletCapacity());
+        preparedStatement.setDouble(7, item.getCost());
+        preparedStatement.setFloat(8, item.getWou());
+        preparedStatement.setFloat(9, item.getWop());
         preparedStatement.execute();
         return item;
     }
 
-    //remove
+    //Remove
     @Override
     public Item remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM ITEM WHERE ITEM_ID=?"
+                "DELETE FROM ITEM WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
         return null;
     }
 
-    //findAll
+    //FindALl
     @Override
     public List<Item> findAll() throws Exception {
         List<Item> itemList = new ArrayList<>();
-
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM ORDER BY ITEM_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM ORDER BY ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             Item item = Item
                     .builder()
-                    .id(resultSet.getInt("item_ID"))
-                    .hsCode(resultSet.getLong("HS_CODE"))
-                    .name(resultSet.getString("ITEM_NAME"))
-                    .model(resultSet.getString("ITEM_MODEL"))
-                    .type(ItemType.valueOf(resultSet.getString("ITEM_TYPE")))
-                    .brand(Brand.valueOf(resultSet.getString("ITEM_BRAND")))
-                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
-                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
-                    .weightOfUnit(Float.parseFloat(String.valueOf(resultSet.getFloat("WEIGHT_OF_UNIT"))))
-                    .weightOfPallet(Float.parseFloat(String.valueOf(resultSet.getFloat("DIMENSION_OF_PALLET"))))
-                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
-                    .cost(Float.parseFloat(String.valueOf(resultSet.getFloat("ITEM_COST"))))
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .model(resultSet.getString("MODEL"))
+                    .dou(resultSet.getString("DOU"))
+                    .dop(resultSet.getString("DOP"))
+                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
+                    .cost(resultSet.getFloat("COST"))
+                    .wou(resultSet.getFloat("WOU"))
+                    .wop(resultSet.getFloat("WOP"))
                     .build();
 
             itemList.add(item);
@@ -107,70 +95,34 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return itemList;
     }
 
-
-    //findById
+    //FindById
     @Override
     public Item findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ITEM_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Item item = null;
         if (resultSet.next()) {
             item = Item
                     .builder()
-                    .id(resultSet.getInt("item_ID"))
-                    .hsCode(resultSet.getLong("HS_CODE"))
-                    .name(resultSet.getString("ITEM_NAME"))
-                    .model(resultSet.getString("ITEM_MODEL"))
-                    .type(ItemType.valueOf(resultSet.getString("ITEM_TYPE")))
-                    .brand(Brand.valueOf(resultSet.getString("ITEM_BRAND")))
-                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
-                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
-                    .weightOfUnit(Float.parseFloat(String.valueOf(resultSet.getFloat("WEIGHT_OF_UNIT"))))
-                    .weightOfPallet(Float.parseFloat(String.valueOf(resultSet.getFloat("DIMENSION_OF_PALLET"))))
-                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
-                    .cost(Float.parseFloat(String.valueOf(resultSet.getFloat("ITEM_COST"))))
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .model(resultSet.getString("MODEL"))
+                    .dou(resultSet.getString("DOU"))
+                    .dop(resultSet.getString("DOP"))
+                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
+                    .cost(resultSet.getFloat("COST"))
+                    .wou(resultSet.getFloat("WOU"))
+                    .wop(resultSet.getFloat("WOP"))
                     .build();
         }
         return item;
     }
 
-    //findByName
-    public List<Item> findByName(String name) throws Exception {
-        List<Item> itemList = new ArrayList<>();
-
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ITEM_NAME LIKE? ORDER BY ITEM_ID");
-        preparedStatement.setString(1, name + "%");
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-            Item item = Item
-                    .builder()
-                    .id(resultSet.getInt("ITEM_ID"))
-                    .hsCode(resultSet.getLong("HS_CODE"))
-                    .name(resultSet.getString("ITEM_NAME"))
-                    .model(resultSet.getString("ITEM_MODEL"))
-                    .type(ItemType.valueOf(resultSet.getString("ITEM_TYPE")))
-                    .brand(Brand.valueOf(resultSet.getString("ITEM_BRAND")))
-                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
-                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
-                    .weightOfUnit(Float.parseFloat(String.valueOf(resultSet.getFloat("WEIGHT_OF_UNIT"))))
-                    .weightOfPallet(Float.parseFloat(String.valueOf(resultSet.getFloat("DIMENSION_OF_PALLET"))))
-                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
-                    .cost(Float.parseFloat(String.valueOf(resultSet.getFloat("ITEM_COST"))))
-                    .build();
-
-            itemList.add(item);
-        }
-
-        return itemList;
-    }
-
+    //Close
     @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
     }
 }
-
-//....
