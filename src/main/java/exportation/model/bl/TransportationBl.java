@@ -76,5 +76,4 @@ public class TransportationBl implements CRUD<Transportation> {
             }
         }
     }
-
 }

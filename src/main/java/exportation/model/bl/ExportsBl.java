@@ -1,38 +1,38 @@
 package exportation.model.bl;
-import exportation.controller.exceptions.NoExportFoundException;
-import exportation.model.entity.Country;
-import exportation.model.entity.Exports;
+
+import lombok.Getter;
+import exportation.controller.exceptions.NoExportsFoundException;
 import exportation.model.da.ExportsDa;
+import exportation.model.entity.Exports;
 import exportation.model.tools.CRUD;
-import jdk.nashorn.internal.objects.annotations.Getter;
 
 import java.util.List;
 
 public class ExportsBl implements CRUD<Exports> {
     @Getter
-    private static ExportsBl exportsBl = new ExportsBl();
+    private static ExportsBl exportBl = new ExportsBl();
 
     private ExportsBl() {
     }
 
     //save
     @Override
-    public Exports save(Exports exports) throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            exportsDa.save(exports);
-            return exports;
+    public Exports save(Exports export) throws Exception {
+        try (ExportsDa exportDa = new ExportsDa()) {
+            exportDa.save(export);
+            return export;
         }
     }
 
     //edit
     @Override
-    public Exports edit(Exports exports) throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            if (exportsDa.findById(exports.getId) != null) {
-                exportsDa.edit(exports);
-                return exports;
+    public Exports edit(Exports export) throws Exception {
+        try (ExportsDa exportDa = new ExportsDa()) {
+            if (exportDa.findById(export.getId()) != null) {
+                exportDa.edit(export);
+                return export;
             } else {
-                throw new NoExportFoundException();
+                throw new NoExportsFoundException();
             }
         }
     }
@@ -40,13 +40,13 @@ public class ExportsBl implements CRUD<Exports> {
     //remove
     @Override
     public Exports remove(int id) throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            Exports exports = exportsDa.findById(id);
-            if (exports != null) {
-                exportsDa.remove(id);
-                return exports;
+        try (ExportsDa exportDa = new ExportsDa()) {
+            Exports export = exportDa.findById(id);
+            if (export != null) {
+                exportDa.remove(id);
+                return export;
             } else {
-                throw new NoExportFoundException();
+                throw new NoExportsFoundException();
             }
         }
     }
@@ -54,39 +54,25 @@ public class ExportsBl implements CRUD<Exports> {
     //findAll
     @Override
     public List<Exports> findAll() throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            List<Exports> exportsList = exportsDa.findAll();
-            if (!exportsList.isEmpty()) {
-                return exportsList;
+        try (ExportsDa exportDa = new ExportsDa()) {
+            List<Exports> perosnList = exportDa.findAll();
+            if (!perosnList.isEmpty()) {
+                return perosnList;
             } else {
-                throw new NoExportFoundException();
+                throw new NoExportsFoundException();
             }
         }
     }
-
 
     //findById
     @Override
     public Exports findById(int id) throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            Exports exports = exportsDa.findById(id);
-            if (exports != null) {
-                return exports;
+        try (ExportsDa exportDa = new ExportsDa()) {
+            Exports export = exportDa.findById(id);
+            if (export != null) {
+                return export;
             } else {
-                throw new NoExportFoundException();
-            }
-        }
-    }
-
-
-    //findByCountry
-    public List<Exports> findByCountry(Country country) throws Exception {
-        try (ExportsDa exportsDa = new ExportsDa()) {
-            List<Exports> exportsList = exportsDa.findByCountry(country);
-            if (!exportsList.isEmpty()) {
-                return exportsList;
-            } else {
-                throw new NoExportFoundException();
+                throw new NoExportsFoundException();
             }
         }
     }

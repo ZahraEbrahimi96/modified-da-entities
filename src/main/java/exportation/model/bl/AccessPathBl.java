@@ -52,13 +52,12 @@ public class AccessPathBl implements CRUD<AccessPath> {
     }
 
     //findAll
-
     @Override
     public List<AccessPath> findAll() throws Exception {
         try (AccessPathDa accessPathDa = new AccessPathDa()) {
-            List<AccessPath> accessPathList = accessPathDa.findAll();
-            if (!accessPathList.isEmpty()) {
-                return accessPathList;
+            List<AccessPath> perosnList = accessPathDa.findAll();
+            if (!perosnList.isEmpty()) {
+                return perosnList;
             } else {
                 throw new NoAccessPathFoundException();
             }
@@ -77,5 +76,4 @@ public class AccessPathBl implements CRUD<AccessPath> {
             }
         }
     }
-
 }

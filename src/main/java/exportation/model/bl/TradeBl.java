@@ -76,5 +76,4 @@ public class TradeBl implements CRUD<Trade> {
             }
         }
     }
-
 }

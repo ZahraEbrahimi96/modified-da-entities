@@ -1,13 +1,10 @@
 package exportation.model.bl;
 
-import exportation.controller.exceptions.NoExportFoundException;
-import exportation.controller.exceptions.NoImportFoundException;
-import exportation.model.da.ExportsDa;
+import lombok.Getter;
+import exportation.controller.exceptions.NoImportsFoundException;
 import exportation.model.da.ImportsDa;
-import exportation.model.entity.Country;
-import exportation.model.entity.Exports;
 import exportation.model.entity.Imports;
-import jdk.nashorn.internal.objects.annotations.Getter;
+import exportation.model.tools.CRUD;
 
 import java.util.List;
 
@@ -31,71 +28,51 @@ public class ImportsBl implements CRUD<Imports> {
     @Override
     public Imports edit(Imports imports) throws Exception {
         try (ImportsDa importsDa = new ImportsDa()) {
-            if (importsDa.findById(imports.getId) != null) {
+            if (importsDa.findById(imports.getId()) != null) {
                 importsDa.edit(imports);
                 return imports;
             } else {
-                throw new NoImportFoundException();
+                throw new NoImportsFoundException();
             }
         }
     }
-
-
 
     //remove
     @Override
-    public Imports remove(int id) throws Exception{
-        try(ImportsDa importsDa= new ImportsDa()) {
+    public Imports remove(int id) throws Exception {
+        try (ImportsDa importsDa = new ImportsDa()) {
             Imports imports = importsDa.findById(id);
             if (imports != null) {
                 importsDa.remove(id);
-                return  imports;
+                return imports;
             } else {
-                throw new NoImportFoundException();
+                throw new NoImportsFoundException();
             }
         }
     }
-
-
 
     //findAll
     @Override
-    public List<Imports> findAll() throws Exception{
-        try (ImportsDa importsDa=new ImportsDa()) {
-            List<Imports> importsList= importsDa.findAll();
-            if(!importsList.isEmpty()) {
-                return importsList;
-            }else {
-                throw new NoImportFoundException();
+    public List<Imports> findAll() throws Exception {
+        try (ImportsDa importsDa = new ImportsDa()) {
+            List<Imports> perosnList = importsDa.findAll();
+            if (!perosnList.isEmpty()) {
+                return perosnList;
+            } else {
+                throw new NoImportsFoundException();
             }
         }
     }
-
-
 
     //findById
     @Override
-    public Imports findById(int id) throws Exception{
-        try(ImportsDa importsDa= new ImportsDa()) {
-            Imports imports= importsDa.findById(id);
-            if(imports != null) {
+    public Imports findById(int id) throws Exception {
+        try (ImportsDa importsDa = new ImportsDa()) {
+            Imports imports = importsDa.findById(id);
+            if (imports != null) {
                 return imports;
-            }else {
-                throw new NoImportFoundException();
-            }
-        }
-    }
-
-
-
-    //findByCountry
-    public List<Imports> findByCountry(Country country) throws Exception{
-        try(ImportsDa importsDa= new ImportsDa()) {
-            List<Imports> importsList= importsDa.findByCountry(country);
-            if(!importsList.isEmpty()) {
-                return importsList;
-            }else {
-                throw new NoImportFoundException();
+            } else {
+                throw new NoImportsFoundException();
             }
         }
     }

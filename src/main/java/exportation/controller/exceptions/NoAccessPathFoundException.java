@@ -1,7 +1,7 @@
 package exportation.controller.exceptions;
 
-public class NoAccessPathFoundException extends Throwable {
+public class NoAccessPathFoundException extends Exception {
     public NoAccessPathFoundException() {
-        super("No Access Path Found!!!");
+        super("No Company Found !!!");
     }
 }

@@ -1,9 +1,11 @@
 package exportation.model.bl;
-import exportation.model.da.ManufacturerDa;
+
 import lombok.Getter;
 import exportation.controller.exceptions.NoManufacturerFoundException;
+import exportation.model.da.ManufacturerDa;
 import exportation.model.entity.Manufacturer;
 import exportation.model.tools.CRUD;
+
 import java.util.List;
 
 public class ManufacturerBl implements CRUD<Manufacturer> {
@@ -66,21 +68,9 @@ public class ManufacturerBl implements CRUD<Manufacturer> {
     @Override
     public Manufacturer findById(int id) throws Exception {
         try (ManufacturerDa manufacturerDa = new ManufacturerDa()) {
-            Manufacturer manufacturer = ManufacturerDa.findById(id);
+            Manufacturer manufacturer = manufacturerDa.findById(id);
             if (manufacturer != null) {
                 return manufacturer;
-            } else {
-                throw new NoManufacturerFoundException();
-            }
-        }
-    }
-
-
-    //findByName
-    public List<Manufacturer> findByName(String name) throws Exception {
-        try (ManufacturerDa manufacturerDa = new ManufacturerDa()) {
-            List<Manufacturer> manufacturerList = manufacturerDa.findByName(name);
-            if (!manufacturerList.isEmpty()) {
             } else {
                 throw new NoManufacturerFoundException();
             }

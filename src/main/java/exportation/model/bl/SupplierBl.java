@@ -1,13 +1,11 @@
 package exportation.model.bl;
 
-import exportation.model.da.SupplierDa;
 import lombok.Getter;
 import exportation.controller.exceptions.NoSupplierFoundException;
+import exportation.model.da.SupplierDa;
 import exportation.model.entity.Supplier;
 import exportation.model.tools.CRUD;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierBl implements CRUD<Supplier> {
@@ -70,21 +68,9 @@ public class SupplierBl implements CRUD<Supplier> {
     @Override
     public Supplier findById(int id) throws Exception {
         try (SupplierDa supplierDa = new SupplierDa()) {
-            Supplier supplier = SupplierDa.findById(id);
+            Supplier supplier = supplierDa.findById(id);
             if (supplier != null) {
                 return supplier;
-            } else {
-                throw new NoSupplierFoundException();
-            }
-        }
-    }
-
-
-    //findByName
-    public List<Supplier> findByName(String name) throws Exception {
-        try (SupplierDa supplierDa = new SupplierDa()) {
-            List<Supplier> supplierList = supplierDa.findByName(name);
-            if (!supplierList.isEmpty()) {
             } else {
                 throw new NoSupplierFoundException();
             }
