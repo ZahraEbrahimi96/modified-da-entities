@@ -10,6 +10,10 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 
-public class Imports extends Eport {
-
+public class Imports {
+    private int id;
+    private long hsCode;
+    private Country country;
+    private long quantity;
+    private long usdValue;
 }
