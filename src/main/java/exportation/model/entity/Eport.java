@@ -1,7 +1,6 @@
 package exportation.model.entity;
 
 import com.google.gson.Gson;
-import exportation.model.entity.enums.RoleAccess;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

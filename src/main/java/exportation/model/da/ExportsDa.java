@@ -1,9 +1,11 @@
 package exportation.model.da;
+
 import exportation.model.entity.Country;
 import exportation.model.entity.Exports;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 import lombok.extern.log4j.Log4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,7 @@ public class ExportsDa implements AutoCloseable, CRUD<Exports> {
     public ExportsDa() throws SQLException {
         connection = ConnectionProvider.getConnectionProvider().getConnection();
     }
+
     //save
     @Override
     public Exports save(Exports exports) throws SQLException {
@@ -38,11 +41,11 @@ public class ExportsDa implements AutoCloseable, CRUD<Exports> {
     @Override
     public Exports edit(Exports exports) throws Exception {
         preparedStatement = connection.prepareStatement("UPDATE EXPORTS SET EXPORTS_HS_CODE=?, EXPORTS_COUNTRY=?, EXPORTS_QUANTITY=?, EXPORTS_USD_VALUE=? WHERE EXPORTS_ID=? ");
-        preparedStatement.setLong(1, exports.getHsCode());
-        preparedStatement.setString(2, String.valueOf(exports.getCountry()));
-        preparedStatement.setLong(3, exports.getQuantity());
-        preparedStatement.setLong(4, exports.getUsdValue());
-        preparedStatement.setInt(5, exports.getId());
+        preparedStatement.setInt(1, exports.getId());
+        preparedStatement.setLong(2, exports.getHsCode());
+        preparedStatement.setString(3, String.valueOf(exports.getCountry()));
+        preparedStatement.setLong(4, exports.getQuantity());
+        preparedStatement.setLong(5, exports.getUsdValue());
         preparedStatement.execute();
         return exports;
     }
@@ -82,12 +85,12 @@ public class ExportsDa implements AutoCloseable, CRUD<Exports> {
     //findById
     @Override
     public Exports findById(int id) throws Exception {
-        preparedStatement=connection.prepareStatement("SELECT * FROM EXPORTS WHERE EXPORTS_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTS WHERE EXPORTS_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Exports exports = null;
 
-        if(resultSet.next()) {
+        if (resultSet.next()) {
             exports = Exports
                     .builder()
                     .id(resultSet.getInt("EXPORT_ID"))
@@ -102,14 +105,14 @@ public class ExportsDa implements AutoCloseable, CRUD<Exports> {
 
 
     //findByCountry
-    public List<Exports> findByCountry (Country country) throws Exception{
+    public List<Exports> findByCountry(Country country) throws Exception {
         List<Exports> exportsList = new ArrayList<>();
 
         preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTS WHERE EXPORTS_COUNTRY LIKE? ORDER BY EXPORTS_ID");
         preparedStatement.setString(1, country + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
 
             Exports exports = Exports
                     .builder()
@@ -131,4 +134,3 @@ public class ExportsDa implements AutoCloseable, CRUD<Exports> {
     }
 }
 
-//...}
