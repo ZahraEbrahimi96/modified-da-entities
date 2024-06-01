@@ -10,6 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 
-public class Exports extends Eport{
+public class Exports extends Imports{
 
 }

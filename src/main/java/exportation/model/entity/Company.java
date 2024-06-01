@@ -12,15 +12,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Company {
-
     private int id;
     private String name;
     private String product;
     private String address;
     private String email;
     private String phoneNumber;
-//private Person person;
-
 
     @Override
     public String toString() {
