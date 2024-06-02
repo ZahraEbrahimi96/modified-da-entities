@@ -23,17 +23,18 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM (ITEM_ID,ITEM_NAME,ITEM_MODEL,ITEM_DOU,ITEM_DOP,ITEM_PALLETCAPACITY,ITEM_COST,ITEM_WOU,ITEM_WOP) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM (ITEM_ID,ITEM_NAME,ITEM_MODEL,ITEM_DIMENSIONOFUNITE,ITEM_DIMENSIONOFPALLET,ITEM_PALLETCAPACITY,ITEM_COST,ITEM_HS_CODE,ITEM_WEIGHTOFUNIT,ITEM_WEIGHTOFPALLET) VALUES (?,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
         preparedStatement.setString(3, item.getModel());
-        preparedStatement.setString(4, item.getDou());
-        preparedStatement.setString(5, item.getDop());
+        preparedStatement.setString(4, item.getDimensionOfUnite());
+        preparedStatement.setString(5, item.getDimensionOfPallet());
         preparedStatement.setInt(6, item.getPalletCapacity());
         preparedStatement.setDouble(7, item.getCost());
-        preparedStatement.setFloat(8, item.getWou());
-        preparedStatement.setFloat(9, item.getWop());
+        preparedStatement.setLong(8, item.getHs_Code());
+        preparedStatement.setFloat(9, item.getWeightOfUnit());
+        preparedStatement.setFloat(10, item.getWeightOfPallet());
         preparedStatement.execute();
         return item;
     }
@@ -42,17 +43,18 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM SET ITEM_NAME=?, ITEM_MODEL=?, ITEM_DOU=?,ITEM_DOP=?,ITEM_PALLETCAPACITY=?,ITEM_COST=?,ITEM_WOU=?,ITEM_WOP=?, WHERE ITEM_ID=?"
+                "UPDATE ITEM SET ITEM_NAME=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?, WHERE ITEM_ID=?"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
         preparedStatement.setString(3, item.getModel());
-        preparedStatement.setString(4, item.getDou());
-        preparedStatement.setString(5, item.getDop());
+        preparedStatement.setString(4, item.getDimensionOfUnite());
+        preparedStatement.setString(5, item.getDimensionOfPallet());
         preparedStatement.setInt(6, item.getPalletCapacity());
         preparedStatement.setDouble(7, item.getCost());
-        preparedStatement.setFloat(8, item.getWou());
-        preparedStatement.setFloat(9, item.getWop());
+        preparedStatement.setLong(8, item.getHs_Code());
+        preparedStatement.setFloat(9, item.getWeightOfUnit());
+        preparedStatement.setFloat(10, item.getWeightOfPallet());
         preparedStatement.execute();
         return item;
     }
@@ -81,12 +83,12 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .model(resultSet.getString("MODEL"))
-                    .dou(resultSet.getString("DOU"))
-                    .dop(resultSet.getString("DOP"))
+                    .dimensionOfUnite(resultSet.getString("DOU"))
+                    .dimensionOfPallet(resultSet.getString("DOP"))
                     .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
                     .cost(resultSet.getFloat("COST"))
-                    .wou(resultSet.getFloat("WOU"))
-                    .wop(resultSet.getFloat("WOP"))
+                    .weightOfUnit(resultSet.getFloat("WOU"))
+                    .weightOfPallet(resultSet.getFloat("WOP"))
                     .build();
 
             itemList.add(item);
@@ -108,12 +110,12 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .model(resultSet.getString("MODEL"))
-                    .dou(resultSet.getString("DOU"))
-                    .dop(resultSet.getString("DOP"))
+                    .dimensionOfUnite(resultSet.getString("DOU"))
+                    .dimensionOfPallet(resultSet.getString("DOP"))
                     .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
                     .cost(resultSet.getFloat("COST"))
-                    .wou(resultSet.getFloat("WOU"))
-                    .wop(resultSet.getFloat("WOP"))
+                    .weightOfUnit(resultSet.getFloat("WOU"))
+                    .weightOfPallet(resultSet.getFloat("WOP"))
                     .build();
         }
         return item;

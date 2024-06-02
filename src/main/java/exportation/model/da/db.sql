@@ -4,7 +4,7 @@ create table PERSON_TABLE
     PERSON_ID           number primary key,
     PERSON_NAME         nvarchar2(30),
     PERSON_FAMILY       nvarchar2(30),
-    PERSON_GENDER       number(0),
+    PERSON_GENDER       nvarchar2(10) CHECK ( PERSON_GENDER IN ('male', 'female')),
     NATIONAL_ID         nvarchar2(10),
     PERSON_PHONE_NUMBER nvarchar2(11),
     PERSON_EMAIL        nvarchar2(300),
@@ -59,16 +59,16 @@ create table PAYMENT_TABLE
 create table ITEM_TABLE
 (
     ITEM_ID             number primary key,
-    ITEM_HS_CODE        number,
+    PALLET_CAPACITY     number,
     ITEM_NAME           nvarchar2(40),
     ITEM_MODEL          nvarchar2(40),
     ITEM_TYPE           nvarchar2(40),
     ITEM_BRAND          nvarchar2(40),
     DIMENSION_OF_UNIT   nvarchar2(40),
     DIMENSION_OF_PALLET nvarchar2(40),
+    ITEM_HS_CODE        number,
     WEIGHT_OF_UNIT      number,
     WEIGHT_OF_PALLET    number,
-    PALLET_CAPACITY     number,
     ITEM_COST           number
 );
 
