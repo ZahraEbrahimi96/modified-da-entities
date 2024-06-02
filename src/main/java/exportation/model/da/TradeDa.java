@@ -107,25 +107,6 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         return trade;
     }
 
-    //FindByClient
-    public List<Trade> findByClient(String client) throws Exception {
-        List<Trade> tradeList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM TRADE WHERE CLIENT LIKE? ORDER BY TRADE_ID");
-        preparedStatement.setString(1, client + "%");
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-            Trade trade = Trade
-                    .builder()
-                    .id(resultSet.getInt("ID"))
-
-                    .build();
-
-            tradeList.add(trade);
-        }
-        return tradeList;
-    }
-
     //Close
     @Override
     public void close() throws Exception {
