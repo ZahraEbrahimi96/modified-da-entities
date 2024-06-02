@@ -23,7 +23,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     public Country save(Country country) throws Exception {
         country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COUNTRY (ID,NAME,PHONECODE,RELATEDMARKET) VALUES (?,?,?,?)"
+                "INSERT INTO COUNTRY (COUNTRY_ID,COUNTRY_NAME,COUNTRY_PHONE_CODE,COUNTRY_RELATEDMARKET) VALUES (?,?,?,?)"
         );
         preparedStatement.setInt(1, country.getId());
         preparedStatement.setString(2, country.getName());
@@ -37,7 +37,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     @Override
     public Country edit(Country country) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COUNTRY SET NAME=?, PHONECODE=?, RELATEDMARKET=?, WHERE ID=?"
+                "UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?, COUNTRY_RELATEDMARKET=?, WHERE COUNTRY_ID=?"
         );
         preparedStatement.setInt(1, country.getId());
         preparedStatement.setString(2, country.getName());
@@ -51,7 +51,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     @Override
     public Country remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM COUNTRY WHERE ID=?"
+                "DELETE FROM COUNTRY WHERE COUNTRY_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -62,7 +62,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     @Override
     public List<Country> findAll() throws Exception {
         List<Country> countryList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY ORDER BY COUNTRY_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -83,7 +83,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     //FindById
     @Override
     public Country findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY WHERE COUNTRY_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Country country = null;

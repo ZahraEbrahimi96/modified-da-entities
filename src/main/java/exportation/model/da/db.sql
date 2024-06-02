@@ -15,9 +15,10 @@ create table PERSON_TABLE
 --COUNTRY
 create table COUNTRY_TABLE
 (
-    COUNTRY_ID         number primary key,
-    COUNTRY_NAME       nvarchar2(30),
-    COUNTRY_PHONE_CODE nvarchar2(4)
+    COUNTRY_ID            number primary key,
+    COUNTRY_NAME          nvarchar2(30),
+    COUNTRY_PHONE_CODE    nvarchar2(4),
+    COUNTRY_RELATEDMARKET nvarchar2(30)
 );
 
 --COMPANY
