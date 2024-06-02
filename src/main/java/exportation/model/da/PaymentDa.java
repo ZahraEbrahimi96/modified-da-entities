@@ -24,7 +24,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (ID,TOTALCOST,TAX,INSURANCE,COST,FREIGHT,TARIFF) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (PAYMENT_ID,PAYMENT_TOTALCOST,PAYMENT_TAX,PAYMENT_INSURANCE,PAYMENT_COST,PAYMENT_FREIGHT,PAYMENT_TARIFF) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setLong(2, payment.getTotalCost());
@@ -41,7 +41,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT SET TOTALCOST=?, TAX=?, INSURANCE=?, COST=?, FREIGHT=?,TARIF=?, WHERE ID=?"
+                "UPDATE PAYMENT SET PAYMENT_TOTALCOST=?, PAYMENT_TAX=?, PAYMENT_INSURANCE=?, PAYMENT_COST=?, PAYMENT_FREIGHT=?,PAYMENT_TARIF=?, WHERE PAYMENT_ID=?"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setLong(2, payment.getTotalCost());
@@ -58,7 +58,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM PAYMENT WHERE ID=?"
+                "DELETE FROM PAYMENT WHERE PAYMENT_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -69,7 +69,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public List<Payment> findAll() throws Exception {
         List<Payment> paymentList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT ORDER BY PAYMENT_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -93,7 +93,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     //FindById
     @Override
     public Payment findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PAYMENT WHERE PAYMENT_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Payment payment = null;
