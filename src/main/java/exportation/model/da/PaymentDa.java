@@ -79,7 +79,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    .item(resultSet.getObject("ITEM", Item.class))
+                    .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
                     .info(resultSet.getObject("INFO", Info.class))
                     .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
                     .build();

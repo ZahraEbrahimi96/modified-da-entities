@@ -22,5 +22,4 @@ public class Transportation {
     public String toString() {
         return new Gson().toJson(this);
     }
-
 }
