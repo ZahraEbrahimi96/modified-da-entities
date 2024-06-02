@@ -49,7 +49,10 @@ create table PAYMENT_TABLE
     PAYMENT_ID         number primary key,
     PAYMENT_TOTAL_COST number,
     PAYMENT_TAX        number,
-    PAYMENT_INSURANCE  number
+    PAYMENT_INSURANCE  number,
+    PAYMENT_ITEM references ITEM_TABLE,
+    PAYMENT_TRANSPORTATION references TRANSPORTATION_TABLE,
+    PAYMENT_INFO references INFO_TABLE
 );
 
 --ITEM
@@ -99,18 +102,18 @@ create table EXPORTS_TABLE
 --EXPORT_TRACING
 create table EXPORT_TRACING_TABLE
 (
-    TRACING_ID number primary key,
-    TRACING_LOADING_STATUS    number(0),
-    TRACING_INVOICE           nvarchar2(100),
-    TRACING_WAYBILL           nvarchar2(100),
-    TRACING_PREPAYMENT        number(0),
-    TRACING_CHECKOUT          number(0)
+    TRACING_ID             number primary key,
+    TRACING_LOADING_STATUS number(0),
+    TRACING_INVOICE        nvarchar2(100),
+    TRACING_WAYBILL        nvarchar2(100),
+    TRACING_PREPAYMENT     number(0),
+    TRACING_CHECKOUT       number(0)
 );
 
 --INFO
 create table INFO_TABLE
 (
-    INFO_ID    number primary key,
+    INFO_ID         number primary key,
     INFO_POPULATION number,
     INFO_CAR_RATE   number,
     INFO_CLIMATE    nvarchar2(30),

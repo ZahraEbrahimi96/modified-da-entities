@@ -56,9 +56,13 @@ public class PaymentBl implements CRUD<Payment> {
     public List<Payment> findAll() throws Exception {
         try (PaymentDa paymentDa = new PaymentDa()) {
             List<Payment> paymentList = paymentDa.findAll();
+
             for (Payment payment : paymentList) {
                 payment.setItem(ItemBl.getItemBl().findById(payment.getItem().getId()));
+                payment.setInfo(InfoBl.getInfoBl().findById(payment.getInfo().getId()));
+                payment.setTransportation(TransportationBl.getTransportationBl().findById(payment.getTransportation().getId()));
             }
+
             if (!paymentList.isEmpty()) {
                 return paymentList;
             } else {
