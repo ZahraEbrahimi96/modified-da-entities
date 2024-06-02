@@ -111,11 +111,11 @@ create table EXPORT_TRACING_TABLE
 create table INFO_TABLE
 (
     INFO_ID    number primary key,
-    POPULATION number,
-    CAR_RATE   number,
-    CLIMATE    nvarchar2(30),
-    DEMAND     nvarchar2(30),
-    TARIFF     nvarchar2(4)
+    INFO_POPULATION number,
+    INFO_CAR_RATE   number,
+    INFO_CLIMATE    nvarchar2(30),
+    INFO_DEMAND     nvarchar2(30),
+    INFO_TARIFF     nvarchar2(4)
 );
 
 --ACCESSPATH

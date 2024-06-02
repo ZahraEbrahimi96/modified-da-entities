@@ -23,7 +23,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     public Info save(Info info) throws Exception {
         info.setId(ConnectionProvider.getConnectionProvider().getNextId("INFO_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO INFO (ID,POPULATION,CARRATE,CLIMATE,ACCESSPASS,lIFEEXPECTANSY,DEMAND,TARIFF) VALUES (?,?,?,?,?,?,?,?)"
+                "INSERT INTO INFO (INFO_ID,INFO_POPULATION,INFO_CARRATE,INFO_CLIMATE,INFO_ACCESSPASS,INFO_lIFEEXPECTANSY,INFO_DEMAND,INFO_TARIFF) VALUES (?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, info.getId());
         preparedStatement.setLong(2, info.getPopulation());
@@ -41,7 +41,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     @Override
     public Info edit(Info info) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE INFO SET POPULATION=?, CARRATE=?, CLIMATE=?,ACCESSPASS=?,lIFEEXPECTANSY=?,DEMAND=?,TARIFF=?, WHERE ID=?"
+                "UPDATE INFO SET INFO_POPULATION=?, INFO_CARRATE=?, INFO_CLIMATE=?,INFO_ACCESSPASS=?,INFO_lIFEEXPECTANSY=?,INFO_DEMAND=?,INFO_TARIFF=?, WHERE INFO_ID=?"
         );
         preparedStatement.setInt(1, info.getId());
         preparedStatement.setLong(2, info.getPopulation());
@@ -59,7 +59,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     @Override
     public Info remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM INFO WHERE ID=?"
+                "DELETE FROM INFO WHERE INFO_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -70,7 +70,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     @Override
     public List<Info> findAll() throws Exception {
         List<Info> infoList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM INFO ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM INFO ORDER BY INFO_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -95,7 +95,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     //FindById
     @Override
     public Info findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM INFO WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM INFO WHERE INFO_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Info info = null;
