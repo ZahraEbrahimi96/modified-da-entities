@@ -23,7 +23,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     public Company save(Company company) throws Exception {
         company.setId(ConnectionProvider.getConnectionProvider().getNextId("COMPANY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COMPANY (ID,NAME,PRODUCT,ADDRESS,EMAIL,PHONE) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO COMPANY (COMPANY_ID,COMPANY_NAME,COMPANY_PRODUCT,COMPANY_ADDRESS,COMPANY_EMAIL,COMPANY_PHONE_NUMBER) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, company.getId());
         preparedStatement.setString(2, company.getName());
@@ -39,7 +39,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     @Override
     public Company edit(Company company) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COMPANY SET NAME=?, PRODUCT=?, ADDRESS=?,EMAIL=?,PHONENUMBER, WHERE ID=?"
+                "UPDATE COMPANY SET COMPANY_NAME=?, COMPANY_PRODUCT=?, COMPANY_ADDRESS=?,COMPANY_EMAIL=?,COMPANY_PHONE_NUMBER, WHERE COMPANY_ID=?"
         );
         preparedStatement.setInt(1, company.getId());
         preparedStatement.setString(2, company.getName());
@@ -55,7 +55,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     @Override
     public Company remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM COMPANY WHERE ID=?"
+                "DELETE FROM COMPANY WHERE COMPANY_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -66,7 +66,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     @Override
     public List<Company> findAll() throws Exception {
         List<Company> companyList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM COMPANY ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM COMPANY ORDER BY COMPANY_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -82,14 +82,13 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
 
             companyList.add(company);
         }
-
         return companyList;
     }
 
     //FindById
     @Override
     public Company findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM COMPANY WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM COMPANY WHERE COMPANY_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Company company = null;
