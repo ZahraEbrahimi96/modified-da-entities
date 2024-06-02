@@ -72,9 +72,10 @@ create table ITEM_TABLE
 --TRANSPORTATION
 create table TRANSPORTATION_TABLE
 (
-    TRANSPORTATION_ID      number primary key,
-    TRANSPORTATION_ORIGIN  nvarchar2(30),
-    TRANSPORTATION_FREIGHT number
+    TRANSPORTATION_ID        number primary key,
+    TRANSPORTATION_DIRECTION nvarchar2(30),
+    TRANSPORTATION_ORIGIN    nvarchar2(30),
+    TRANSPORTATION_FREIGHT   number
 );
 
 --IMPORT
