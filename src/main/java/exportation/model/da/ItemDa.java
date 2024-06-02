@@ -23,7 +23,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM (ID,NAME,MODEL,DOU,DOP,PALLETCAPACITY,COST,WOU,WOP) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM (ITEM_ID,ITEM_NAME,ITEM_MODEL,ITEM_DOU,ITEM_DOP,ITEM_PALLETCAPACITY,ITEM_COST,ITEM_WOU,ITEM_WOP) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
@@ -42,7 +42,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM SET NAME=?, MODEL=?, DOU=?,DOP=?,PALLETCAPACITY=?,COST=?,WOU=?,WOP=?, WHERE ID=?"
+                "UPDATE ITEM SET ITEM_NAME=?, ITEM_MODEL=?, ITEM_DOU=?,ITEM_DOP=?,ITEM_PALLETCAPACITY=?,ITEM_COST=?,ITEM_WOU=?,ITEM_WOP=?, WHERE ITEM_ID=?"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
@@ -61,7 +61,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM ITEM WHERE ID=?"
+                "DELETE FROM ITEM WHERE ITEM_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -72,7 +72,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public List<Item> findAll() throws Exception {
         List<Item> itemList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM ORDER BY ITEM_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -98,7 +98,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     //FindById
     @Override
     public Item findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ITEM_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Item item = null;
