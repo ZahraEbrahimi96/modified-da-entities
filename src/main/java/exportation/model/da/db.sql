@@ -78,7 +78,7 @@ create table TRANSPORTATION_TABLE
     TRANSPORTATION_FREIGHT   number
 );
 
---IMPORT
+--IMPORTS
 create table IMPORTS_TABLE
 (
     IMPORTS_ID        number primary key,
@@ -99,12 +99,12 @@ create table EXPORTS_TABLE
 --EXPORT_TRACING
 create table EXPORT_TRACING_TABLE
 (
-    EXPORT_TRACING_ID number primary key,
-    LOADING_STATUS    number(0),
-    INVOICE           nvarchar2(100),
-    WAYBILL           nvarchar2(100),
-    PREPAYMENT        number(0),
-    CHECKOUT          number(0)
+    TRACING_ID number primary key,
+    TRACING_LOADING_STATUS    number(0),
+    TRACING_INVOICE           nvarchar2(100),
+    TRACING_WAYBILL           nvarchar2(100),
+    TRACING_PREPAYMENT        number(0),
+    TRACING_CHECKOUT          number(0)
 );
 
 --INFO
