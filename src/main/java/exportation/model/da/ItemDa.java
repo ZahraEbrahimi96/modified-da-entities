@@ -1,6 +1,8 @@
 package exportation.model.da;
 
 import exportation.model.entity.Item;
+import exportation.model.entity.enums.Brand;
+import exportation.model.entity.enums.Gender;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -23,18 +25,19 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM (ITEM_ID,ITEM_NAME,ITEM_MODEL,ITEM_DIMENSIONOFUNITE,ITEM_DIMENSIONOFPALLET,ITEM_PALLETCAPACITY,ITEM_COST,ITEM_HS_CODE,ITEM_WEIGHTOFUNIT,ITEM_WEIGHTOFPALLET) VALUES (?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM (ITEM_ID,ITEM_NAME,ITEM_BRAND, ITEM_MODEL,ITEM_DIMENSIONOFUNITE,ITEM_DIMENSIONOFPALLET,ITEM_PALLETCAPACITY,ITEM_COST,ITEM_HS_CODE,ITEM_WEIGHTOFUNIT,ITEM_WEIGHTOFPALLET) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
-        preparedStatement.setString(3, item.getModel());
-        preparedStatement.setString(4, item.getDimensionOfUnite());
-        preparedStatement.setString(5, item.getDimensionOfPallet());
-        preparedStatement.setInt(6, item.getPalletCapacity());
-        preparedStatement.setDouble(7, item.getCost());
-        preparedStatement.setLong(8, item.getHs_Code());
-        preparedStatement.setFloat(9, item.getWeightOfUnit());
-        preparedStatement.setFloat(10, item.getWeightOfPallet());
+        preparedStatement.setString(3,item.getBrand().toString());
+        preparedStatement.setString(4, item.getModel());
+        preparedStatement.setString(5, item.getDimensionOfUnite());
+        preparedStatement.setString(6, item.getDimensionOfPallet());
+        preparedStatement.setInt(7, item.getPalletCapacity());
+        preparedStatement.setDouble(8, item.getCost());
+        preparedStatement.setLong(9, item.getHs_Code());
+        preparedStatement.setFloat(10, item.getWeightOfUnit());
+        preparedStatement.setFloat(11, item.getWeightOfPallet());
         preparedStatement.execute();
         return item;
     }
@@ -43,10 +46,10 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM SET ITEM_NAME=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?, WHERE ITEM_ID=?"
+                "UPDATE ITEM SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?, WHERE ITEM_ID=?"
         );
-        preparedStatement.setInt(1, item.getId());
-        preparedStatement.setString(2, item.getName());
+        preparedStatement.setString(1, item.getName());
+        preparedStatement.setString(2,item.getBrand().toString());
         preparedStatement.setString(3, item.getModel());
         preparedStatement.setString(4, item.getDimensionOfUnite());
         preparedStatement.setString(5, item.getDimensionOfPallet());
@@ -55,6 +58,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         preparedStatement.setLong(8, item.getHs_Code());
         preparedStatement.setFloat(9, item.getWeightOfUnit());
         preparedStatement.setFloat(10, item.getWeightOfPallet());
+        preparedStatement.setInt(11, item.getId());
         preparedStatement.execute();
         return item;
     }
@@ -82,6 +86,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
+                    .brand(resultSet.getObject("BRAND", Brand.class))
                     .model(resultSet.getString("MODEL"))
                     .dimensionOfUnite(resultSet.getString("DOU"))
                     .dimensionOfPallet(resultSet.getString("DOP"))
@@ -109,6 +114,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
+                    .brand(resultSet.getObject("BRAND", Brand.class))
                     .model(resultSet.getString("MODEL"))
                     .dimensionOfUnite(resultSet.getString("DOU"))
                     .dimensionOfPallet(resultSet.getString("DOP"))
@@ -119,6 +125,34 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .build();
         }
         return item;
+    }
+
+    //FindByName
+
+    public List<Item> findByName(String name) throws Exception {
+        List<Item> itemList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM_TABLE WHERE ITEM_NAME LIKE? ORDER BY ITEM_ID");
+        preparedStatement.setString(1, name + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Item item = Item
+                    .builder()
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .brand(resultSet.getObject("BRAND", Brand.class))
+                    .model(resultSet.getString("MODEL"))
+                    .dimensionOfUnite(resultSet.getString("DOU"))
+                    .dimensionOfPallet(resultSet.getString("DOP"))
+                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
+                    .cost(resultSet.getFloat("COST"))
+                    .weightOfUnit(resultSet.getFloat("WOU"))
+                    .weightOfPallet(resultSet.getFloat("WOP"))
+                    .build();
+
+            itemList.add(item);
+        }
+        return itemList;
     }
 
     //Close

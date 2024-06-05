@@ -12,8 +12,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 public class Supplier extends Company {
-    private int id;
-    private String name;
     private boolean onlineSale;
 
     @Override

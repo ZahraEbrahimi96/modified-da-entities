@@ -1,5 +1,6 @@
 package exportation.model.bl;
 
+import exportation.model.entity.Country;
 import lombok.Getter;
 import exportation.controller.exceptions.NoImportsFoundException;
 import exportation.model.da.ImportsDa;
@@ -71,6 +72,19 @@ public class ImportsBl implements CRUD<Imports> {
             Imports imports = importsDa.findById(id);
             if (imports != null) {
                 return imports;
+            } else {
+                throw new NoImportsFoundException();
+            }
+        }
+    }
+
+
+    //findByCountry
+    public List<Imports> findByCountry(Country country) throws Exception {
+        try (ImportsDa importsDa = new ImportsDa()) {
+            List<Imports> perosnList = importsDa.findByCountry(country);
+            if (!perosnList.isEmpty()) {
+                return perosnList;
             } else {
                 throw new NoImportsFoundException();
             }

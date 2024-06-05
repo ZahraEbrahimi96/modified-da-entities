@@ -6,21 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-@NoArgsConstructor
-@Getter
+import java.io.Serializable;
+import java.util.regex.Pattern;
 @Setter
+@Getter
+@NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 
-public class AccessPath {
+public class AccessPath implements Serializable {
     private int id;
     private String city;
     private PathType pathType;
     private float distance;
     private Navigation navigation;
 
-    @Override
-    public String toString() {
-        return new Gson().toJson(this);
-    }
+
 }

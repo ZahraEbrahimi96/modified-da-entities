@@ -23,13 +23,13 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
     public Info save(Info info) throws Exception {
         info.setId(ConnectionProvider.getConnectionProvider().getNextId("INFO_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO INFO (INFO_ID,INFO_POPULATION,INFO_CARRATE,INFO_CLIMATE,INFO_ACCESSPASS,INFO_lIFEEXPECTANSY,INFO_DEMAND,INFO_TARIFF) VALUES (?,?,?,?,?,?,?,?)"
+              "INSERT INTO INFO (INFO_ID,INFO_POPULATION,INFO_CARRATE,INFO_CLIMATE,INFO_ACCESSPATH,INFO_lIFEEXPECTANSY,INFO_DEMAND,INFO_TARIFF) VALUES (?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, info.getId());
         preparedStatement.setLong(2, info.getPopulation());
         preparedStatement.setLong(3, info.getCarRate());
         preparedStatement.setString(4, info.getClimate());
-        preparedStatement.setString(5, info.getAccessPath());
+//        preparedStatement.setString(5, info.getAccessPath().getId());
         preparedStatement.setString(6, info.getLifeExpectancy());
         preparedStatement.setString(7, info.getDemand());
         preparedStatement.setString(8, info.getTariff());
@@ -47,7 +47,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
         preparedStatement.setLong(2, info.getPopulation());
         preparedStatement.setLong(3, info.getCarRate());
         preparedStatement.setString(4, info.getClimate());
-        preparedStatement.setString(5, info.getAccessPath());
+//        preparedStatement.setString(5, info.getAccessPath());
         preparedStatement.setString(6, info.getLifeExpectancy());
         preparedStatement.setString(7, info.getDemand());
         preparedStatement.setString(8, info.getTariff());
@@ -80,7 +80,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
                     .population(resultSet.getLong("POPULATION"))
                     .carRate(resultSet.getLong("CARRATE"))
                     .climate(resultSet.getString("CLIMATE"))
-                    .accessPath(resultSet.getString("ACCESSPATH"))
+//                    .accessPath(resultSet.getString("ACCESSPATH"))
                     .lifeExpectancy(resultSet.getString("LIFEEXPECTANSY"))
                     .demand(resultSet.getString("DEMAND"))
                     .tariff(resultSet.getString("TARIFF"))
@@ -106,7 +106,7 @@ public class InfoDa implements AutoCloseable, CRUD<Info> {
                     .population(resultSet.getLong("POPULATION"))
                     .carRate(resultSet.getLong("CARRATE"))
                     .climate(resultSet.getString("CLIMATE"))
-                    .accessPath(resultSet.getString("ACCESSPATH"))
+//                    .accessPath(resultSet.getString("ACCESSPATH"))
                     .lifeExpectancy(resultSet.getString("LIFEEXPECTANSY"))
                     .demand(resultSet.getString("DEMAND"))
                     .tariff(resultSet.getString("TARIFF"))

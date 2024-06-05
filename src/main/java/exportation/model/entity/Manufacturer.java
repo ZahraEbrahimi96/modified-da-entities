@@ -13,8 +13,6 @@ import lombok.experimental.SuperBuilder;
 
 
 public class Manufacturer extends Company {
-    private int id;
-    private String name;
     private int productionRate;
 
     @Override

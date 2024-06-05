@@ -77,4 +77,17 @@ public class ItemBl implements CRUD<Item> {
         }
     }
 
+
+    //findByName
+    public List<Item> findByName (String name) throws Exception {
+        try (ItemDa itemDa = new ItemDa()) {
+            List<Item> perosnList = itemDa.findByName(name);
+            if (!perosnList.isEmpty()) {
+                return perosnList;
+            } else {
+                throw new NoItemFoundException();
+            }
+        }
+    }
+
 }

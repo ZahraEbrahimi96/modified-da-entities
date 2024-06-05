@@ -16,7 +16,7 @@ public class Info {
     private long population;
     private long carRate;
     private String climate;
-    private String accessPath;
+//    private AccessPath accessPath;
     private String lifeExpectancy;
     private String demand;
     private String tariff;

@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder(toBuilder = true)
 
-public class Company {
+public abstract class Company {
     private int id;
     private String name;
     private String product;

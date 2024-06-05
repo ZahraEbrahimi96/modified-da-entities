@@ -6,10 +6,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
-@Getter
-@Setter
 @SuperBuilder(toBuilder = true)
 
-public class Exports extends Imports{
+public class Exports extends Eport{
 
 }

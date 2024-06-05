@@ -1,6 +1,6 @@
 package exportation.model.da;
 
-import exportation.model.entity.Country;
+import exportation.model.entity.*;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -23,12 +23,15 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     public Country save(Country country) throws Exception {
         country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COUNTRY (COUNTRY_ID,COUNTRY_NAME,COUNTRY_PHONE_CODE,COUNTRY_RELATEDMARKET) VALUES (?,?,?,?)"
+                "INSERT INTO COUNTRY (COUNTRY_ID,COUNTRY_NAME,COUNTRY_PHONE_CODE,COUNTRY_RELATEDMARKET,COUNTRY_SUPPLIER,COUNTRY_MANUFACTURER,COUNTRY_INFO) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, country.getId());
         preparedStatement.setString(2, country.getName());
         preparedStatement.setString(3, country.getPhoneCode());
         preparedStatement.setString(4, country.getRelatedMarket());
+//        preparedStatement.setString(5, String.valueOf(country.getSupplier()));
+//        preparedStatement.setString(6, String.valueOf(country.getManufacturer()));
+//        preparedStatement.setString(7, String.valueOf(country.getInfo()));
         preparedStatement.execute();
         return country;
     }
@@ -37,12 +40,16 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     @Override
     public Country edit(Country country) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?, COUNTRY_RELATEDMARKET=?, WHERE COUNTRY_ID=?"
+                "UPDATE COUNTRY SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?, COUNTRY_RELATEDMARKET=?,COUNTRY_SUPPLIER=?,COUNTRY_MANUFACTURER=?,COUNTRY_INFO=? WHERE COUNTRY_ID=?"
         );
-        preparedStatement.setInt(1, country.getId());
-        preparedStatement.setString(2, country.getName());
-        preparedStatement.setString(3, country.getPhoneCode());
-        preparedStatement.setString(4, country.getRelatedMarket());
+
+        preparedStatement.setString(1, country.getName());
+        preparedStatement.setString(2, country.getPhoneCode());
+        preparedStatement.setString(3, country.getRelatedMarket());
+//        preparedStatement.setString(4, String.valueOf(country.getSupplier()));
+//        preparedStatement.setString(5, String.valueOf(country.getManufacturer()));
+//        preparedStatement.setString(6, String.valueOf(country.getInfo()));
+        preparedStatement.setInt(7, country.getId());
         preparedStatement.execute();
         return country;
     }
@@ -72,6 +79,9 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .name(resultSet.getString("NAME"))
                     .phoneCode(resultSet.getString("PHONECODE"))
                     .relatedMarket(resultSet.getString("RELATEDMARKET"))
+//                    .supplier(Supplier.builder().id(resultSet.getInt("SUPPLIER_ID")).build())
+//                    .manufacturer(Manufacturer.builder().id(resultSet.getInt("MANUFACTURER_ID")).build())
+//                    .info(Info.builder().id(resultSet.getInt("INFO_ID")).build())
                     .build();
 
             countryList.add(country);
@@ -94,6 +104,9 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .name(resultSet.getString("NAME"))
                     .phoneCode(resultSet.getString("PHONECODE"))
                     .relatedMarket(resultSet.getString("RELATEDMARKET"))
+//                    .supplier(Supplier.builder().id(resultSet.getInt("SUPPLIER_ID")).build())
+//                    .manufacturer(Manufacturer.builder().id(resultSet.getInt("MANUFACTURER_ID")).build())
+//                    .info(Info.builder().id(resultSet.getInt("INFO_ID")).build())
                     .build();
         }
         return country;

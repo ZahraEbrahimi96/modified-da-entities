@@ -61,9 +61,8 @@ create table ITEM_TABLE
     ITEM_ID             number primary key,
     PALLET_CAPACITY     number,
     ITEM_NAME           nvarchar2(40),
+    ITEM_BRAND          nvarchar2(40),CHECK ( ITEM_BRAND IN ( 'hipile' ,'carpile','handle','tino',)),
     ITEM_MODEL          nvarchar2(40),
-    ITEM_TYPE           nvarchar2(40),
-    ITEM_BRAND          nvarchar2(40),
     DIMENSION_OF_UNIT   nvarchar2(40),
     DIMENSION_OF_PALLET nvarchar2(40),
     ITEM_HS_CODE        number,
@@ -126,9 +125,9 @@ CREATE TABLE ACCESS_PATH_TABLE
 (
     ACCESS_PATH_ID       number primary key,
     ACCESS_PATH_CITY     nvarchar2(20),
-    ACCESS_PATH_TYPE     nvarchar2(20),
+    ACCESS_PATH_TYPE     nvarchar2(20),CHECK( ACCESS_PATH_TYPE IN ('air','rail','road','sea',)),
     ACCESS_PATH_DISTANCE number,
-    ACCESS_NAVIGATION    nvarchar2(20)
+    ACCESS_NAVIGATION    nvarchar2(20) CHECK( ACCESS_NAVIGATION IN ('north','northeast','northwest','south','southeast','southwest','east','west';)),
 );
 
 --MANUFACTURE
