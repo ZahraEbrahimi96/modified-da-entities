@@ -1,5 +1,7 @@
 package exportation.model.da;
 
+import exportation.model.entity.Country;
+import exportation.model.entity.Person;
 import exportation.model.entity.Supplier;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -26,10 +28,16 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     public Supplier save(Supplier supplier) throws SQLException {
         supplier.setId(ConnectionProvider.getConnectionProvider().getNextId("SUPPLIER_SEQ"));
 
-        preparedStatement = connection.prepareStatement("INSERT INTO SUPPLIER (SUPPLIER_ID, SUPPLIER_NAME, SUPPLIER_MANAGER, SUPPLIER_PRODUCT, SUPPLIER_ADDRESS, SUPPLIER_EMAIL, SUPPLIER_PHONE, COUNTRY_NAME, ONLINE_SALE) VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement = connection.prepareStatement("INSERT INTO SUPPLIER (SUPPLIER_ID, SUPPLIER_NAME, SUPPLIER_PRODUCT, SUPPLIER_ADDRESS,  SUPPLIER_PHONE,SUPPLIER_EMAIL, SUPPLIER_COUNTRY, ONLINE_SALE, SUPPLIER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
         preparedStatement.setInt(1, supplier.getId());
         preparedStatement.setString(2, supplier.getName());
-        preparedStatement.setBoolean(3, supplier.isOnlineSale());
+        preparedStatement.setString(3, supplier.getProduct());
+        preparedStatement.setString(4, supplier.getAddress());
+        preparedStatement.setString(5, supplier.getPhoneNumber());
+        preparedStatement.setString(6, supplier.getEmail());
+        preparedStatement.setString(7, supplier.getCountry().getName());
+        preparedStatement.setBoolean(8, supplier.isOnlineSale());
+        preparedStatement.setString(9, String.valueOf(supplier.getPerson().getId()));
         preparedStatement.execute();
         return supplier;
     }
@@ -37,11 +45,16 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //edit
     @Override
     public Supplier edit(Supplier supplier) throws Exception {
-        preparedStatement = connection.prepareStatement("UPDATE SUPPLIER SET SUPPLIER_NAME=?, SUPPLIER_MANAGER=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?, SUPPLIER_EMAIL=?, SUPPLIER_PHONE=?, COUNTRY_NAME=, ONLINE_SALE=? WHERE SUPPLIER_ID=? ");
-
-        preparedStatement.setInt(1, supplier.getId());
-        preparedStatement.setString(2, supplier.getName());
-        preparedStatement.setBoolean(3, supplier.isOnlineSale());
+        preparedStatement = connection.prepareStatement("UPDATE SUPPLIER SET SUPPLIER_NAME=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?,  SUPPLIER_PHONE=?,SUPPLIER_EMAIL=?, SUPPLIER_COUNTRY=, ONLINE_SALE=?, SUPPLIER_MANAGER=? WHERE SUPPLIER_ID=? ");
+        preparedStatement.setString(1, supplier.getName());
+        preparedStatement.setString(2, supplier.getProduct());
+        preparedStatement.setString(3, supplier.getAddress());
+        preparedStatement.setString(4, supplier.getPhoneNumber());
+        preparedStatement.setString(5, supplier.getEmail());
+        preparedStatement.setString(6, supplier.getCountry().getName());
+        preparedStatement.setBoolean(7, supplier.isOnlineSale());
+        preparedStatement.setString(8, String.valueOf(supplier.getPerson().getId()));
+        preparedStatement.setInt(9, supplier.getId());
         preparedStatement.execute();
         return supplier;
     }
@@ -68,7 +81,13 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
                     .builder()
                     .id(resultSet.getInt("SUPPLIER_ID"))
                     .name(resultSet.getString("SUPPLIER_NAME"))
+                    .product(resultSet.getString("SUPPLIER_PRODUCT"))
+                    .address(resultSet.getString("SUPPLIER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("SUPPLIER_PHONE"))
+                    .email(resultSet.getString("SUPPLIER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("SUPPLIER_COUNTRY")).build())
                     .onlineSale(resultSet.getBoolean("ONLINE_SALE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
 
             supplierList.add(supplier);
@@ -89,7 +108,13 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
                     .builder()
                     .id(resultSet.getInt("SUPPLIER_ID"))
                     .name(resultSet.getString("SUPPLIER_NAME"))
+                    .product(resultSet.getString("SUPPLIER_PRODUCT"))
+                    .address(resultSet.getString("SUPPLIER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("SUPPLIER_PHONE"))
+                    .email(resultSet.getString("SUPPLIER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("SUPPLIER_COUNTRY")).build())
                     .onlineSale(resultSet.getBoolean("ONLINE_SALE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
         }
         return supplier;
@@ -108,7 +133,13 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
                     .builder()
                     .id(resultSet.getInt("SUPPLIER_ID"))
                     .name(resultSet.getString("SUPPLIER_NAME"))
+                    .product(resultSet.getString("SUPPLIER_PRODUCT"))
+                    .address(resultSet.getString("SUPPLIER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("SUPPLIER_PHONE"))
+                    .email(resultSet.getString("SUPPLIER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("SUPPLIER_COUNTRY")).build())
                     .onlineSale(resultSet.getBoolean("ONLINE_SALE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
             supplierList.add(supplier);
         }

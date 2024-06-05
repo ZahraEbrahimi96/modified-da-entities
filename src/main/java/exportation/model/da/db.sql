@@ -151,7 +151,6 @@ create table SUPPLIER_TABLE
     SUPPLIER_ADDRESS nvarchar2(300),
     SUPPLIER_EMAIL   nvarchar2(250),
     SUPPLIER_PHONE   nvarchar2(30),
-    SUPPLIER_RATE    number,
     ONLINE_SALE      number(0)
 );
 

@@ -18,6 +18,9 @@ public abstract class Company {
     private String address;
     private String email;
     private String phoneNumber;
+    private Country country;
+    private Person person;
+
 
     @Override
     public String toString() {

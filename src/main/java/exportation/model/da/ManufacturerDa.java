@@ -1,6 +1,8 @@
 package exportation.model.da;
 
+import exportation.model.entity.Country;
 import exportation.model.entity.Manufacturer;
+import exportation.model.entity.Person;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 import lombok.extern.log4j.Log4j;
@@ -26,10 +28,16 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     public Manufacturer save(Manufacturer manufacturer) throws SQLException {
         manufacturer.setId(ConnectionProvider.getConnectionProvider().getNextId("MANUFACTURER_SEQ"));
 
-        preparedStatement = connection.prepareStatement("INSERT INTO MANUFACTURER (MANUFACTURER_ID, MANUFACTURER_NAME, MANUFACTURER_MANAGER, MANUFACTURER_PRODUCT, MANUFACTURER_ADDRESS, MANUFACTURER_EMAIL, MANUFACTURER_PHONE, COUNTRY_NAME, PRODUCTION_RATE) VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement = connection.prepareStatement("INSERT INTO MANUFACTURER (MANUFACTURER_ID, MANUFACTURER_NAME, MANUFACTURER_PRODUCT,MANUFACTURER_ADDRESS , MANUFACTURER_PHONE, MANUFACTURER_EMAIL, MANUFACTURER_COUNTRY, PRODUCTION_RATE,MANUFACTURER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
         preparedStatement.setInt(1, manufacturer.getId());
         preparedStatement.setString(2, manufacturer.getName());
-        preparedStatement.setInt(3, manufacturer.getProductionRate());
+        preparedStatement.setString(3, manufacturer.getProduct());
+        preparedStatement.setString(4, manufacturer.getAddress());
+        preparedStatement.setString(5, manufacturer.getPhoneNumber());
+        preparedStatement.setString(6, manufacturer.getEmail());
+        preparedStatement.setString(7, manufacturer.getCountry().getName());
+        preparedStatement.setInt(8, manufacturer.getProductionRate());
+        preparedStatement.setString(9, String.valueOf(manufacturer.getPerson().getId()));
         preparedStatement.execute();
         return manufacturer;
     }
@@ -37,11 +45,16 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     //edit
     @Override
     public Manufacturer edit(Manufacturer manufacturer) throws Exception {
-        preparedStatement = connection.prepareStatement("UPDATE MANUFACTURER SET MANUFACTURER_NAME=?, MANUFACTURER_MANAGER=?, MANUFACTURER_PRODUCT=?, MANUFACTURER_ADDRESS=?, MANUFACTURER_EMAIL=?, MANUFACTURER_PHONE=?, COUNTRY_NAME=, PRODUCTION_RATE=? WHERE MANUFACTURER_ID=? ");
-
-        preparedStatement.setInt(1, manufacturer.getId());
-        preparedStatement.setString(2, manufacturer.getName());
-        preparedStatement.setInt(3, manufacturer.getProductionRate());
+        preparedStatement = connection.prepareStatement("UPDATE MANUFACTURER SET MANUFACTURER_NAME=?, , MANUFACTURER_PRODUCT=?, MANUFACTURER_ADDRESS=?,MANUFACTURER_PHONE=?, MANUFACTURER_EMAIL=?,  MANUFACTURER_COUNTRY=, PRODUCTION_RATE=?,MANUFACTURER_MANAGER=? WHERE MANUFACTURER_ID=? ");
+        preparedStatement.setString(1, manufacturer.getName());
+        preparedStatement.setString(2, manufacturer.getProduct());
+        preparedStatement.setString(3, manufacturer.getAddress());
+        preparedStatement.setString(4, manufacturer.getPhoneNumber());
+        preparedStatement.setString(5, manufacturer.getEmail());
+        preparedStatement.setString(6, manufacturer.getCountry().getName());
+        preparedStatement.setInt(7, manufacturer.getProductionRate());
+        preparedStatement.setString(8, String.valueOf(manufacturer.getPerson().getId()));
+        preparedStatement.setInt(9, manufacturer.getId());
         preparedStatement.execute();
         return manufacturer;
     }
@@ -68,7 +81,13 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .builder()
                     .id(resultSet.getInt("MANUFACTURER_ID"))
                     .name(resultSet.getString("MANUFACTURER_NAME"))
+                    .product(resultSet.getString("MANUFACTURER_PRODUCT"))
+                    .address(resultSet.getString("MANUFACTURER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
+                    .email(resultSet.getString("MANUFACTURER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
                     .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
 
             manufacturerList.add(manufacturer);
@@ -89,7 +108,13 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .builder()
                     .id(resultSet.getInt("MANUFACTURER_ID"))
                     .name(resultSet.getString("MANUFACTURER_NAME"))
+                    .product(resultSet.getString("MANUFACTURER_PRODUCT"))
+                    .address(resultSet.getString("MANUFACTURER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
+                    .email(resultSet.getString("MANUFACTURER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
                     .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
         }
         return manufacturer;
@@ -108,7 +133,13 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .builder()
                     .id(resultSet.getInt("MANUFACTURER_ID"))
                     .name(resultSet.getString("MANUFACTURER_NAME"))
+                    .product(resultSet.getString("MANUFACTURER_PRODUCT"))
+                    .address(resultSet.getString("MANUFACTURER_ADDRESS"))
+                    .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
+                    .email(resultSet.getString("MANUFACTURER_EMAIL"))
+                    .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
                     .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
             manufacturerList.add(manufacturer);
         }
