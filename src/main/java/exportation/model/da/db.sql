@@ -61,7 +61,8 @@ create table ITEM_TABLE
     ITEM_ID             number primary key,
     PALLET_CAPACITY     number,
     ITEM_NAME           nvarchar2(40),
-    ITEM_BRAND          nvarchar2(40),CHECK ( ITEM_BRAND IN ( 'hipile' ,'carpile','handle','tino',)),
+    ITEM_BRAND          nvarchar2(40)
+        CHECK ( ITEM_BRAND IN ('hipile', 'carpile', 'handle', 'tino')),
     ITEM_MODEL          nvarchar2(40),
     DIMENSION_OF_UNIT   nvarchar2(40),
     DIMENSION_OF_PALLET nvarchar2(40),
@@ -102,11 +103,11 @@ create table EXPORTS_TABLE
 create table EXPORT_TRACING_TABLE
 (
     TRACING_ID             number primary key,
-    TRACING_LOADING_STATUS number(0),
+    TRACING_LOADING_STATUS char check (TRACING_LOADING_STATUS in (0, 1)),
     TRACING_INVOICE        nvarchar2(100),
     TRACING_WAYBILL        nvarchar2(100),
-    TRACING_PREPAYMENT     number(0),
-    TRACING_CHECKOUT       number(0)
+    TRACING_PREPAYMENT     char check (TRACING_PREPAYMENT in (0, 1)),
+    TRACING_CHECKOUT       char check (TRACING_CHECKOUT in (0, 1))
 );
 
 --INFO
@@ -125,9 +126,12 @@ CREATE TABLE ACCESS_PATH_TABLE
 (
     ACCESS_PATH_ID       number primary key,
     ACCESS_PATH_CITY     nvarchar2(20),
-    ACCESS_PATH_TYPE     nvarchar2(20),CHECK( ACCESS_PATH_TYPE IN ('air','rail','road','sea',)),
+    ACCESS_PATH_TYPE     nvarchar2(20),
+    CHECK ( ACCESS_PATH_TYPE IN ('air', 'rail', 'road', 'sea')),
     ACCESS_PATH_DISTANCE number,
-    ACCESS_NAVIGATION    nvarchar2(20) CHECK( ACCESS_NAVIGATION IN ('north','northeast','northwest','south','southeast','southwest','east','west';)),
+    ACCESS_NAVIGATION    nvarchar2(20) CHECK ( ACCESS_NAVIGATION IN
+                                               ('north', 'northeast', 'northwest', 'south', 'southeast', 'southwest',
+                                                'east', 'west'))
 );
 
 --MANUFACTURE
@@ -151,7 +155,7 @@ create table SUPPLIER_TABLE
     SUPPLIER_ADDRESS nvarchar2(300),
     SUPPLIER_EMAIL   nvarchar2(250),
     SUPPLIER_PHONE   nvarchar2(30),
-    ONLINE_SALE      number(0)
+    ONLINE_SALE      char check (ONLINE_SALE in (0, 1))
 );
 
 -- COUNTRY_MANUFACTURER
