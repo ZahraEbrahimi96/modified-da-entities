@@ -1,20 +1,25 @@
 package exportation.controller;
 import exportation.model.bl.ManufacturerBl;
+import exportation.model.entity.Country;
 import exportation.model.entity.Manufacturer;
+import exportation.model.entity.Person;
 
 import java.util.regex.Pattern;
 
 public class MnController {
-    public static void save (String name, String product, String address, String email, String phoneNumber, int productionRate) {
+    public static void save (String name, String product, String address, String email, Country counrty, String phoneNumber, int productionRate, Person person) {
         try {
             if(Pattern.matches("^[a-zA-Z\\s]{2,30}$",name)&& Pattern.matches("^[a-zA-Z\\s\\@]{200}$",email)&& Pattern.matches("^[a-zA-Z\\s]{300}$",address)) {
                 Manufacturer manufacturer = Manufacturer
                         .builder()
                         .name(name)
+                        .product(product)
                         .address(address)
-                        .email(email)
                         .phoneNumber(phoneNumber)
+                        .email(email)
+                        .country(counrty)
                         .productionRate(productionRate)
+                        .person(person)
                         .build();
                 ManufacturerBl.getManufacturerBl().save(manufacturer);
             }else{
@@ -26,17 +31,19 @@ public class MnController {
     }
 
 
-    public static void edit(int id, String name, String product, String address, String email, String phoneNumber, int productionRate) {
+    public static void edit(int id, String name, String product, String address, String email, Country counrty, String phoneNumber, int productionRate, Person person) {
         try {
             if(Pattern.matches("^[a-zA-Z\\s]{2,30}$",name)&& Pattern.matches("^[a-zA-Z\\s\\@]{200}$",email)&& Pattern.matches("^[a-zA-Z\\s]{300}$",address)) {
                 Manufacturer manufacturer = Manufacturer
                         .builder()
-                        .id(id)
                         .name(name)
+                        .product(product)
                         .address(address)
-                        .email(email)
                         .phoneNumber(phoneNumber)
+                        .email(email)
+                        .country(counrty)
                         .productionRate(productionRate)
+                        .person(person)
                         .build();
                 ManufacturerBl.getManufacturerBl().edit(manufacturer);
             }else{
@@ -63,12 +70,14 @@ public class MnController {
 //            List<Manufacturer> manufacturerList = new ArrayList<>();
 //            Manufacturer manufacturer = Manufacturer
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .productionRate(productionRate)
+//                        .person(person)
 //                        .build();
 //            manufacturerList.add(manufacturer);
 //             ManufacturerBl.getManufacturerBl().findAll();
@@ -87,12 +96,14 @@ public class MnController {
 //
 //            Manufacturer manufacturer = Manufacturer
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .productionRate(productionRate)
+//                        .person(person)
 //                        .build();
 //            manufacturer.setId(id);
 //
@@ -109,12 +120,14 @@ public class MnController {
 //            List<Manufacturer> manufacturerList = new ArrayList<>();
 //            Manufacturer manufacturer = Manufacturer
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .productionRate(productionRate)
+//                        .person(person)
 //                        .build();
 //            manufacturerList.add(manufacturer);
 //             ManufacturerBl.getManufacturerBl().findByName();

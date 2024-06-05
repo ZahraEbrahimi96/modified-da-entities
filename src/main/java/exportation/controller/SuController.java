@@ -1,20 +1,25 @@
 package exportation.controller;
 import exportation.model.bl.SupplierBl;
+import exportation.model.entity.Country;
+import exportation.model.entity.Person;
 import exportation.model.entity.Supplier;
 
 import java.util.regex.Pattern;
 
 public class SuController {
-    public static void save (String name, String product, String address, String email, String phoneNumber, boolean onlineSale) {
+    public static void save (String name, String product, String address, String email,Country counrty, String phoneNumber, boolean onlineSale, Person person) {
         try {
             if(Pattern.matches("^[a-zA-Z\\s]{2,30}$",name)&& Pattern.matches("^[a-zA-Z\\s\\@]{200}$",email)&& Pattern.matches("^[a-zA-Z\\s]{300}$",address)) {
                 Supplier supplier = Supplier
                         .builder()
                         .name(name)
+                        .product(product)
                         .address(address)
-                        .email(email)
                         .phoneNumber(phoneNumber)
+                        .email(email)
+                        .country(counrty)
                         .onlineSale(onlineSale)
+                        .person(person)
                         .build();
                 SupplierBl.getSupplierBl().save(supplier);
             }else{
@@ -26,17 +31,19 @@ public class SuController {
     }
 
 
-    public static void edit(int id, String name, String product, String address, String email, String phoneNumber, boolean onlineSale) {
+    public static void edit(int id, String name, String product, String address, String email,Country counrty, String phoneNumber, boolean onlineSale, Person person) {
         try {
             if(Pattern.matches("^[a-zA-Z\\s]{2,30}$",name)&& Pattern.matches("^[a-zA-Z\\s\\@]{200}$",email)&& Pattern.matches("^[a-zA-Z\\s]{300}$",address)) {
                 Supplier supplier = Supplier
                         .builder()
-                        .id(id)
                         .name(name)
+                        .product(product)
                         .address(address)
-                        .email(email)
                         .phoneNumber(phoneNumber)
+                        .email(email)
+                        .country(counrty)
                         .onlineSale(onlineSale)
+                        .person(person)
                         .build();
                 SupplierBl.getSupplierBl().edit(supplier);
             }else{
@@ -63,12 +70,14 @@ public class SuController {
 //            List<Supplier> supplierList = new ArrayList<>();
 //            Supplier supplier = Supplier
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .onlineSale(onlineSale)
+//                        .person(person)
 //                        .build();
 //            supplierList.add(supplier);
 //             SupplierBl.getSupplierBl().findAll();
@@ -87,12 +96,14 @@ public class SuController {
 //
 //            Supplier supplier = Supplier
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .onlineSale(onlineSale)
+//                        .person(person)
 //                        .build();
 //            supplier.setId(id);
 //
@@ -109,12 +120,14 @@ public class SuController {
 //            List<Supplier> supplierList = new ArrayList<>();
 //            Supplier supplier = Supplier
 //                        .builder()
-//                        .id(id)
 //                        .name(name)
+//                        .product(product)
 //                        .address(address)
-//                        .email(email)
 //                        .phoneNumber(phoneNumber)
+//                        .email(email)
+//                        .country(counrty)
 //                        .onlineSale(onlineSale)
+//                        .person(person)
 //                        .build();
 //            supplierList.add(supplier);
 //             SupplierBl.getSupplierBl().findByName();
