@@ -1,7 +1,9 @@
 package exportation.test;
 
+import exportation.controller.PnController;
 import exportation.model.bl.PersonBl;
 import exportation.model.entity.Person;
+import exportation.model.entity.enums.Gender;
 
 //package exportation.test;
 //
@@ -14,9 +16,12 @@ import exportation.model.entity.Person;
 //
 public class PersonTest {
     public static void main(String[] args) throws Exception {
-        System.out.println(PersonBl.getPersonBl().save(
-                Person.builder().name("ali").family("alipour").build()
-        ));
+
+        PnController.save("ali","alipur","safsgdjt@jbyu.","2211336655","1234567899","modir","hivuheoismecsol",Gender.male);
+
+//        System.out.println(PersonBl.getPersonBl().save(
+//                Person.builder().name("ali").family("alipour").build()));
+
 
 //        Person->Company>Item>Country>Company>Tax
 
