@@ -24,7 +24,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (PAYMENT_ID,PAYMENT_TOTALCOST,PAYMENT_TAX,PAYMENT_INSURANCE,PAYMENT_COST,PAYMENT_FREIGHT,PAYMENT_TARIFF) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (PAYMENT_ID,PAYMENT_TOTAL_COST,PAYMENT_TAX,PAYMENT_INSURANCE,PAYMENT_COST,PAYMENT_FREIGHT,PAYMENT_TARIFF) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setLong(2, payment.getTotalCost());

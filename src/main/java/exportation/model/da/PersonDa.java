@@ -24,17 +24,17 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person save(Person person) throws Exception {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("PERSON_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON (person_id,person_name,person_family,person_email,person_phoneNumber,person_nationalId,person_position,person_address,person_gender) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON (PERSON_ID,PERSON_NAME,PERSON_FAMILY,PERSON_GENDER,NATIONAL_ID,PERSON_PHONE_NUMBER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
         preparedStatement.setString(3, person.getFamily());
-        preparedStatement.setString(4, person.getEmail());
-        preparedStatement.setString(5, person.getPhoneNumber());
-        preparedStatement.setString(6, person.getNationalId());
-        preparedStatement.setString(7, person.getPosition());
+        preparedStatement.setString(4, person.getGender().toString());
+        preparedStatement.setString(5, person.getNationalId());
+        preparedStatement.setString(6, person.getPhoneNumber());
+        preparedStatement.setString(7, person.getEmail());
         preparedStatement.setString(8, person.getAddress());
-        preparedStatement.setString(9, person.getGender().toString());
+        preparedStatement.setString(9, person.getPosition());
         preparedStatement.execute();
         return person;
     }
@@ -43,17 +43,17 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON SET person_name=?, person_family=?, person_email=?, person_phoneNumber=?, person_nationalId=?,person_position=?,person_address=?,person_gender=?, WHERE person_id=?"
+                "UPDATE PERSON SET PERSON_NAME=?, PERSON_FAMILY=?, PERSON_GENDER=?, NATIONAL_ID=?, PERSON_PHONE_NUMBER=?,PERSON_EMAIL=?,PERSON_ADDRESS=?,PERSON_POSITION=?, WHERE PERSON_ID=?"
         );
-        preparedStatement.setInt(1, person.getId());
-        preparedStatement.setString(2, person.getName());
-        preparedStatement.setString(3, person.getFamily());
-        preparedStatement.setString(4, person.getEmail());
+        preparedStatement.setString(1, person.getName());
+        preparedStatement.setString(2, person.getFamily());
+        preparedStatement.setString(3, person.getGender().toString());
+        preparedStatement.setString(4, person.getNationalId());
         preparedStatement.setString(5, person.getPhoneNumber());
-        preparedStatement.setString(6, person.getNationalId());
-        preparedStatement.setString(7, person.getPosition());
-        preparedStatement.setString(8, person.getAddress());
-        preparedStatement.setString(9, person.getGender().toString());
+        preparedStatement.setString(6, person.getEmail());
+        preparedStatement.setString(7, person.getAddress());
+        preparedStatement.setString(8, person.getPosition());
+        preparedStatement.setInt(9, person.getId());
         preparedStatement.execute();
         return person;
     }
@@ -82,12 +82,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
-                    .email(resultSet.getString("EMAIL"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .position(resultSet.getString("POSITION"))
-                    .address(resultSet.getString("ADDRESS"))
                     .gender(resultSet.getObject("GENDER", Gender.class))
+                    .nationalId(resultSet.getString("NATIONALID"))
+                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .email(resultSet.getString("EMAIL"))
+                    .address(resultSet.getString("ADDRESS"))
+                    .position(resultSet.getString("POSITION"))
                     .build();
 
             personList.add(person);
@@ -109,12 +109,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
-                    .email(resultSet.getString("EMAIL"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .position(resultSet.getString("POSITION"))
-                    .address(resultSet.getString("ADDRESS"))
                     .gender(resultSet.getObject("GENDER", Gender.class))
+                    .nationalId(resultSet.getString("NATIONALID"))
+                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .email(resultSet.getString("EMAIL"))
+                    .address(resultSet.getString("ADDRESS"))
+                    .position(resultSet.getString("POSITION"))
                     .build();
         }
         return person;
@@ -133,12 +133,12 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .family(resultSet.getString("FAMILY"))
-                    .email(resultSet.getString("EMAIL"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .position(resultSet.getString("POSITION"))
-                    .address(resultSet.getString("ADDRESS"))
                     .gender(resultSet.getObject("GENDER", Gender.class))
+                    .nationalId(resultSet.getString("NATIONALID"))
+                    .phoneNumber(resultSet.getString("PHONENUMBER"))
+                    .email(resultSet.getString("EMAIL"))
+                    .address(resultSet.getString("ADDRESS"))
+                    .position(resultSet.getString("POSITION"))
                     .build();
             personList.add(person);
         }
