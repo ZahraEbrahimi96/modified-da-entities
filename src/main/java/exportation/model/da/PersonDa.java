@@ -1,6 +1,7 @@
 package exportation.model.da;
 
 import exportation.model.entity.Person;
+import exportation.model.entity.User;
 import exportation.model.entity.enums.Gender;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
@@ -24,7 +25,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person save(Person person) throws Exception {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("PERSON_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON (PERSON_ID,PERSON_NAME,PERSON_FAMILY,PERSON_GENDER,NATIONAL_ID,PERSON_PHONE_NUMBER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON_TABLE (PERSON_ID,PERSON_NAME,PERSON_FAMILY,PERSON_GENDER,NATIONAL_ID,PERSON_PHONE_NUMBER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION,USER_ID) VALUES (?,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
@@ -35,6 +36,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(7, person.getEmail());
         preparedStatement.setString(8, person.getAddress());
         preparedStatement.setString(9, person.getPosition());
+        preparedStatement.setInt(10, person.getUser().getId());
         preparedStatement.execute();
         return person;
     }
@@ -43,7 +45,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON SET PERSON_NAME=?, PERSON_FAMILY=?, PERSON_GENDER=?, NATIONAL_ID=?, PERSON_PHONE_NUMBER=?,PERSON_EMAIL=?,PERSON_ADDRESS=?,PERSON_POSITION=?, WHERE PERSON_ID=?"
+                "UPDATE PERSON_TABLE SET PERSON_NAME=?, PERSON_FAMILY=?, PERSON_GENDER=?, NATIONAL_ID=?, PERSON_PHONE_NUMBER=?,PERSON_EMAIL=?,PERSON_ADDRESS=?,PERSON_POSITION=?,USER_ID=? WHERE PERSON_ID=?"
         );
         preparedStatement.setString(1, person.getName());
         preparedStatement.setString(2, person.getFamily());
@@ -53,7 +55,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(6, person.getEmail());
         preparedStatement.setString(7, person.getAddress());
         preparedStatement.setString(8, person.getPosition());
-        preparedStatement.setInt(9, person.getId());
+        preparedStatement.setInt(9, person.getUser().getId());
+        preparedStatement.setInt(10, person.getId());
         preparedStatement.execute();
         return person;
     }
@@ -62,7 +65,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM PERSON WHERE ID=?"
+                "DELETE FROM PERSON_TABLE WHERE PERSON_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -73,7 +76,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public List<Person> findAll() throws Exception {
         List<Person> personList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON_TABLE ORDER BY PERSON_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -88,6 +91,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("EMAIL"))
                     .address(resultSet.getString("ADDRESS"))
                     .position(resultSet.getString("POSITION"))
+                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
 
             personList.add(person);
@@ -99,7 +103,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     //FindById
     @Override
     public Person findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON WHERE ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON_TABLE WHERE PERSON_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Person person = null;
@@ -115,6 +119,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("EMAIL"))
                     .address(resultSet.getString("ADDRESS"))
                     .position(resultSet.getString("POSITION"))
+                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
         }
         return person;
@@ -123,7 +128,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     //FindByFamily
     public List<Person> findByFamily(String family) throws Exception {
         List<Person> personList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON WHERE FAMILY LIKE? ORDER BY ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON_TABLE WHERE FAMILY LIKE? ORDER BY PERSON_ID");
         preparedStatement.setString(1, family + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -139,6 +144,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
                     .email(resultSet.getString("EMAIL"))
                     .address(resultSet.getString("ADDRESS"))
                     .position(resultSet.getString("POSITION"))
+                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
             personList.add(person);
         }

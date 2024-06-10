@@ -11,7 +11,7 @@ public class PersonTest {
 
 
         User user = User.builder()
-                .username("zahra")
+                .name("zahra")
                 .password("zahra123")
                 .enabled(true)
                 .build();

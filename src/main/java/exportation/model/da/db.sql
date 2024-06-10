@@ -9,15 +9,16 @@ create table PERSON_TABLE
     PERSON_PHONE_NUMBER nvarchar2(11),
     PERSON_EMAIL        nvarchar2(300),
     PERSON_ADDRESS      nvarchar2(300),
-    PERSON_POSITION     nvarchar2(30)
+    PERSON_POSITION     nvarchar2(30),
+    USER_ID references USER_TABLE
 );
 create sequence PERSON_SEQ start with 1 increment by 1;
 
 --USER
 create table USER_TABLE
 (
-    USER_ID  number primary key,
-    USER_NAME nvarchar2(30) unique,
+    USER_ID       number primary key,
+    USER_NAME     nvarchar2(30) unique,
     USER_PASSWORD nvarchar2(30),
     USER_ENABLED  number(1)
 );

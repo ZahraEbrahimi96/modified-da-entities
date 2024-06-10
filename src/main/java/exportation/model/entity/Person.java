@@ -22,10 +22,11 @@ public class Person {
     private String position;
     private String address;
     private Gender gender;
+    private User user;
 
-    public static String getNameAndFamily(String name, String family){
-        return name + family;
-    }
+//    public static String getNameAndFamily(String name, String family) {
+//        return name + family;
+//    }
 
     @Override
     public String toString() {
