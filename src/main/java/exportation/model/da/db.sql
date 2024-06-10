@@ -12,6 +12,7 @@ create table PERSON_TABLE
     PERSON_POSITION     nvarchar2(30)
 );
 create sequence PERSON_SEQ start with 1 increment by 1;
+
 --COUNTRY
 create table COUNTRY_TABLE
 (
@@ -21,6 +22,7 @@ create table COUNTRY_TABLE
     COUNTRY_RELATEDMARKET nvarchar2(30)
 );
 create sequence COUNTRY_SEQ start with 1 increment by 1;
+
 --COMPANY
 create table COMPANY_TABLE
 (
@@ -31,7 +33,8 @@ create table COMPANY_TABLE
     COMPANY_EMAIL        nvarchar2(30),
     COMPANY_PHONE_NUMBER nvarchar2(11)
 );
-create sequence PERSON_SEQ start with 1 increment by 1;
+create sequence COMPANY_SEQ start with 1 increment by 1;
+
 --TRADE
 create table TRADE_TABLE
 (
@@ -42,7 +45,8 @@ create table TRADE_TABLE
     TRADE_AGREEMENT       nvarchar2(500),
     TRADE_INVOICE         nvarchar2(500)
 );
-create sequence COMPANY_SEQ start with 1 increment by 1;
+create sequence TRADE_SEQ start with 1 increment by 1;
+
 --PAYMENT
 create table PAYMENT_TABLE
 (
@@ -55,6 +59,7 @@ create table PAYMENT_TABLE
     PAYMENT_TARIFF references INFO_TABLE
 );
 create sequence PAYMENT_SEQ start with 1 increment by 1;
+
 --ITEM
 create table ITEM_TABLE
 (
@@ -72,6 +77,7 @@ create table ITEM_TABLE
     ITEM_COST           number
 );
 create sequence ITEM_SEQ start with 1 increment by 1;
+
 --TRANSPORTATION
 create table TRANSPORTATION_TABLE
 (
@@ -81,6 +87,7 @@ create table TRANSPORTATION_TABLE
     TRANSPORTATION_FREIGHT   number
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
+
 --IMPORTS
 create table IMPORTS_TABLE
 (
@@ -90,6 +97,7 @@ create table IMPORTS_TABLE
     IMPORTS_USD_VALUE number
 );
 create sequence IMPORTS_SEQ start with 1 increment by 1;
+
 --EXPORTS
 create table EXPORTS_TABLE
 (
@@ -99,6 +107,7 @@ create table EXPORTS_TABLE
     EXPORTS_USD_VALUE number
 );
 create sequence EXPORTS_SEQ start with 1 increment by 1;
+
 --EXPORT_TRACING
 create table EXPORT_TRACING_TABLE
 (
@@ -110,6 +119,7 @@ create table EXPORT_TRACING_TABLE
     TRACING_CHECKOUT       char check (TRACING_CHECKOUT in (0, 1))
 );
 create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
+
 --INFO
 create table INFO_TABLE
 (
@@ -121,6 +131,7 @@ create table INFO_TABLE
     INFO_TARIFF     nvarchar2(4)
 );
 create sequence INFO_SEQ start with 1 increment by 1;
+
 --ACCESSPATH
 CREATE TABLE ACCESS_PATH_TABLE
 (
@@ -134,6 +145,7 @@ CREATE TABLE ACCESS_PATH_TABLE
                                                 'east', 'west'))
 );
 create sequence ACCESSPATH_SEQ start with 1 increment by 1;
+
 --MANUFACTURE
 create table MANUFACTURER_TABLE
 (
@@ -146,6 +158,7 @@ create table MANUFACTURER_TABLE
     PRODUCTION_RATE      number
 );
 create sequence MANUFACTURE_SEQ start with 1 increment by 1;
+
 --SUPPLIER
 create table SUPPLIER_TABLE
 (
@@ -158,3 +171,4 @@ create table SUPPLIER_TABLE
     ONLINE_SALE      char check (ONLINE_SALE in (0, 1))
 );
 create sequence SUPPLIER_SEQ start with 1 increment by 1;
+
