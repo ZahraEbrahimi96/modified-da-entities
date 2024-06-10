@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 
 
 public class Manufacturer extends Company {
-    private int productionRate;
+    private long productionRate;
 
     @Override
     public String toString() {

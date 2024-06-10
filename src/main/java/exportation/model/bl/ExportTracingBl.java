@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoExportTracingFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoExportTracingFoundException;
 import exportation.model.da.ExportTracingDa;
 import exportation.model.entity.ExportTracing;
 import exportation.model.tools.CRUD;

@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoSupplierFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoSupplierFoundException;
 import exportation.model.da.SupplierDa;
 import exportation.model.entity.Supplier;
 import exportation.model.tools.CRUD;

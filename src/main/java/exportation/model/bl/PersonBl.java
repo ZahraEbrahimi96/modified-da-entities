@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoPersonFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoPersonFoundException;
 import exportation.model.da.PersonDa;
 import exportation.model.entity.Person;
 import exportation.model.tools.CRUD;

@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoTransportationFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoTransportationFoundException;
 import exportation.model.da.TransportationDa;
 import exportation.model.entity.Transportation;
 import exportation.model.tools.CRUD;

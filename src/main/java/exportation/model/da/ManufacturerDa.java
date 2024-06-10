@@ -36,7 +36,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
         preparedStatement.setString(5, manufacturer.getPhoneNumber());
         preparedStatement.setString(6, manufacturer.getEmail());
         preparedStatement.setString(7, manufacturer.getCountry().getName());
-        preparedStatement.setInt(8, manufacturer.getProductionRate());
+        preparedStatement.setLong(8, manufacturer.getProductionRate());
         preparedStatement.setString(9, String.valueOf(manufacturer.getPerson().getId()));
         preparedStatement.execute();
         return manufacturer;
@@ -52,7 +52,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
         preparedStatement.setString(4, manufacturer.getPhoneNumber());
         preparedStatement.setString(5, manufacturer.getEmail());
         preparedStatement.setString(6, manufacturer.getCountry().getName());
-        preparedStatement.setInt(7, manufacturer.getProductionRate());
+        preparedStatement.setLong(7, manufacturer.getProductionRate());
         preparedStatement.setString(8, String.valueOf(manufacturer.getPerson().getId()));
         preparedStatement.setInt(9, manufacturer.getId());
         preparedStatement.execute();
@@ -86,7 +86,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
                     .email(resultSet.getString("MANUFACTURER_EMAIL"))
                     .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
-                    .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .productionRate(resultSet.getLong("PRODUCTION_RATE"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
 
@@ -113,7 +113,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
                     .email(resultSet.getString("MANUFACTURER_EMAIL"))
                     .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
-                    .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .productionRate(resultSet.getLong("PRODUCTION_RATE"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
         }
@@ -138,7 +138,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
                     .phoneNumber(resultSet.getString("MANUFACTURER_PHONE"))
                     .email(resultSet.getString("MANUFACTURER_EMAIL"))
                     .country(Country.builder().name(resultSet.getString("MANUFACTURER_COUNTRY")).build())
-                    .productionRate(resultSet.getInt("PRODUCTION_RATE"))
+                    .productionRate(resultSet.getLong("PRODUCTION_RATE"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .build();
             manufacturerList.add(manufacturer);

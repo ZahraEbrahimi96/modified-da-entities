@@ -16,7 +16,14 @@ public class Payment {
     private float insurance;
     private Item item;
     private Transportation transportation;
-    private Info info;
+    private Country country;
+
+
+
+    public static long cif (float cost,int amper,int palletCapacity, float insurance , float freight ){
+
+       return (long) ((cost * amper * palletCapacity) + insurance + freight);
+    }
 
     @Override
     public String toString() {

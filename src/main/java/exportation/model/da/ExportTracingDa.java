@@ -25,7 +25,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
         exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORTTRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING (EXPORT_ID, EXPORT_LODINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT, EXPORT_TRANSPORT_ID, EXPORT_TRADE_ID) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO EXPORTTRACING (EXPORT_ID, EXPORT_LOADINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT, EXPORT_TRANSPORT_ID, EXPORT_TRADE_ID) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, exportTracing.getId());
         preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
@@ -42,7 +42,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING SET EXPORT_LODINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, EXPORT_TRANSPORT_ID=?, EXPORT_TRADE_ID=?, WHERE EXPORT_ID=?"
+                "UPDATE EXPORTTRACING SET EXPORT_LOADINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, EXPORT_TRANSPORT_ID=?, EXPORT_TRADE_ID=?, WHERE EXPORT_ID=?"
         );
         preparedStatement.setBoolean(1, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(2, exportTracing.isPrePayment());
@@ -77,7 +77,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
             ExportTracing exportTracing = ExportTracing
                     .builder()
                     .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
+                    .loadingStatus(resultSet.getBoolean("LOADINGSTATUS"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
                     .transportation(Transportation.builder().id(resultSet.getInt("EXPORT_TRANSPORT_ID")).build())
@@ -101,7 +101,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
             exportTracing = ExportTracing
                     .builder()
                     .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
+                    .loadingStatus(resultSet.getBoolean("LOADINGSTATUS"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
                     .transportation(Transportation.builder().id(resultSet.getInt("EXPORT_TRANSPORT_ID")).build())

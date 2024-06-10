@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoTradeFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoTradeFoundException;
 import exportation.model.da.TradeDa;
 import exportation.model.entity.Trade;
 import exportation.model.tools.CRUD;

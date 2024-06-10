@@ -1,9 +1,6 @@
 package exportation.model.da;
 
-import exportation.model.entity.Info;
-import exportation.model.entity.Item;
-import exportation.model.entity.Payment;
-import exportation.model.entity.Transportation;
+import exportation.model.entity.*;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
 
@@ -24,14 +21,14 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (PAYMENT_ID, PAYMENT_TAX, PAYMENT_INSURANCE, PAYMENT_COST, PAYMENT_FREIGHT, PAYMENT_TARIFF) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (PAYMENT_ID, PAYMENT_TAX, PAYMENT_INSURANCE, PAYMENT_ITEM, PAYMENT_FREIGHT, PAYMENT_TARIFF) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setFloat(2, payment.getTax());
         preparedStatement.setFloat(3, payment.getInsurance());
-        preparedStatement.setFloat(4, payment.getItem().getCost());
+        preparedStatement.setInt(4, payment.getItem().getId());
         preparedStatement.setFloat(5, payment.getTransportation().getFreight());
-        preparedStatement.setString(6, payment.getInfo().getTariff());
+        preparedStatement.setInt(6, payment.getCountry().getTariff());
         preparedStatement.execute();
         return payment;
     }
@@ -40,14 +37,14 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT SET  PAYMENT_TAX=?, PAYMENT_INSURANCE=?, PAYMENT_COST=?, PAYMENT_FREIGHT=?,PAYMENT_TARIF=?, WHERE PAYMENT_ID=?"
+                "UPDATE PAYMENT SET  PAYMENT_TAX=?, PAYMENT_INSURANCE=?, PAYMENT_ITEM=?, PAYMENT_FREIGHT=?,PAYMENT_TARIF=?, WHERE PAYMENT_ID=?"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setFloat(3, payment.getTax());
         preparedStatement.setFloat(4, payment.getInsurance());
-        preparedStatement.setFloat(5, payment.getItem().getCost());
+        preparedStatement.setInt(4, payment.getItem().getId());
         preparedStatement.setFloat(6, payment.getTransportation().getFreight());
-        preparedStatement.setString(7, payment.getInfo().getTariff());
+        preparedStatement.setInt(6, payment.getCountry().getTariff());
         preparedStatement.execute();
         return payment;
     }
@@ -76,9 +73,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .id(resultSet.getInt("ID"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
-                    .info(Info.builder().id(resultSet.getInt("INFO_ID")).build())
-                    .transportation(Transportation.builder().id(resultSet.getInt("TRANSPORT_ID")).build())
+                    .item(Item.builder().id(resultSet.getInt("ITEM")).build())
+                    .country(Country.builder().tariff(resultSet.getInt("TARIFF")).build())
+                    .transportation(Transportation.builder().freight(resultSet.getInt("FREIGHT")).build())
                     .build();
 
             paymentList.add(payment);
@@ -100,9 +97,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .id(resultSet.getInt("ID"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
-                    .item(resultSet.getObject("ITEM", Item.class))
-                    .info(resultSet.getObject("INFO", Info.class))
-                    .transportation(resultSet.getObject("TRANSPORTATION", Transportation.class))
+                    .item(Item.builder().id(resultSet.getInt("ITEM")).build())
+                    .country(Country.builder().tariff(resultSet.getInt("TARIFF")).build())
+                    .transportation(Transportation.builder().freight(resultSet.getInt("FREIGHT")).build())
                     .build();
         }
         return payment;

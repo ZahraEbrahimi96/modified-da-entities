@@ -1,0 +1,154 @@
+package exportation.controller;
+
+import exportation.model.bl.ItemBl;
+import exportation.model.entity.Item;
+import exportation.model.entity.enums.Brand;
+
+import java.util.regex.Pattern;
+
+public class ItemController {
+    public static void save(String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet,int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet, int amper) {
+        try {
+            if(Pattern.matches("^[a-zA-Z\\s]{5,40}$",name)&& Pattern.matches("^[H + \\d + L +\\d + w +\\d]$",dimensionOfUnite)&&Pattern.matches("^[H + \\d + L +\\d + w +\\d]$",dimensionOfPallet)) {
+                Item item = Item
+                        .builder()
+                        .name(name)
+                        .brand(brand)
+                        .model(model)
+                        .dimensionOfUnite(dimensionOfUnite)
+                        .dimensionOfPallet(dimensionOfPallet)
+                        .palletCapacity(palletCapacity)
+                        .cost(cost)
+                        .Hs_Code(Hs_Code)
+                        .weightOfUnit(weightOfUnit)
+                        .weightOfPallet(weightOfPallet)
+                        .amper(amper)
+                        .build();
+                ItemBl.getItemBl().save(item);
+            }else {
+                System.out.println("Invalid Data");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    public static void edit(int id, String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet,int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet, int amper) {
+        try {
+            if(Pattern.matches("^[a-zA-Z\\s]{5,40}$",name)&& Pattern.matches("^[H + \\d + L +\\d + w +\\d]$",dimensionOfUnite)&&Pattern.matches("^[H + \\d + L +\\d + w +\\d]$",dimensionOfPallet)) {
+                Item item = Item
+                        .builder()
+                        .name(name)
+                        .brand(brand)
+                        .model(model)
+                        .dimensionOfUnite(dimensionOfUnite)
+                        .dimensionOfPallet(dimensionOfPallet)
+                        .palletCapacity(palletCapacity)
+                        .cost(cost)
+                        .Hs_Code(Hs_Code)
+                        .weightOfUnit(weightOfUnit)
+                        .weightOfPallet(weightOfPallet)
+                        .amper(amper)
+                        .build();
+                ItemBl.getItemBl().edit(item);
+            }else {
+                System.out.println("Invalid Data");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void remove(int id) {
+        try {
+            Item item = new Item();
+            item.setId(id);
+            ItemBl.getItemBl().remove(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+//    public static String findAll() {
+//        try {
+//
+//            List<Item> itemList = new ArrayList<>();
+//            Item item = Item
+//                   .builder()
+//                        .name(name)
+//                        .brand(brand)
+//                        .model(model)
+//                        .dimensionOfUnite(dimensionOfUnite)
+//                        .dimensionOfPallet(dimensionOfPallet)
+//                        .palletCapacity(palletCapacity)
+//                        .cost(cost)
+//                        .Hs_Code(Hs_Code)
+//                        .weightOfUnit(weightOfUnit)
+//                        .weightOfPallet(weightOfPallet)
+//                        .amper(amper)
+//                        .build();
+//            itemList.add(item);
+//            ItemBl.getItemBl().findAll();
+//            Gson gson = new Gson();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return itemList;
+//    }
+//
+//
+//    public String findById (int id) {
+//        try {
+//            List<Item> itemList = new ArrayList<>();
+//            Item item = Item
+//                    .builder()
+//                        .name(name)
+//                        .brand(brand)
+//                        .model(model)
+//                        .dimensionOfUnite(dimensionOfUnite)
+//                        .dimensionOfPallet(dimensionOfPallet)
+//                        .palletCapacity(palletCapacity)
+//                        .cost(cost)
+//                        .Hs_Code(Hs_Code)
+//                        .weightOfUnit(weightOfUnit)
+//                        .weightOfPallet(weightOfPallet)
+//                        .amper(amper)
+//                        .build();
+//            item.setId(id);
+//            ItemBl.getItemBl().findById();
+//
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//          return itemList.get(id);
+//    }
+
+//   public String findByName (String name) {
+//        try {
+//            List<Item> itemList = new ArrayList<>();
+//            Item item = Item
+//                    .builder()
+//                        .name(name)
+//                        .brand(brand)
+//                        .model(model)
+//                        .dimensionOfUnite(dimensionOfUnite)
+//                        .dimensionOfPallet(dimensionOfPallet)
+//                        .palletCapacity(palletCapacity)
+//                        .cost(cost)
+//                        .Hs_Code(Hs_Code)
+//                        .weightOfUnit(weightOfUnit)
+//                        .weightOfPallet(weightOfPallet)
+//                        .amper(amper)
+//                        .build();
+//            item.setId(id);
+//            ItemBl.getItemBl().findByName();
+//
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//          return itemList.get(id);
+//    }
+}

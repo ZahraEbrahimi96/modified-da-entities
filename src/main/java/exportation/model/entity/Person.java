@@ -23,6 +23,9 @@ public class Person {
     private String address;
     private Gender gender;
 
+    public static String getNameAndFamily(String name, String family){
+        return name + family;
+    }
 
     @Override
     public String toString() {

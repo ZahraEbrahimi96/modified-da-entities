@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoManufacturerFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoManufacturerFoundException;
 import exportation.model.da.ManufacturerDa;
 import exportation.model.entity.Manufacturer;
 import exportation.model.tools.CRUD;

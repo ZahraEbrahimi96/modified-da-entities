@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoPaymentFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoPaymentFoundException;
 import exportation.model.da.PaymentDa;
 import exportation.model.entity.Payment;
 import exportation.model.tools.CRUD;
@@ -59,7 +59,7 @@ public class PaymentBl implements CRUD<Payment> {
 
             for (Payment payment : paymentList) {
                 payment.setItem(ItemBl.getItemBl().findById(payment.getItem().getId()));
-                payment.setInfo(InfoBl.getInfoBl().findById(payment.getInfo().getId()));
+                payment.setCountry(CountryBl.getCountryBl().findById(payment.getCountry().getId()));
                 payment.setTransportation(TransportationBl.getTransportationBl().findById(payment.getTransportation().getId()));
             }
 
