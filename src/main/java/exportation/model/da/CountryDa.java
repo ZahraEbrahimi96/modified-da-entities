@@ -23,7 +23,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     public Country save(Country country) throws Exception {
         country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COUNTRY (COUNTRY_ID,COUNTRY_NAME,COUNTRY_PHONE_CODE,COUNTRY_SUPPLIER,COUNTRY_MANUFACTURER,COUNTRY_INFO) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO COUNTRY(COUNTRY_ID,COUNTRY_NAME , COUNTRY_PHONE_CODE,COUNTRY_SUPPLIER,COUNTRY_MANUFACTURER,COUNTRY_INFO) VALUES (?,?,?,?,?,?) "
         );
         preparedStatement.setInt(1, country.getId());
         preparedStatement.setString(2, country.getName());
