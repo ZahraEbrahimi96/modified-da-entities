@@ -17,7 +17,7 @@ public class Info {
     private long carRate;
     private String climate;
 //    private AccessPath accessPath;
-    private String lifeExpectancy;
+    private String lifeExpectancy;//mitune hazf she
     private String demand;
     private String tariff;
 //    private ArrayList<String> neighbors;
