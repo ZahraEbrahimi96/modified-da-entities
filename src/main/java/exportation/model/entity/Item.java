@@ -23,10 +23,12 @@ public class Item {
     private float cost;
     private float weightOfUnit;
     private float weightOfPallet;
+    private int amper;
 
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
+
 }

@@ -12,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Payment {
     private int id;
-    private long totalCost;
     private float tax;
     private float insurance;
     private Item item;

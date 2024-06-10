@@ -15,8 +15,8 @@ public class ExportTracing implements Serializable {
     private boolean loadingStatus;
     private boolean prePayment;
     private boolean checkout;
-    private String waybill;
-    private String invoice;
+    private Transportation transportation;
+    private Trade trade;
 
 
     @Override

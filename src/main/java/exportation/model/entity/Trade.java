@@ -13,12 +13,12 @@ import lombok.experimental.SuperBuilder;
 
 public class Trade {
     private int id;
-    private String client;
+    private Person person;
     private String status;
     private String correspondences;
     private String contract;
     private String agreement;
-    private String invoice;
+
 
     @Override
     public String toString() {

@@ -1,5 +1,6 @@
 package exportation.model.da;
 
+import exportation.model.entity.Person;
 import exportation.model.entity.Trade;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
@@ -23,14 +24,14 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     public Trade save(Trade trade) throws Exception {
         trade.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRADE (TRADE_ID,TRADE_STATUS,TRADE_CORRESPONDENCES,TRADE_CONTRACT,TRADE_AGREEMENT,TRADE_INVOICE) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO TRADE (TRADE_ID, TRADE_CLIENT, TRADE_STATUS,TRADE_CORRESPONDENCES,TRADE_CONTRACT,TRADE_AGREEMENT) VALUES (?,?,?,?,?,?,)"
         );
         preparedStatement.setInt(1, trade.getId());
-        preparedStatement.setString(2, trade.getStatus());
-        preparedStatement.setString(3, trade.getCorrespondences());
-        preparedStatement.setString(4, trade.getContract());
-        preparedStatement.setString(5, trade.getAgreement());
-        preparedStatement.setString(6, trade.getInvoice());
+        preparedStatement.setString(2,trade.getPerson().getFamily());
+        preparedStatement.setString(3, trade.getStatus());
+        preparedStatement.setString(4, trade.getCorrespondences());
+        preparedStatement.setString(5, trade.getContract());
+        preparedStatement.setString(6, trade.getAgreement());
         preparedStatement.execute();
         return trade;
     }
@@ -39,14 +40,14 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     @Override
     public Trade edit(Trade trade) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRADE SET TRADE_STATUS=?, TRADE_CORRESPONDENCES=?, TRADE_CONTRACT=?, TRADE_AGREEMENT=?, TRADE_INVOICE=?, WHERE TRADE_ID=?"
+                "UPDATE TRADE SET TRADE_STATUS=?,TRADE_CLIENT=? TRADE_CORRESPONDENCES=?, TRADE_CONTRACT=?, TRADE_AGREEMENT=?, WHERE TRADE_ID=?"
         );
-        preparedStatement.setInt(1, trade.getId());
+        preparedStatement.setString(1,trade.getPerson().getFamily());
         preparedStatement.setString(2, trade.getStatus());
         preparedStatement.setString(3, trade.getCorrespondences());
         preparedStatement.setString(4, trade.getContract());
         preparedStatement.setString(5, trade.getAgreement());
-        preparedStatement.setString(6, trade.getInvoice());
+        preparedStatement.setInt(6, trade.getId());
         preparedStatement.execute();
         return trade;
     }
@@ -73,11 +74,11 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
             Trade trade = Trade
                     .builder()
                     .id(resultSet.getInt("ID"))
+                    .person(Person.builder().family(resultSet.getString("client")).build())
                     .status(resultSet.getString("STATUS"))
                     .correspondences(resultSet.getString("CORRESPONDENCES"))
                     .contract(resultSet.getString("CONTRACT"))
                     .agreement(resultSet.getString("AGREEMENT"))
-                    .invoice(resultSet.getString("INVOICE"))
                     .build();
 
             tradeList.add(trade);
@@ -97,11 +98,11 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
             trade = Trade
                     .builder()
                     .id(resultSet.getInt("ID"))
+                    .person(Person.builder().family(resultSet.getString("client")).build())
                     .status(resultSet.getString("STATUS"))
                     .correspondences(resultSet.getString("CORRESPONDENCES"))
                     .contract(resultSet.getString("CONTRACT"))
                     .agreement(resultSet.getString("AGREEMENT"))
-                    .invoice(resultSet.getString("INVOICE"))
                     .build();
         }
         return trade;

@@ -19,7 +19,9 @@ create table COUNTRY_TABLE
     COUNTRY_ID            number primary key,
     COUNTRY_NAME          nvarchar2(30),
     COUNTRY_PHONE_CODE    nvarchar2(4),
-    COUNTRY_RELATEDMARKET nvarchar2(30)
+    COUNTRY_SUPPLIER references SUPPLIER_TABLE,
+    COUNTRY_MANUFACTURER references MANUFACTURER_TABLE
+
 );
 create sequence COUNTRY_SEQ start with 1 increment by 1;
 
@@ -39,11 +41,11 @@ create sequence COMPANY_SEQ start with 1 increment by 1;
 create table TRADE_TABLE
 (
     TRADE_ID              number primary key,
+    TRADE_CLIENT references PERSON_TABLE,
     TRADE_STATUS          nvarchar2(30),
     TRADE_CORRESPONDENCES nvarchar2(500),
     TRADE_CONTRACT        nvarchar2(500),
-    TRADE_AGREEMENT       nvarchar2(500),
-    TRADE_INVOICE         nvarchar2(500)
+    TRADE_AGREEMENT       nvarchar2(500)
 );
 create sequence TRADE_SEQ start with 1 increment by 1;
 
@@ -51,7 +53,6 @@ create sequence TRADE_SEQ start with 1 increment by 1;
 create table PAYMENT_TABLE
 (
     PAYMENT_ID         number primary key,
-    PAYMENT_TOTAL_COST number,
     PAYMENT_TAX        number,
     PAYMENT_INSURANCE  number,
     PAYMENT_COST references ITEM_TABLE,
@@ -64,18 +65,19 @@ create sequence PAYMENT_SEQ start with 1 increment by 1;
 create table ITEM_TABLE
 (
     ITEM_ID             number primary key,
-    PALLET_CAPACITY     number,
     ITEM_NAME           nvarchar2(40),
-    ITEM_BRAND          nvarchar2(40)
-        CHECK ( ITEM_BRAND IN ('hipile', 'carpile', 'handle', 'tino')),
+    ITEM_BRAND          nvarchar2(40),CHECK ( ITEM_BRAND IN ('hipile', 'carpile', 'handle', 'tino')),
     ITEM_MODEL          nvarchar2(40),
-    DIMENSION_OF_UNIT   nvarchar2(40),
-    DIMENSION_OF_PALLET nvarchar2(40),
-    ITEM_HS_CODE        number,
     WEIGHT_OF_UNIT      number,
     WEIGHT_OF_PALLET    number,
-    ITEM_COST           number
+    PALLET_CAPACITY     number,
+    ITEM_COST           number,
+    ITEM_HS_CODE        number,
+    DIMENSION_OF_UNIT   nvarchar2(40),
+    DIMENSION_OF_PALLET nvarchar2(40),
+    ITEM_AMPER           number
 );
+
 create sequence ITEM_SEQ start with 1 increment by 1;
 
 --TRANSPORTATION
@@ -83,40 +85,22 @@ create table TRANSPORTATION_TABLE
 (
     TRANSPORTATION_ID        number primary key,
     TRANSPORTATION_DIRECTION nvarchar2(30),
-    TRANSPORTATION_ORIGIN    nvarchar2(30),
-    TRANSPORTATION_FREIGHT   number
+    TRANSPORTATION_FREIGHT   number,
+    TRANSPORTATION_ITEM    references ITEM_TABLE,
+    TRANSPORTATION_DESTINATION   references COUNTRY_TABLE,
+    TRANSPORTATION_EXPORT_ID references EXPORT_TRACING_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
-
---IMPORTS
-create table IMPORTS_TABLE
-(
-    IMPORTS_ID        number primary key,
-    IMPORTS_HS_CODE   number,
-    IMPORTS_QUANTITY  number,
-    IMPORTS_USD_VALUE number
-);
-create sequence IMPORTS_SEQ start with 1 increment by 1;
-
---EXPORTS
-create table EXPORTS_TABLE
-(
-    EXPORTS_ID        number primary key,
-    EXPORTS_HS_CODE   number,
-    EXPORTS_QUANTITY  number,
-    EXPORTS_USD_VALUE number
-);
-create sequence EXPORTS_SEQ start with 1 increment by 1;
 
 --EXPORT_TRACING
 create table EXPORT_TRACING_TABLE
 (
-    TRACING_ID             number primary key,
-    TRACING_LOADING_STATUS char check (TRACING_LOADING_STATUS in (0, 1)),
-    TRACING_INVOICE        nvarchar2(100),
-    TRACING_WAYBILL        nvarchar2(100),
-    TRACING_PREPAYMENT     char check (TRACING_PREPAYMENT in (0, 1)),
-    TRACING_CHECKOUT       char check (TRACING_CHECKOUT in (0, 1))
+    EXPORT_ID             number primary key,
+    EXPORT_LODINGSTATUS char check (EXPORT_LODINGSTATUS in (0, 1)),
+    EXPORT_PREPAYMENT        char check (EXPORT_PREPAYMENT in (0, 1)),
+    EXPORT_CHECKOUT         char check (EXPORT_CHECKOUT in (0, 1)),
+    EXPORT_TRANSPORT_ID     references TRANSPORTATION_TABLE,
+    EXPORT_TRADE_ID       references TRADE_TABLE
 );
 create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
 
@@ -131,20 +115,6 @@ create table INFO_TABLE
     INFO_TARIFF     nvarchar2(4)
 );
 create sequence INFO_SEQ start with 1 increment by 1;
-
---ACCESSPATH
-CREATE TABLE ACCESS_PATH_TABLE
-(
-    ACCESS_PATH_ID       number primary key,
-    ACCESS_PATH_CITY     nvarchar2(20),
-    ACCESS_PATH_TYPE     nvarchar2(20),
-    CHECK ( ACCESS_PATH_TYPE IN ('air', 'rail', 'road', 'sea')),
-    ACCESS_PATH_DISTANCE number,
-    ACCESS_NAVIGATION    nvarchar2(20) CHECK ( ACCESS_NAVIGATION IN
-                                               ('north', 'northeast', 'northwest', 'south', 'southeast', 'southwest',
-                                                'east', 'west'))
-);
-create sequence ACCESSPATH_SEQ start with 1 increment by 1;
 
 --MANUFACTURE
 create table MANUFACTURER_TABLE

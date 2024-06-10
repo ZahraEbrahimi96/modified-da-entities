@@ -1,6 +1,8 @@
 package exportation.model.da;
 
 import exportation.model.entity.ExportTracing;
+import exportation.model.entity.Trade;
+import exportation.model.entity.Transportation;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -23,14 +25,14 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
         exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORTTRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING (TRACING_ID,TRACING_LODINGSTATUS,TRACING_PREPAYMENT,TRACING_CHECKOUT,TRACING_WAYBILL,TRACING_INVOICE) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO EXPORTTRACING (EXPORT_ID, EXPORT_LODINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT, EXPORT_TRANSPORT_ID, EXPORT_TRADE_ID) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, exportTracing.getId());
         preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(3, exportTracing.isPrePayment());
         preparedStatement.setBoolean(4, exportTracing.isCheckout());
-        preparedStatement.setString(5, exportTracing.getWaybill());
-        preparedStatement.setString(6, exportTracing.getInvoice());
+        preparedStatement.setInt(5, exportTracing.getTransportation().getId());
+        preparedStatement.setInt(6, exportTracing.getTrade().getId());
 
         preparedStatement.execute();
         return exportTracing;
@@ -40,14 +42,14 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING SET TRACING_LODINGSTATUS=?, TRACING_PREPAYMENT=?, TRACING_CHECKOUT=?, TRACING_WAYBILL=?,TRACING_INVOICE=?, WHERE TRACING_ID=?"
+                "UPDATE EXPORTTRACING SET EXPORT_LODINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, EXPORT_TRANSPORT_ID=?, EXPORT_TRADE_ID=?, WHERE EXPORT_ID=?"
         );
-        preparedStatement.setInt(1, exportTracing.getId());
-        preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
-        preparedStatement.setBoolean(3, exportTracing.isPrePayment());
-        preparedStatement.setBoolean(4, exportTracing.isCheckout());
-        preparedStatement.setString(5, exportTracing.getWaybill());
-        preparedStatement.setString(6, exportTracing.getInvoice());
+        preparedStatement.setBoolean(1, exportTracing.isLoadingStatus());
+        preparedStatement.setBoolean(2, exportTracing.isPrePayment());
+        preparedStatement.setBoolean(3, exportTracing.isCheckout());
+        preparedStatement.setInt(4, exportTracing.getTransportation().getId());
+        preparedStatement.setInt(5, exportTracing.getTrade().getId());
+        preparedStatement.setInt(6, exportTracing.getId());
 
         preparedStatement.execute();
         return exportTracing;
@@ -57,7 +59,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM EXPORTTRACING WHERE TRACING_ID=?"
+                "DELETE FROM EXPORTTRACING WHERE EXPORT_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -68,7 +70,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public List<ExportTracing> findAll() throws Exception {
         List<ExportTracing> exportTracingList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING ORDER BY TRACING_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING ORDER BY EXPORT_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -78,8 +80,8 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
                     .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .waybill(resultSet.getString("WAYBILL"))
-                    .invoice(resultSet.getString("INVOICE"))
+                    .transportation(Transportation.builder().id(resultSet.getInt("EXPORT_TRANSPORT_ID")).build())
+                    .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
                     .build();
 
             exportTracingList.add(exportTracing);
@@ -91,7 +93,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //FindById
     @Override
     public ExportTracing findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING WHERE TRACING_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING WHERE EXPORT_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         ExportTracing exportTracing = null;
@@ -102,8 +104,8 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
                     .loadingStatus(resultSet.getBoolean("LODINGSTATUS"))
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .waybill(resultSet.getString("WAYBILL"))
-                    .invoice(resultSet.getString("INVOICE"))
+                    .transportation(Transportation.builder().id(resultSet.getInt("EXPORT_TRANSPORT_ID")).build())
+                    .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
                     .build();
         }
         return exportTracing;

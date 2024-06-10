@@ -1,5 +1,8 @@
 package exportation.model.da;
 
+import exportation.model.entity.Country;
+import exportation.model.entity.ExportTracing;
+import exportation.model.entity.Item;
 import exportation.model.entity.Transportation;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -24,12 +27,14 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     public Transportation save(Transportation transportation) throws Exception {
         transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("Transportation_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO Transportation (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_ORIGIN,TRANSPORTATION_FREIGHT) VALUES (?,?,?,?)"
+                "INSERT INTO Transportation (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, TRANSPORTATION_ITEM, TRANSPORTATION_DESTINATION, TRANSPORTATION_EXPORT_ID) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
-        preparedStatement.setString(3, transportation.getOrigin());
-        preparedStatement.setDouble(4, transportation.getFreight());
+        preparedStatement.setDouble(3, transportation.getFreight());
+        preparedStatement.setInt(4,transportation.getItem().getId());
+        preparedStatement.setString(5,transportation.getCountry().getName());
+        preparedStatement.setInt(6,transportation.getExportTracing().getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -38,12 +43,14 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_ORIGIN=?, TRANSPORTATION_FREIGHT=?, WHERE TRANSPORTATION_ID=?"
+                "UPDATE TRANSPORTATION SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,TRANSPORTATION_ITEM=?, TRANSPORTATION_DESTINATION=?,TRANSPORTATION_EXPORT_ID=?  WHERE TRANSPORTATION_ID=?"
         );
-        preparedStatement.setInt(1, transportation.getId());
-        preparedStatement.setString(2, transportation.getDirection());
-        preparedStatement.setString(3, transportation.getOrigin());
-        preparedStatement.setDouble(4, transportation.getFreight());
+        preparedStatement.setString(1, transportation.getDirection());
+        preparedStatement.setDouble(2, transportation.getFreight());
+        preparedStatement.setInt(3,transportation.getItem().getId());
+        preparedStatement.setString(4,transportation.getCountry().getName());
+        preparedStatement.setInt(5,transportation.getExportTracing().getId());
+        preparedStatement.setInt(6, transportation.getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -71,8 +78,10 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .direction(resultSet.getString("DIRECTION"))
-                    .origin(resultSet.getString("ORIGIN"))
                     .freight(resultSet.getFloat("FREIGHT"))
+                    .item(Item.builder().id(resultSet.getInt("TRANSPORTATION_ITEM")).build())
+                    .country(Country.builder().name(resultSet.getString("TRANSPORTATION_DESTINATION")).build())
+                    .exportTracing(ExportTracing.builder().id(resultSet.getInt("TRANSPORTATION_EXPORT_ID")).build())
                     .build();
 
             transportationList.add(transportation);
@@ -93,8 +102,10 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .direction(resultSet.getString("DIRECTION"))
-                    .origin(resultSet.getString("ORIGIN"))
                     .freight(resultSet.getFloat("FREIGHT"))
+                    .item(Item.builder().id(resultSet.getInt("TRANSPORTATION_ITEM")).build())
+                    .country(Country.builder().name(resultSet.getString("TRANSPORTATION_DESTINATION")).build())
+                    .exportTracing(ExportTracing.builder().id(resultSet.getInt("TRANSPORTATION_EXPORT_ID")).build())
                     .build();
         }
         return transportation;

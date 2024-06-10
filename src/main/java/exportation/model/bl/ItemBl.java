@@ -1,7 +1,7 @@
 package exportation.model.bl;
 
+import exportation.controller.exception.NoItemFoundException;
 import lombok.Getter;
-import exportation.controller.exceptions.NoItemFoundException;
 import exportation.model.da.ItemDa;
 import exportation.model.entity.Item;
 import exportation.model.tools.CRUD;
@@ -79,9 +79,9 @@ public class ItemBl implements CRUD<Item> {
 
 
     //findByName
-    public List<Item> findByName (String name) throws Exception {
+    public List<Item> findByModel (String model) throws Exception {
         try (ItemDa itemDa = new ItemDa()) {
-            List<Item> perosnList = itemDa.findByName(name);
+            List<Item> perosnList = itemDa.findByName(model);
             if (!perosnList.isEmpty()) {
                 return perosnList;
             } else {

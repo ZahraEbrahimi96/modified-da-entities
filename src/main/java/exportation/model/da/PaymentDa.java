@@ -24,15 +24,14 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT (PAYMENT_ID,PAYMENT_TOTAL_COST,PAYMENT_TAX,PAYMENT_INSURANCE,PAYMENT_COST,PAYMENT_FREIGHT,PAYMENT_TARIFF) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT (PAYMENT_ID, PAYMENT_TAX, PAYMENT_INSURANCE, PAYMENT_COST, PAYMENT_FREIGHT, PAYMENT_TARIFF) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
-        preparedStatement.setLong(2, payment.getTotalCost());
-        preparedStatement.setFloat(3, payment.getTax());
-        preparedStatement.setFloat(4, payment.getInsurance());
-        preparedStatement.setFloat(5, payment.getItem().getCost());
-        preparedStatement.setFloat(6, payment.getTransportation().getFreight());
-        preparedStatement.setString(7, payment.getInfo().getTariff());
+        preparedStatement.setFloat(2, payment.getTax());
+        preparedStatement.setFloat(3, payment.getInsurance());
+        preparedStatement.setFloat(4, payment.getItem().getCost());
+        preparedStatement.setFloat(5, payment.getTransportation().getFreight());
+        preparedStatement.setString(6, payment.getInfo().getTariff());
         preparedStatement.execute();
         return payment;
     }
@@ -41,10 +40,9 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT SET PAYMENT_TOTALCOST=?, PAYMENT_TAX=?, PAYMENT_INSURANCE=?, PAYMENT_COST=?, PAYMENT_FREIGHT=?,PAYMENT_TARIF=?, WHERE PAYMENT_ID=?"
+                "UPDATE PAYMENT SET  PAYMENT_TAX=?, PAYMENT_INSURANCE=?, PAYMENT_COST=?, PAYMENT_FREIGHT=?,PAYMENT_TARIF=?, WHERE PAYMENT_ID=?"
         );
         preparedStatement.setInt(1, payment.getId());
-        preparedStatement.setLong(2, payment.getTotalCost());
         preparedStatement.setFloat(3, payment.getTax());
         preparedStatement.setFloat(4, payment.getInsurance());
         preparedStatement.setFloat(5, payment.getItem().getCost());
@@ -76,7 +74,6 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
             Payment payment = Payment
                     .builder()
                     .id(resultSet.getInt("ID"))
-                    .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
                     .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
@@ -101,7 +98,6 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
             payment = Payment
                     .builder()
                     .id(resultSet.getInt("ID"))
-                    .totalCost(resultSet.getLong("TOTALCOST"))
                     .tax(resultSet.getFloat("TAX"))
                     .insurance(resultSet.getFloat("INSURANCE"))
                     .item(resultSet.getObject("ITEM", Item.class))
