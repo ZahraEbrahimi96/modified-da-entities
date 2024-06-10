@@ -34,5 +34,7 @@ public class PersonTest {
 
         PersonBl.getPersonBl().save(person);
         System.out.println(person);
+
+
     }
 }

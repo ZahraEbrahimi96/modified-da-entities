@@ -30,8 +30,8 @@ create table COUNTRY_TABLE
     COUNTRY_ID         number primary key,
     COUNTRY_NAME       nvarchar2(30),
     COUNTRY_PHONE_CODE nvarchar2(4),
-    COUNTRY_SUPPLIER references SUPPLIER_TABLE,
-    COUNTRY_MANUFACTURER references MANUFACTURER_TABLE,
+    SUPPLIER_ID references SUPPLIER_TABLE,
+    MANUFACTURER_ID references MANUFACTURER_TABLE,
     COUNTRY_POPULATION number,
     COUNTRY_CAR_RATE   number,
     COUNTRY_TARIFF     nvarchar2(4),
@@ -93,7 +93,6 @@ create table ITEM_TABLE
     WEIGHT_OF_PALLET    number,
     ITEM_AMPER          number
 );
-
 create sequence ITEM_SEQ start with 1 increment by 1;
 
 --TRANSPORTATION
@@ -119,7 +118,6 @@ create table EXPORT_TRACING_TABLE
     EXPORT_TRADE_ID references TRADE_TABLE
 );
 create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
-
 
 --MANUFACTURE
 create table MANUFACTURER_TABLE
