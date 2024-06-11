@@ -47,7 +47,9 @@ create table COMPANY_TABLE
     COMPANY_PRODUCT      nvarchar2(30),
     COMPANY_ADDRESS      nvarchar2(250),
     COMPANY_EMAIL        nvarchar2(30),
-    COMPANY_PHONE_NUMBER nvarchar2(11)
+    COMPANY_PHONE_NUMBER nvarchar2(11),
+    PERSON_ID references PERSON_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE
 );
 create sequence COMPANY_SEQ start with 1 increment by 1;
 
@@ -143,7 +145,8 @@ create table SUPPLIER_TABLE
     SUPPLIER_EMAIL   nvarchar2(250),
     SUPPLIER_COUNTRY references COUNTRY_TABLE,
     ONLINE_SALE      number(1),
-    SUPPLIER_MANAGER references PERSON_TABLE
+    PERSON_ID references PERSON_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE
 );
 create sequence SUPPLIER_SEQ start with 1 increment by 1;
 
