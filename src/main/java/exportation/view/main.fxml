@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar prefHeight="31.0" prefWidth="479.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Trade">
+              <items>
+                <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Traing Info" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Exportation">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Transportation" />
+                  <MenuItem mnemonicParsing="false" text="Payment" />
+                  <MenuItem mnemonicParsing="false" text="New Export" />
+                  <MenuItem mnemonicParsing="false" text="Export Tracing" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Costumers Info">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Countries" />
+                  <MenuItem mnemonicParsing="false" text="Middleman" />
+                  <MenuItem mnemonicParsing="false" text="Supplier" />
+                  <MenuItem mnemonicParsing="false" text="Manufacturer" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Sells Items">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Batteries" />
+                  <MenuItem mnemonicParsing="false" text="Other" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <VBox layoutX="14.0" layoutY="413.0" prefHeight="150.0" prefWidth="139.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" text="Countries">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" text="Transportation">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" text="Payment" />
+         </children>
+      </VBox>
+   </children>
+</Pane>
