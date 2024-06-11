@@ -6,7 +6,7 @@ import exportation.model.entity.ExportTracing;
 import exportation.model.entity.Item;
 import exportation.model.entity.Transportation;
 
-public class TrpController {
+public class TransportationController {
 
     //save
     public static void save(String direction, float freight, Item item, Country country, ExportTracing exportTracing) {

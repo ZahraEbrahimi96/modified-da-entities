@@ -3,7 +3,7 @@ package exportation.controller;
 import exportation.model.bl.PaymentBl;
 import exportation.model.entity.*;
 
-public class PayController {
+public class PaymentController {
     //save
     public static void save(float tax, float insurance, Item item, Transportation transportation, Country country) {
         try {

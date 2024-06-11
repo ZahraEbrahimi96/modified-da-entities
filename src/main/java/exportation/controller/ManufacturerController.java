@@ -1,21 +1,19 @@
 package exportation.controller;
 
-import exportation.model.bl.SupplierBl;
-import exportation.model.bl.SupplierBl;
+import exportation.model.bl.ManufacturerBl;
 import exportation.model.entity.Country;
-import exportation.model.entity.Supplier;
+import exportation.model.entity.Manufacturer;
 import exportation.model.entity.Person;
-import exportation.model.entity.Supplier;
 
 import java.util.regex.Pattern;
 
-public class SuController {
+public class ManufacturerController {
 
     //save
-    public static void save(String name, String product, String address, String phoneNumber, String email, Country counrty, boolean onlineSale, Person person) {
+    public static void save(String name, String product, String address, String email, Country counrty, String phoneNumber, int productionRate, Person person) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^[a-zA-Z\\s\\@]{200}$", email) && Pattern.matches("^[a-zA-Z\\s]{300}$", address)) {
-                Supplier supplier = Supplier
+                Manufacturer manufacturer = Manufacturer
                         .builder()
                         .name(name)
                         .product(product)
@@ -23,10 +21,10 @@ public class SuController {
                         .phoneNumber(phoneNumber)
                         .email(email)
                         .country(counrty)
-                        .onlineSale(onlineSale)
+                        .productionRate(productionRate)
                         .person(person)
                         .build();
-                SupplierBl.getSupplierBl().save(supplier);
+                ManufacturerBl.getManufacturerBl().save(manufacturer);
             } else {
                 System.out.println("Invalid Data");
             }
@@ -36,10 +34,10 @@ public class SuController {
     }
 
     //edit
-    public static void edit(int id, String name, String product, String address, String phoneNumber, String email, Country counrty, boolean onlineSale, Person person) {
+    public static void edit(int id, String name, String product, String address, String email, Country counrty, String phoneNumber, int productionRate, Person person) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^[a-zA-Z\\s\\@]{200}$", email) && Pattern.matches("^[a-zA-Z\\s]{300}$", address)) {
-                Supplier supplier = Supplier
+                Manufacturer manufacturer = Manufacturer
                         .builder()
                         .name(name)
                         .product(product)
@@ -47,10 +45,10 @@ public class SuController {
                         .phoneNumber(phoneNumber)
                         .email(email)
                         .country(counrty)
-                        .onlineSale(onlineSale)
+                        .productionRate(productionRate)
                         .person(person)
                         .build();
-                SupplierBl.getSupplierBl().edit(supplier);
+                ManufacturerBl.getManufacturerBl().edit(manufacturer);
             } else {
                 System.out.println("Invalid Data");
             }
@@ -62,9 +60,9 @@ public class SuController {
     //remove
     public static void remove(int id) {
         try {
-            Supplier supplier = new Supplier();
-            supplier.setId(id);
-            SupplierBl.getSupplierBl().remove(id);
+            Manufacturer manufacturer = new Manufacturer();
+            manufacturer.setId(id);
+            ManufacturerBl.getManufacturerBl().remove(id);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

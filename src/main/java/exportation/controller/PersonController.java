@@ -6,7 +6,7 @@ import exportation.model.entity.enums.Gender;
 
 import java.util.regex.Pattern;
 
-public class PnController {
+public class PersonController {
 
     //save
     public static String save(String name, String family, Gender gender, String nationalId, String phoneNumber, String email, String address, String position) {

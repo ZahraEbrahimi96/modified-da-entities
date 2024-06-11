@@ -5,7 +5,7 @@ import exportation.model.entity.ExportTracing;
 import exportation.model.entity.Trade;
 import exportation.model.entity.Transportation;
 
-public class ExTController {
+public class ExportTracingController {
 
     //save
     public static void save(boolean loadingStatus, boolean prePayment, boolean checkout, Transportation transportation, Trade trade) {
