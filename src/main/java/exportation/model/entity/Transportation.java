@@ -19,6 +19,8 @@ public class Transportation {
     private float freight;
     private Item item;
     private Country country;
+    //    todo
+//    private Supplier supplier;
     private ExportTracing exportTracing;
 
 

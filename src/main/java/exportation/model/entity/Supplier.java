@@ -18,7 +18,9 @@ public class Supplier {
     private String address;
     private String email;
     private String phoneNumber;
-    private Country country;
+//    private Country country;
+    //    todo
+//    private Company company;
     private Person person;
     private boolean onlineSale;
 

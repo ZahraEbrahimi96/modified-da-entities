@@ -21,6 +21,9 @@ public class Manufacturer {
     private String phoneNumber;
     private long productionRate;
     private Country country;
+//    todo
+//    private Company company;
+
     private Person person;
 
     @Override

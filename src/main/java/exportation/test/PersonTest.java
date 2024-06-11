@@ -10,30 +10,30 @@ public class PersonTest {
     public static void main(String[] args) throws Exception {
 
 
-        User user = User.builder()
-                .name("zahra")
-                .password("zahra123")
-                .enabled(true)
-                .build();
-
-
-        Person person = Person.builder()
-                .name("ali")
-                .family("hesaraki")
-                .email("ali@hesaraki@gmail.com")
-                .phoneNumber("+911234567")
-                .nationalId("001906499")
-                .position("BOSS")
-                .address("Tehran,Hesarak,p36")
-                .gender(Gender.male)
-                .user(user)
-                .build();
-
-        UserBl.getUserBl().save(user);
-        System.out.println(user);
-
-        PersonBl.getPersonBl().save(person);
-        System.out.println(person);
+//        User user = User.builder()
+//                .name("zahra")
+//                .password("zahra123")
+//                .enabled(true)
+//                .build();
+//
+//
+//        Person person = Person.builder()
+//                .name("ali")
+//                .family("hesaraki")
+//                .email("ali@hesaraki@gmail.com")
+//                .phoneNumber("+911234567")
+//                .nationalId("001906499")
+//                .position("BOSS")
+//                .address("Tehran,Hesarak,p36")
+//                .gender(Gender.male)
+//                .user(user)
+//                .build();
+//
+//        UserBl.getUserBl().save(user);
+//        System.out.println(user);
+//
+//        PersonBl.getPersonBl().save(person);
+//        System.out.println(person);
 
 
     }
