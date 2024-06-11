@@ -71,9 +71,9 @@ create table PAYMENT_TABLE
     PAYMENT_ID        number primary key,
     PAYMENT_TAX       number,
     PAYMENT_INSURANCE number,
-    PAYMENT_ITEM references ITEM_TABLE,
-    PAYMENT_FREIGHT references TRANSPORTATION_TABLE,
-    PAYMENT_TARIFF references COUNTRY_TABLE
+    ITEM_ID references ITEM_TABLE,
+    TRANSPORTATION_ID references TRANSPORTATION_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE
 );
 create sequence PAYMENT_SEQ start with 1 increment by 1;
 
@@ -101,9 +101,9 @@ create table TRANSPORTATION_TABLE
     TRANSPORTATION_ID        number primary key,
     TRANSPORTATION_DIRECTION nvarchar2(30),
     TRANSPORTATION_FREIGHT   number,
-    TRANSPORTATION_ITEM references ITEM_TABLE,
-    TRANSPORTATION_DESTINATION references COUNTRY_TABLE,
-    TRANSPORTATION_EXPORT_ID references EXPORT_TRACING_TABLE
+    ITEM_ID references ITEM_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE,
+    EXPORT_ID references EXPORT_TRACING_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 
