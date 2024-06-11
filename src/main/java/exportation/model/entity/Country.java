@@ -22,9 +22,9 @@ public class Country implements Serializable {
     private long importRate;
     private long population;
     private long carRate;
+    private String neighbors;
     private Supplier supplier;
     private Manufacturer manufacturer;
-    private ArrayList<String> neighbors;
 
 
 //    public void addNeighbors(String neighbors) {

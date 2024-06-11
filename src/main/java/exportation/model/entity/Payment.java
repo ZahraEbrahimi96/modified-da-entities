@@ -20,10 +20,8 @@ public class Payment {
     private Country country;
 
 
-
-    public static long cif (float cost,int amper,int palletCapacity, float insurance , float freight ){
-
-       return (long) ((cost * amper * palletCapacity) + insurance + freight);
+    public static long cif(float cost, int amper, int palletCapacity, float insurance, float freight) {
+        return (long) ((cost * amper * palletCapacity) + insurance + freight);
     }
 
     @Override

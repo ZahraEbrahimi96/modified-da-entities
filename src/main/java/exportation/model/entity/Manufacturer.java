@@ -12,8 +12,16 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 
 
-public class Manufacturer extends Company {
+public class Manufacturer {
+    private int id;
+    private String name;
+    private String product;
+    private String address;
+    private String email;
+    private String phoneNumber;
     private long productionRate;
+    private Country country;
+    private Person person;
 
     @Override
     public String toString() {

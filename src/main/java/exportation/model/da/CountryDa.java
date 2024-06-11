@@ -30,10 +30,10 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
         preparedStatement.setString(3, country.getPhoneCode());
         preparedStatement.setString(4, String.valueOf(country.getSupplier()));
         preparedStatement.setString(5, String.valueOf(country.getManufacturer()));
-        preparedStatement.setLong(6,country.getPopulation());
-        preparedStatement.setLong(7,country.getCarRate());
-        preparedStatement.setInt(8,country.getTariff());
-        preparedStatement.setArray(9, (Array) country.getNeighbors());
+        preparedStatement.setLong(6, country.getPopulation());
+        preparedStatement.setLong(7, country.getCarRate());
+        preparedStatement.setInt(8, country.getTariff());
+        preparedStatement.setString(9, country.getNeighbors());
         preparedStatement.execute();
         return country;
     }
@@ -49,10 +49,10 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
         preparedStatement.setString(2, country.getPhoneCode());
         preparedStatement.setString(3, String.valueOf(country.getSupplier()));
         preparedStatement.setString(4, String.valueOf(country.getManufacturer()));
-        preparedStatement.setLong(5,country.getPopulation());
-        preparedStatement.setLong(6,country.getCarRate());
-        preparedStatement.setInt(7,country.getTariff());
-        preparedStatement.setArray(8, (Array) country.getNeighbors());
+        preparedStatement.setLong(5, country.getPopulation());
+        preparedStatement.setLong(6, country.getCarRate());
+        preparedStatement.setInt(7, country.getTariff());
+        preparedStatement.setString(9, country.getNeighbors());
         preparedStatement.setInt(9, country.getId());
         preparedStatement.execute();
         return country;
@@ -87,7 +87,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .population(resultSet.getLong("COUNTRY_POPULATION"))
                     .carRate(resultSet.getLong("COUNTRY_CAR_RATE"))
                     .tariff(resultSet.getInt("COUNTRY_TARIFF"))
-                    .neighbors((ArrayList<String>) resultSet.getArray("COUNTRY_NEIGHBORS"))
+                    .neighbors(resultSet.getString("COUNTRY_NEIGHBORS"))
                     .build();
 
             countryList.add(country);
@@ -114,7 +114,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .population(resultSet.getLong("COUNTRY_POPULATION"))
                     .carRate(resultSet.getLong("COUNTRY_CAR_RATE"))
                     .tariff(resultSet.getInt("COUNTRY_TARIFF"))
-                    .neighbors((ArrayList<String>) resultSet.getArray("COUNTRY_NEIGHBORS"))
+                    .neighbors(resultSet.getString("COUNTRY_NEIGHBORS"))
                     .build();
         }
         return country;

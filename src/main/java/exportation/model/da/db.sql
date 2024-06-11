@@ -34,7 +34,8 @@ create table COUNTRY_TABLE
     COUNTRY_CAR_RATE   number,
     COUNTRY_PHONE_CODE nvarchar2(4),
     SUPPLIER_ID references SUPPLIER_TABLE,
-    MANUFACTURER_ID references MANUFACTURER_TABLE
+    MANUFACTURER_ID references MANUFACTURER_TABLE,
+    COUNTRY_NEIGHBORS  nvarchar2(30)
 );
 create sequence COUNTRY_SEQ start with 1 increment by 1;
 
@@ -141,7 +142,7 @@ create table SUPPLIER_TABLE
     SUPPLIER_PHONE   nvarchar2(30),
     SUPPLIER_EMAIL   nvarchar2(250),
     SUPPLIER_COUNTRY references COUNTRY_TABLE,
-    ONLINE_SALE      char check (ONLINE_SALE in (0, 1)),
+    ONLINE_SALE      number(1),
     SUPPLIER_MANAGER references PERSON_TABLE
 );
 create sequence SUPPLIER_SEQ start with 1 increment by 1;
