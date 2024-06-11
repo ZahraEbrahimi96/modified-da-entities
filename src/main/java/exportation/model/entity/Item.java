@@ -13,12 +13,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Item {
     private int id;
-    private int palletCapacity;
     private String name;
     private Brand brand;
     private String model;
     private String dimensionOfUnite;
     private String dimensionOfPallet;
+    private int palletCapacity;
     private long Hs_Code;
     private float cost;
     private float weightOfUnit;
