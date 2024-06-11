@@ -27,7 +27,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     public Transportation save(Transportation transportation) throws Exception {
         transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("Transportation_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO Transportation (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, TRANSPORTATION_ITEM, TRANSPORTATION_DESTINATION, TRANSPORTATION_EXPORT_ID) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO TRANSPORTATION_TABLE (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, TRANSPORTATION_ITEM, TRANSPORTATION_DESTINATION, TRANSPORTATION_EXPORT_ID) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
@@ -43,7 +43,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,TRANSPORTATION_ITEM=?, TRANSPORTATION_DESTINATION=?,TRANSPORTATION_EXPORT_ID=?  WHERE TRANSPORTATION_ID=?"
+                "UPDATE TRANSPORTATION_TABLE SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,TRANSPORTATION_ITEM=?, TRANSPORTATION_DESTINATION=?,TRANSPORTATION_EXPORT_ID=?  WHERE TRANSPORTATION_ID=?"
         );
         preparedStatement.setString(1, transportation.getDirection());
         preparedStatement.setDouble(2, transportation.getFreight());
@@ -59,7 +59,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM TRANSPORTATION WHERE TRANSPORTATION_ID=?"
+                "DELETE FROM TRANSPORTATION_TABLE WHERE TRANSPORTATION_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -70,7 +70,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public List<Transportation> findAll() throws Exception {
         List<Transportation> transportationList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM TRANSPORTATION ORDER BY TRANSPORTATION_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM TRANSPORTATION_TABLE ORDER BY TRANSPORTATION_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -93,7 +93,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     //FindById
     @Override
     public Transportation findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM TRANSPORTATION WHERE TRANSPORTATION_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM TRANSPORTATION_TABLE WHERE TRANSPORTATION_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Transportation transportation = null;

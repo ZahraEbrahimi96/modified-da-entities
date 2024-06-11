@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
+
 public class Payment {
     private int id;
     private float tax;

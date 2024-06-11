@@ -28,7 +28,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     public Supplier save(Supplier supplier) throws SQLException {
         supplier.setId(ConnectionProvider.getConnectionProvider().getNextId("SUPPLIER_SEQ"));
 
-        preparedStatement = connection.prepareStatement("INSERT INTO SUPPLIER (SUPPLIER_ID, SUPPLIER_NAME, SUPPLIER_PRODUCT, SUPPLIER_ADDRESS,  SUPPLIER_PHONE,SUPPLIER_EMAIL, SUPPLIER_COUNTRY, ONLINE_SALE, SUPPLIER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement = connection.prepareStatement("INSERT INTO SUPPLIER_TABLE (SUPPLIER_ID, SUPPLIER_NAME, SUPPLIER_PRODUCT, SUPPLIER_ADDRESS,  SUPPLIER_PHONE,SUPPLIER_EMAIL, SUPPLIER_COUNTRY, ONLINE_SALE, SUPPLIER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
         preparedStatement.setInt(1, supplier.getId());
         preparedStatement.setString(2, supplier.getName());
         preparedStatement.setString(3, supplier.getProduct());
@@ -45,7 +45,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //edit
     @Override
     public Supplier edit(Supplier supplier) throws Exception {
-        preparedStatement = connection.prepareStatement("UPDATE SUPPLIER SET SUPPLIER_NAME=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?,  SUPPLIER_PHONE=?,SUPPLIER_EMAIL=?, SUPPLIER_COUNTRY=, ONLINE_SALE=?, SUPPLIER_MANAGER=? WHERE SUPPLIER_ID=? ");
+        preparedStatement = connection.prepareStatement("UPDATE SUPPLIER_TABLE SET SUPPLIER_NAME=?, SUPPLIER_PRODUCT=?, SUPPLIER_ADDRESS=?,  SUPPLIER_PHONE=?,SUPPLIER_EMAIL=?, SUPPLIER_COUNTRY=, ONLINE_SALE=?, SUPPLIER_MANAGER=? WHERE SUPPLIER_ID=? ");
         preparedStatement.setString(1, supplier.getName());
         preparedStatement.setString(2, supplier.getProduct());
         preparedStatement.setString(3, supplier.getAddress());
@@ -62,7 +62,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //remove
     @Override
     public Supplier remove(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("DELETE FROM SUPPLIER WHERE SUPPLIER_ID=?");
+        preparedStatement = connection.prepareStatement("DELETE FROM SUPPLIER_TABLE WHERE SUPPLIER_ID=?");
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
         return null;
@@ -72,7 +72,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     @Override
     public List<Supplier> findAll() throws Exception {
         List<Supplier> supplierList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER ORDER BY SUPPLIER_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER_TABLE ORDER BY SUPPLIER_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -98,7 +98,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     //findById
     @Override
     public Supplier findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER WHERE SUPPLIER_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER_TABLE WHERE SUPPLIER_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Supplier supplier = null;
@@ -124,7 +124,7 @@ public class SupplierDa implements AutoCloseable, CRUD<Supplier> {
     public List<Supplier> findByName(String name) throws Exception {
         List<Supplier> supplierList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER WHERE SUPPLIER_NAME LIKE? ORDER BY SUPPLIER_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM SUPPLIER_TABLE WHERE SUPPLIER_NAME LIKE? ORDER BY SUPPLIER_ID");
         preparedStatement.setString(1, name + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 

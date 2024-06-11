@@ -28,7 +28,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     public Manufacturer save(Manufacturer manufacturer) throws SQLException {
         manufacturer.setId(ConnectionProvider.getConnectionProvider().getNextId("MANUFACTURER_SEQ"));
 
-        preparedStatement = connection.prepareStatement("INSERT INTO MANUFACTURER (MANUFACTURER_ID, MANUFACTURER_NAME, MANUFACTURER_PRODUCT,MANUFACTURER_ADDRESS , MANUFACTURER_PHONE, MANUFACTURER_EMAIL, MANUFACTURER_COUNTRY, PRODUCTION_RATE,MANUFACTURER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
+        preparedStatement = connection.prepareStatement("INSERT INTO MANUFACTURER_TABLE (MANUFACTURER_ID, MANUFACTURER_NAME, MANUFACTURER_PRODUCT,MANUFACTURER_ADDRESS , MANUFACTURER_PHONE, MANUFACTURER_EMAIL, MANUFACTURER_COUNTRY, PRODUCTION_RATE,MANUFACTURER_MANAGER) VALUES (?,?,?,?,?,?,?,?,?)");
         preparedStatement.setInt(1, manufacturer.getId());
         preparedStatement.setString(2, manufacturer.getName());
         preparedStatement.setString(3, manufacturer.getProduct());
@@ -37,7 +37,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
         preparedStatement.setString(6, manufacturer.getEmail());
         preparedStatement.setString(7, manufacturer.getCountry().getName());
         preparedStatement.setLong(8, manufacturer.getProductionRate());
-        preparedStatement.setString(9, String.valueOf(manufacturer.getPerson().getId()));
+        preparedStatement.setInt(9, manufacturer.getPerson().getId());
         preparedStatement.execute();
         return manufacturer;
     }
@@ -45,7 +45,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     //edit
     @Override
     public Manufacturer edit(Manufacturer manufacturer) throws Exception {
-        preparedStatement = connection.prepareStatement("UPDATE MANUFACTURER SET MANUFACTURER_NAME=?, , MANUFACTURER_PRODUCT=?, MANUFACTURER_ADDRESS=?,MANUFACTURER_PHONE=?, MANUFACTURER_EMAIL=?,  MANUFACTURER_COUNTRY=, PRODUCTION_RATE=?,MANUFACTURER_MANAGER=? WHERE MANUFACTURER_ID=? ");
+        preparedStatement = connection.prepareStatement("UPDATE MANUFACTURER_TABLE SET MANUFACTURER_NAME=?, , MANUFACTURER_PRODUCT=?, MANUFACTURER_ADDRESS=?,MANUFACTURER_PHONE=?, MANUFACTURER_EMAIL=?,  MANUFACTURER_COUNTRY=, PRODUCTION_RATE=?,MANUFACTURER_MANAGER=? WHERE MANUFACTURER_ID=? ");
         preparedStatement.setString(1, manufacturer.getName());
         preparedStatement.setString(2, manufacturer.getProduct());
         preparedStatement.setString(3, manufacturer.getAddress());
@@ -53,7 +53,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
         preparedStatement.setString(5, manufacturer.getEmail());
         preparedStatement.setString(6, manufacturer.getCountry().getName());
         preparedStatement.setLong(7, manufacturer.getProductionRate());
-        preparedStatement.setString(8, String.valueOf(manufacturer.getPerson().getId()));
+        preparedStatement.setInt(9, manufacturer.getPerson().getId());
         preparedStatement.setInt(9, manufacturer.getId());
         preparedStatement.execute();
         return manufacturer;
@@ -62,7 +62,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     //remove
     @Override
     public Manufacturer remove(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("DELETE FROM MANUFACTURER WHERE MANUFACTURER_ID=?");
+        preparedStatement = connection.prepareStatement("DELETE FROM MANUFACTURER_TABLE WHERE MANUFACTURER_ID=?");
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
         return null;
@@ -98,7 +98,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     //findById
     @Override
     public Manufacturer findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM MANUFACTURER WHERE MANUFACTURER_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM MANUFACTURER_TABLE WHERE MANUFACTURER_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Manufacturer manufacturer = null;
@@ -124,7 +124,7 @@ public class ManufacturerDa implements AutoCloseable, CRUD<Manufacturer> {
     public List<Manufacturer> findByName(String name) throws Exception {
         List<Manufacturer> manufacturerList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("SELECT * FROM MANUFACTURER WHERE MANUFACTURER_NAME LIKE? ORDER BY MANUFACTURER_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM MANUFACTURER_TABLE WHERE MANUFACTURER_NAME LIKE? ORDER BY MANUFACTURER_ID");
         preparedStatement.setString(1, name + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 

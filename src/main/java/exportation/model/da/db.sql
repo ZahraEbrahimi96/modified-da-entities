@@ -128,9 +128,9 @@ create table MANUFACTURER_TABLE
     MANUFACTURER_ADDRESS nvarchar2(300),
     MANUFACTURER_PHONE   nvarchar2(30),
     MANUFACTURER_EMAIL   nvarchar2(250),
-    MANUFACTURER_COUNTRY references COUNTRY_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE,
     PRODUCTION_RATE      number,
-    MANUFACTURER_MANAGER references PERSON_TABLE
+    PERSON_ID references PERSON_TABLE
 );
 create sequence MANUFACTURE_SEQ start with 1 increment by 1;
 

@@ -2,7 +2,6 @@ package exportation.model.da;
 
 import exportation.model.entity.Item;
 import exportation.model.entity.enums.Brand;
-import exportation.model.entity.enums.Gender;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -25,7 +24,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL, ITEM_DIMENSIONOFUNITE, ITEM_DIMENSIONOFPALLET, ITEM_PALLETCAPACITY, ITEM_COST, ITEM_HS_CODE, ITEM_WEIGHTOFUNIT, ITEM_WEIGHTOFPALLET, ITEM_AMPER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL, ITEM_DIMENSIONOFUNITE, ITEM_DIMENSIONOFPALLET, ITEM_PALLETCAPACITY, ITEM_COST, ITEM_HS_CODE, ITEM_WEIGHTOFUNIT, ITEM_WEIGHTOFPALLET, ITEM_AMPER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
@@ -47,7 +46,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?,ITEM_AMPER=? WHERE ITEM_ID=?"
+                "UPDATE ITEM_TABLE SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?,ITEM_AMPER=? WHERE ITEM_ID=?"
         );
         preparedStatement.setString(1, item.getName());
         preparedStatement.setString(2,item.getBrand().toString());
@@ -69,7 +68,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM ITEM WHERE ITEM_ID=?"
+                "DELETE FROM ITEM_TABLE WHERE ITEM_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -80,7 +79,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public List<Item> findAll() throws Exception {
         List<Item> itemList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM ORDER BY ITEM_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM_TABLE ORDER BY ITEM_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -108,7 +107,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     //FindById
     @Override
     public Item findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM WHERE ITEM_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM ITEM_TABLE WHERE ITEM_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Item item = null;
@@ -132,7 +131,6 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     }
 
     //FindByName
-
     public List<Item> findByName(String model) throws Exception {
         List<Item> itemList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM ITEM_TABLE WHERE ITEM_MODEL LIKE? ORDER BY ITEM_ID");
