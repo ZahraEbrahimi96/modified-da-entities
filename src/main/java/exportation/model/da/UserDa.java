@@ -23,7 +23,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
     public User save(User user) throws Exception {
         user.setId(ConnectionProvider.getConnectionProvider().getNextId("USER_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO USER_TABLE (USER_ID,USER_NAME,USER_PASSWORD,USER_ENABLED) VALUES (?,?,?,?)"
+                "INSERT INTO USER_TABLE (USER_ID,USERNAME,USER_PASSWORD,USER_ENABLED) VALUES (?,?,?,?)"
         );
         preparedStatement.setInt(1, user.getId());
         preparedStatement.setString(2, user.getUsername());
@@ -37,7 +37,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
     @Override
     public User edit(User user) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE USER_TABLE SET USER_NAME=?,USER_PASSWORD=?,USER_ENABLED=? WHERE USER_ID=? "
+                "UPDATE USER_TABLE SET USERNAME=?,USER_PASSWORD=?,USER_ENABLED=? WHERE USER_ID=? "
         );
         preparedStatement.setString(1, user.getUsername());
         preparedStatement.setString(2, user.getPassword());
@@ -69,7 +69,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
             User user = User
                     .builder()
                     .id(resultSet.getInt("USER_ID"))
-                    .username(resultSet.getString("USER_NAME"))
+                    .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("USER_PASSWORD"))
                     .enabled(resultSet.getBoolean("USER_ENABLED"))
                     .build();
@@ -91,7 +91,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
             user = User
                     .builder()
                     .id(resultSet.getInt("USER_ID"))
-                    .username(resultSet.getString("USER_NAME"))
+                    .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("USER_PASSWORD"))
                     .enabled(resultSet.getBoolean("USER_ENABLED"))
                     .build();
@@ -109,7 +109,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
             user = User
                     .builder()
                     .id(resultSet.getInt("ID"))
-                    .username(resultSet.getString("NAME"))
+                    .username(resultSet.getString("USERNAME"))
                     .password(resultSet.getString("USER_PASSWORD"))
                     .enabled(resultSet.getBoolean("USER_ENABLED"))
                     .build();

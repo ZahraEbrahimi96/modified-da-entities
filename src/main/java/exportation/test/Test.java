@@ -5,6 +5,7 @@ import exportation.model.entity.*;
 
 public class Test {
     public static void main(String[] args) throws Exception {
+
         Country country1 =
                 Country
                         .builder()
@@ -26,33 +27,40 @@ public class Test {
         CountryBl.getCountryBl().save(country1);
         CountryBl.getCountryBl().save(country2);
         CountryBl.getCountryBl().save(country3);
-//
-//        Company company1 =
-//                Company
-//                        .builder()
-//                        .name("Iran Co.")
-//                        .country(country1)
-//                        .build();
-//
-//        Company company2 =
-//                Company
-//                        .builder()
-//                        .name("Iraq Co.")
-//                        .country(country2)
-//                        .build();
-//
-//        Company company3 =
-//                Company
-//                        .builder()
-//                        .name("UAE Co.")
-//                        .country(country3)
-//                        .build();
-//
-//        CompanyBl.getCompanyBl().save(company1);
-//        CompanyBl.getCompanyBl().save(company2);
-//        CompanyBl.getCompanyBl().save(company3);
-//
-//
+
+
+
+
+        Company company1 =
+                Company
+                        .builder()
+                        .name("Iran Co.")
+                        .country(country1)
+                        .build();
+
+        Company company2 =
+                Company
+                        .builder()
+                        .name("Iraq Co.")
+                        .country(country2)
+                        .build();
+
+        Company company3 =
+                Company
+                        .builder()
+                        .name("UAE Co.")
+                        .country(country3)
+                        .build();
+
+        CompanyBl.getCompanyBl().save(company1);
+        CompanyBl.getCompanyBl().save(company2);
+        CompanyBl.getCompanyBl().save(company3);
+
+
+
+
+
+
 //        User user =
 //                User
 //                .builder()

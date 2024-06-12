@@ -18,7 +18,7 @@ create sequence PERSON_SEQ start with 1 increment by 1;
 create table USER_TABLE
 (
     USER_ID       number primary key,
-    USER_NAME     nvarchar2(30) unique,
+    USERNAME      nvarchar2(30) unique,
     USER_PASSWORD nvarchar2(30),
     USER_ENABLED  number(1)
 );
