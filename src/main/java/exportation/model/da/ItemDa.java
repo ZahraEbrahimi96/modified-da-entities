@@ -24,11 +24,11 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL, ITEM_DIMENSIONOFUNITE, ITEM_DIMENSIONOFPALLET, ITEM_PALLETCAPACITY, ITEM_COST, ITEM_HS_CODE, ITEM_WEIGHTOFUNIT, ITEM_WEIGHTOFPALLET, ITEM_AMPER) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET,ITEM_AMPER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
-        preparedStatement.setString(3,item.getBrand().toString());
+        preparedStatement.setString(3, item.getBrand().toString());
         preparedStatement.setString(4, item.getModel());
         preparedStatement.setString(5, item.getDimensionOfUnite());
         preparedStatement.setString(6, item.getDimensionOfPallet());
@@ -46,10 +46,10 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM_TABLE SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, ITEM_DIMENSIONOFUNITE=?,ITEM_DIMENSIONOFPALLET=?,ITEM_PALLETCAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,ITEM_WEIGHTOFUNIT=?,ITEM_WEIGHTOFPALLET=?,ITEM_AMPER=? WHERE ITEM_ID=?"
+                "UPDATE ITEM_TABLE SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, DIMENSION_OF_UNIT=?,DIMENSION_OF_PALLET=?,PALLET_CAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,WEIGHT_OF_UNIT=?,WEIGHT_OF_PALLET=?,ITEM_AMPER=? WHERE ITEM_ID=?"
         );
         preparedStatement.setString(1, item.getName());
-        preparedStatement.setString(2,item.getBrand().toString());
+        preparedStatement.setString(2, item.getBrand().toString());
         preparedStatement.setString(3, item.getModel());
         preparedStatement.setString(4, item.getDimensionOfUnite());
         preparedStatement.setString(5, item.getDimensionOfPallet());

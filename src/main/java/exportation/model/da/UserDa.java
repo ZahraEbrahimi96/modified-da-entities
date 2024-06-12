@@ -51,7 +51,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
     @Override
     public User remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM USER_TABLE WHERE ID=?"
+                "DELETE FROM USER_TABLE WHERE USER_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -101,7 +101,7 @@ public class UserDa implements AutoCloseable, CRUD<User> {
 
     //FindByUsername
     public User findByUsername(String username) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM USER_TABLE WHERE USER_NAME=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM USER_TABLE WHERE USERNAME=?");
         preparedStatement.setString(1, username + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         User user = null;

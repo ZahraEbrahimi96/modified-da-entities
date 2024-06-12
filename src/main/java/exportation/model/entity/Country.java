@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 @Setter
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
@@ -25,8 +22,8 @@ public class Country {
     private String neighbors;
 
 
-    public static long demand(long importRate,long productionRate,long carRate){
-        return importRate +  productionRate - (carRate / 2);
+    public static long demand(long importRate, long productionRate, long carRate) {
+        return importRate + productionRate - (carRate / 2);
     }
 
 
