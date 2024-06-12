@@ -48,7 +48,8 @@ create table COMPANY_TABLE
     COMPANY_EMAIL        nvarchar2(30),
     COMPANY_PHONE_NUMBER nvarchar2(11),
     PERSON_ID references PERSON_TABLE,
-    COUNTRY_ID references COUNTRY_TABLE
+    COUNTRY_ID references COUNTRY_TABLE,
+    COMPANY_TYPE         nvarchar2(10) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
 );
 create sequence COMPANY_SEQ start with 1 increment by 1;
 

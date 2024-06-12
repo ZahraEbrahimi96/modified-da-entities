@@ -1,6 +1,7 @@
 package exportation.model.da;
 
 import exportation.model.entity.*;
+import exportation.model.entity.enums.CompanyType;
 import lombok.extern.log4j.Log4j;
 import exportation.model.tools.CRUD;
 import exportation.model.tools.ConnectionProvider;
@@ -23,7 +24,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     public Company save(Company company) throws Exception {
         company.setId(ConnectionProvider.getConnectionProvider().getNextId("COMPANY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COMPANY_TABLE (COMPANY_ID,COMPANY_NAME,COMPANY_PRODUCT,COMPANY_ADDRESS,COMPANY_EMAIL,COMPANY_PHONE_NUMBER,PERSON_ID,COUNTRY_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+                "INSERT INTO COMPANY_TABLE (COMPANY_ID,COMPANY_NAME,COMPANY_PRODUCT,COMPANY_ADDRESS,COMPANY_EMAIL,COMPANY_PHONE_NUMBER,PERSON_ID,COUNTRY_ID,COMPANY_TYPE) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?);"
         );
         preparedStatement.setInt(1, company.getId());
         preparedStatement.setString(2, company.getName());
@@ -33,6 +34,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
         preparedStatement.setString(6, company.getPhoneNumber());
         preparedStatement.setInt(7, company.getPerson().getId());
         preparedStatement.setInt(8, company.getCountry().getId());
+        preparedStatement.setString(9, company.getCompanyType().toString());
         preparedStatement.execute();
         return company;
     }
@@ -41,7 +43,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     @Override
     public Company edit(Company company) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COMPANY_TABLE SET COMPANY_NAME=?,COMPANY_PRODUCT=?,COMPANY_ADDRESS=?,COMPANY_EMAIL=?,COMPANY_PHONE_NUMBER=?,PERSON_ID=?,COUNTRY_ID=? WHERE COMPANY_ID=?;"
+                "UPDATE COMPANY_TABLE SET COMPANY_NAME=?,COMPANY_PRODUCT=?,COMPANY_ADDRESS=?,COMPANY_EMAIL=?,COMPANY_PHONE_NUMBER=?,PERSON_ID=?,COUNTRY_ID=?,COMPANY_TYPE=? WHERE COMPANY_ID=?;"
         );
         preparedStatement.setString(1, company.getName());
         preparedStatement.setString(2, company.getProduct());
@@ -50,7 +52,8 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
         preparedStatement.setString(5, company.getPhoneNumber());
         preparedStatement.setInt(6, company.getPerson().getId());
         preparedStatement.setInt(7, company.getCountry().getId());
-        preparedStatement.setInt(8, company.getId());
+        preparedStatement.setString(8, company.getCompanyType().toString());
+        preparedStatement.setInt(9, company.getId());
         preparedStatement.execute();
         return company;
     }
@@ -84,6 +87,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
                     .phoneNumber(resultSet.getString("PHONE_NUMBER"))
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANYTYPE")))
                     .build();
 
             companyList.add(company);
@@ -109,6 +113,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
                     .phoneNumber(resultSet.getString("PHONE_NUMBER"))
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
+                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANYTYPE")))
                     .build();
         }
         return company;

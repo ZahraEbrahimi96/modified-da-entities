@@ -1,6 +1,7 @@
 package exportation.model.entity;
 
 import com.google.gson.Gson;
+import exportation.model.entity.enums.CompanyType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Company {
     private String phoneNumber;
     private Person person;
     private Country country;
+    private CompanyType companyType;
 
     @Override
     public String toString() {
