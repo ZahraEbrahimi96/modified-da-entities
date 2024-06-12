@@ -18,9 +18,7 @@ public class Transportation {
     private String direction;
     private float freight;
     private Item item;
-    private Country country;
-    //    todo
-//    private Supplier supplier;
+    private Company company;
     private ExportTracing exportTracing;
 
 

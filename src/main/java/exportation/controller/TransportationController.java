@@ -1,22 +1,19 @@
 package exportation.controller;
 
 import exportation.model.bl.TransportationBl;
-import exportation.model.entity.Country;
-import exportation.model.entity.ExportTracing;
-import exportation.model.entity.Item;
-import exportation.model.entity.Transportation;
+import exportation.model.entity.*;
 
 public class TransportationController {
 
     //save
-    public static void save(String direction, float freight, Item item, Country country, ExportTracing exportTracing) {
+    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing) {
         try {
             Transportation transportation = Transportation
                     .builder()
                     .direction(direction)
                     .freight(freight)
                     .item(item)
-                    .country(country)
+                    .company(company)
                     .exportTracing(exportTracing)
                     .build();
             TransportationBl.getTransportationBl().save(transportation);
@@ -27,15 +24,16 @@ public class TransportationController {
     }
 
     //edit
-    public static void edit(int id, String direction, float freight, Item item, Country country, ExportTracing exportTracing) {
+    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing) {
         try {
 
             Transportation transportation = Transportation
                     .builder()
+                    .id(id)
                     .direction(direction)
                     .freight(freight)
                     .item(item)
-                    .country(country)
+                    .company(company)
                     .exportTracing(exportTracing)
                     .build();
 
