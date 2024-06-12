@@ -56,11 +56,11 @@ create sequence COMPANY_SEQ start with 1 increment by 1;
 create table TRADE_TABLE
 (
     TRADE_ID              number primary key,
-    TRADE_CLIENT references PERSON_TABLE,
     TRADE_STATUS          nvarchar2(30),
     TRADE_CORRESPONDENCES nvarchar2(500),
     TRADE_CONTRACT        nvarchar2(500),
-    TRADE_AGREEMENT       nvarchar2(500)
+    TRADE_AGREEMENT       nvarchar2(500),
+    PERSON_ID references PERSON_TABLE
 );
 create sequence TRADE_SEQ start with 1 increment by 1;
 

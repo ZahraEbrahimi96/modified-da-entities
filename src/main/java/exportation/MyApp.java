@@ -13,11 +13,11 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getResource("profile.fxml"))
+                FXMLLoader.load(getClass().getResource(""))
         );
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Profile");
+        primaryStage.setTitle("");
         primaryStage.setOnCloseRequest((event) -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure ?");
             if (alert.showAndWait().get().equals(ButtonType.OK)) {

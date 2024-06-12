@@ -13,11 +13,11 @@ import lombok.experimental.SuperBuilder;
 
 public class Trade {
     private int id;
-    private Person person;
     private String status;
     private String correspondences;
     private String contract;
     private String agreement;
+    private Person person;
 
 
     @Override

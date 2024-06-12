@@ -10,15 +10,15 @@ import java.util.regex.Pattern;
 public class TradeController {
 
     //save
-    public static void save(Person person, String status, String correspondences, String contract, String agreement) {
+    public static void save(String status, String correspondences, String contract, String agreement, Person person) {
         try {
             Trade trade = Trade
                     .builder()
-                    .person(person)
                     .status(status)
                     .correspondences(correspondences)
                     .contract(contract)
                     .agreement(agreement)
+                    .person(person)
                     .build();
             TradeBl.getTradeBl().save(trade);
         } catch (Exception e) {
@@ -27,15 +27,15 @@ public class TradeController {
     }
 
     //edit
-    public static void edit(int id, Person person, String status, String correspondences, String contract, String agreement, String invoice) {
+    public static void edit(int id, String status, String correspondences, String contract, String agreement, Person person) {
         try {
             Trade trade = Trade
                     .builder()
-                    .person(person)
                     .status(status)
                     .correspondences(correspondences)
                     .contract(contract)
                     .agreement(agreement)
+                    .person(person)
                     .build();
 
             TradeBl.getTradeBl().edit(trade);

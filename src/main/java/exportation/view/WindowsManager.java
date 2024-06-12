@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class WindowsManager {
+
     public static void showPersonForm() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(

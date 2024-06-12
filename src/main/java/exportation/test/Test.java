@@ -30,44 +30,49 @@ public class Test {
 
 
 
-
-        Company company1 =
-                Company
-                        .builder()
-                        .name("Iran Co.")
-                        .country(country1)
-                        .build();
-
-        Company company2 =
-                Company
-                        .builder()
-                        .name("Iraq Co.")
-                        .country(country2)
-                        .build();
-
-        Company company3 =
-                Company
-                        .builder()
-                        .name("UAE Co.")
-                        .country(country3)
-                        .build();
-
-        CompanyBl.getCompanyBl().save(company1);
-        CompanyBl.getCompanyBl().save(company2);
-        CompanyBl.getCompanyBl().save(company3);
-
-
-
+//
+//        Company company1 =
+//                Company
+//                        .builder()
+//                        .name("Iran Co.")
+//                        .country(country1)
+//                        .build();
+//
+//        Company company2 =
+//                Company
+//                        .builder()
+//                        .name("Iraq Co.")
+//                        .country(country2)
+//                        .build();
+//
+//        Company company3 =
+//                Company
+//                        .builder()
+//                        .name("UAE Co.")
+//                        .country(country3)
+//                        .build();
+//
+//        CompanyBl.getCompanyBl().save(company1);
+//        CompanyBl.getCompanyBl().save(company2);
+//        CompanyBl.getCompanyBl().save(company3);
+//
 
 
-
+//
+//
+//
 //        User user =
 //                User
 //                .builder()
-//                .username("ahmad")
+//                .username("mamad")
 //                .build();
 //
 //        UserBl.getUserBl().save(user);
+//
+//
+//
+//
+//
 //
 //        Person person =
 //                Person
@@ -76,6 +81,9 @@ public class Test {
 //                        .build();
 //
 //        PersonBl.getPersonBl().save(person);
+
+
+
 //
 //        Trade trade =
 //                Trade
@@ -84,6 +92,7 @@ public class Test {
 //                        .build();
 //
 //        TradeBl.getTradeBl().save(trade);
+//
 //
 //        Item item =
 //                Item
