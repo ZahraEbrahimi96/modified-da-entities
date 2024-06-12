@@ -17,9 +17,7 @@ public class Payment {
     private float insurance;
     private Item item;
     private Transportation transportation;
-    private Country country;
-    //    todo
-//    private Company company;
+    private Company company;
 
 
     public static long cif(float cost, int amper, int palletCapacity, float insurance, float freight) {

@@ -33,8 +33,6 @@ create table COUNTRY_TABLE
     COUNTRY_POPULATION number,
     COUNTRY_CAR_RATE   number,
     COUNTRY_PHONE_CODE nvarchar2(4),
-    SUPPLIER_ID references SUPPLIER_TABLE,
-    MANUFACTURER_ID references MANUFACTURER_TABLE,
     COUNTRY_NEIGHBORS  nvarchar2(30)
 );
 create sequence COUNTRY_SEQ start with 1 increment by 1;
@@ -73,7 +71,7 @@ create table PAYMENT_TABLE
     PAYMENT_INSURANCE number,
     ITEM_ID references ITEM_TABLE,
     TRANSPORTATION_ID references TRANSPORTATION_TABLE,
-    COUNTRY_ID references COUNTRY_TABLE
+    COMPANY_ID references COMPANY_TABLE
 );
 create sequence PAYMENT_SEQ start with 1 increment by 1;
 
@@ -118,35 +116,3 @@ create table EXPORT_TRACING_TABLE
     TRADE_ID references TRADE_TABLE
 );
 create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
-
---MANUFACTURE
-create table MANUFACTURER_TABLE
-(
-    MANUFACTURER_ID      number primary key,
-    MANUFACTURER_NAME    nvarchar2(30),
-    MANUFACTURER_PRODUCT nvarchar2(30),
-    MANUFACTURER_ADDRESS nvarchar2(300),
-    MANUFACTURER_PHONE   nvarchar2(30),
-    MANUFACTURER_EMAIL   nvarchar2(250),
-    PRODUCTION_RATE      number,
-    COUNTRY_ID references COUNTRY_TABLE,
-    PERSON_ID references PERSON_TABLE
-);
-create sequence MANUFACTURE_SEQ start with 1 increment by 1;
-
---SUPPLIER
-create table SUPPLIER_TABLE
-(
-    SUPPLIER_ID      number primary key,
-    SUPPLIER_NAME    nvarchar2(30),
-    SUPPLIER_PRODUCT nvarchar2(30),
-    SUPPLIER_ADDRESS nvarchar2(300),
-    SUPPLIER_PHONE   nvarchar2(30),
-    SUPPLIER_EMAIL   nvarchar2(250),
-    SUPPLIER_COUNTRY references COUNTRY_TABLE,
-    ONLINE_SALE      number(1),
-    PERSON_ID references PERSON_TABLE,
-    COUNTRY_ID references COUNTRY_TABLE
-);
-create sequence SUPPLIER_SEQ start with 1 increment by 1;
-

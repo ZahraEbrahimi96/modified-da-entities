@@ -4,10 +4,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/CountryDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/ExportTracingDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/ItemDa.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/ManufacturerDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/PaymentDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/PersonDa.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/SupplierDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/TradeDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/TransportationDa.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/exportation/model/da/db.sql" dialect="Oracle" />

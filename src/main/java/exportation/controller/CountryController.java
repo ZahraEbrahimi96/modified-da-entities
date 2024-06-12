@@ -2,8 +2,6 @@ package exportation.controller;
 
 import exportation.model.bl.CountryBl;
 import exportation.model.entity.Country;
-import exportation.model.entity.Manufacturer;
-import exportation.model.entity.Supplier;
 
 import java.util.regex.Pattern;
 
