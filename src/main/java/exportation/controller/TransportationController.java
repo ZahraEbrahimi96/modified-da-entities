@@ -6,7 +6,7 @@ import exportation.model.entity.*;
 public class TransportationController {
 
     //save
-    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing) {
+    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country) {
         try {
             Transportation transportation = Transportation
                     .builder()
@@ -15,6 +15,7 @@ public class TransportationController {
                     .item(item)
                     .company(company)
                     .exportTracing(exportTracing)
+                    .country(country)
                     .build();
             TransportationBl.getTransportationBl().save(transportation);
 
@@ -24,7 +25,7 @@ public class TransportationController {
     }
 
     //edit
-    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing) {
+    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country) {
         try {
 
             Transportation transportation = Transportation
@@ -35,6 +36,7 @@ public class TransportationController {
                     .item(item)
                     .company(company)
                     .exportTracing(exportTracing)
+                    .country(country)
                     .build();
 
             TransportationBl.getTransportationBl().edit(transportation);

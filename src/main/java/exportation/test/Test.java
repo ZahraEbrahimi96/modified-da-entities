@@ -29,7 +29,6 @@ public class Test {
         CountryBl.getCountryBl().save(country3);
 
 
-
 //
 //        Company company1 =
 //                Company
@@ -60,7 +59,7 @@ public class Test {
 
 //
 //
-//
+
 //        User user =
 //                User
 //                .builder()
@@ -68,8 +67,8 @@ public class Test {
 //                .build();
 //
 //        UserBl.getUserBl().save(user);
-//
-//
+
+
 //
 //
 //
@@ -81,9 +80,9 @@ public class Test {
 //                        .build();
 //
 //        PersonBl.getPersonBl().save(person);
-
-
-
+//
+//
+//
 //
 //        Trade trade =
 //                Trade
@@ -92,7 +91,8 @@ public class Test {
 //                        .build();
 //
 //        TradeBl.getTradeBl().save(trade);
-//
+
+
 //
 //        Item item =
 //                Item
@@ -102,6 +102,8 @@ public class Test {
 //
 //        ItemBl.getItemBl().save(item);
 //
+
+
 //        Transportation transportation =
 //                Transportation
 //                        .builder()
@@ -111,10 +113,12 @@ public class Test {
 //
 //        TransportationBl.getTransportationBl().save(transportation);
 //
+
+
 //        Payment payment =
 //                Payment
 //                        .builder()
-////                        .item(item)
+//                        .item(item)
 //                        .transportation(transportation)
 //                        .build();
 //

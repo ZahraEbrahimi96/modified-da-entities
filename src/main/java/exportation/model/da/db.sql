@@ -102,7 +102,8 @@ create table TRANSPORTATION_TABLE
     TRANSPORTATION_FREIGHT   number,
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
-    EXPORT_ID references EXPORT_TRACING_TABLE
+    EXPORT_ID references EXPORT_TRACING_TABLE,
+    COUNTRY_ID references COUNTRY_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 

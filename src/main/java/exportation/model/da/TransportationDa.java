@@ -24,14 +24,15 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     public Transportation save(Transportation transportation) throws Exception {
         transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("Transportation_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRANSPORTATION_TABLE (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, ITEM_ID, COMPANY_ID, EXPORT_ID) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO TRANSPORTATION_TABLE (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, ITEM_ID, COMPANY_ID, EXPORT_ID,COUNTRY_ID) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
         preparedStatement.setDouble(3, transportation.getFreight());
-        preparedStatement.setInt(4,transportation.getItem().getId());
-        preparedStatement.setInt(5,transportation.getCompany().getId());
-        preparedStatement.setInt(6,transportation.getExportTracing().getId());
+        preparedStatement.setInt(4, transportation.getItem().getId());
+        preparedStatement.setInt(5, transportation.getCompany().getId());
+        preparedStatement.setInt(6, transportation.getExportTracing().getId());
+        preparedStatement.setInt(7, transportation.getCountry().getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -40,14 +41,15 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION_TABLE SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,ITEM_ID=?, COMPANY_ID=?,EXPORT_ID=?  WHERE TRANSPORTATION_ID=?"
+                "UPDATE TRANSPORTATION_TABLE SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,ITEM_ID=?, COMPANY_ID=?,EXPORT_ID=?,COUNTRY_ID=?  WHERE TRANSPORTATION_ID=?"
         );
         preparedStatement.setString(1, transportation.getDirection());
         preparedStatement.setDouble(2, transportation.getFreight());
-        preparedStatement.setInt(3,transportation.getItem().getId());
-        preparedStatement.setInt(4,transportation.getItem().getId());
-        preparedStatement.setInt(5,transportation.getExportTracing().getId());
-        preparedStatement.setInt(6, transportation.getId());
+        preparedStatement.setInt(3, transportation.getItem().getId());
+        preparedStatement.setInt(4, transportation.getItem().getId());
+        preparedStatement.setInt(5, transportation.getExportTracing().getId());
+        preparedStatement.setInt(6, transportation.getCountry().getId());
+        preparedStatement.setInt(7, transportation.getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -79,6 +81,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
                     .company(Company.builder().name(resultSet.getString("COMPANY_ID")).build())
                     .exportTracing(ExportTracing.builder().id(resultSet.getInt("EXPORT_ID")).build())
+                    .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .build();
 
             transportationList.add(transportation);
@@ -103,6 +106,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
                     .company(Company.builder().name(resultSet.getString("COMPANY_ID")).build())
                     .exportTracing(ExportTracing.builder().id(resultSet.getInt("EXPORT_ID")).build())
+                    .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .build();
         }
         return transportation;

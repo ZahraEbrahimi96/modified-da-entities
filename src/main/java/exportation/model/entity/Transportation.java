@@ -20,6 +20,7 @@ public class Transportation {
     private Item item;
     private Company company;
     private ExportTracing exportTracing;
+    private Country country;
 
 
     @Override
