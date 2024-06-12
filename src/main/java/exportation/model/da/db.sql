@@ -27,13 +27,14 @@ create sequence USER_SEQ start with 1 increment by 1;
 --COUNTRY
 create table COUNTRY_TABLE
 (
-    COUNTRY_ID         number primary key,
-    COUNTRY_TARIFF     nvarchar2(4),
-    COUNTRY_NAME       nvarchar2(30),
-    COUNTRY_POPULATION number,
-    COUNTRY_CAR_RATE   number,
-    COUNTRY_PHONE_CODE nvarchar2(4),
-    COUNTRY_NEIGHBORS  nvarchar2(30)
+    COUNTRY_ID          number primary key,
+    COUNTRY_NAME        nvarchar2(30),
+    COUNTRY_TARIFF      nvarchar2(4),
+    COUNTRY_PHONE_CODE  nvarchar2(4),
+    COUNTRY_IMPORT_RATE number,
+    COUNTRY_POPULATION  number,
+    COUNTRY_CAR_RATE    number,
+    COUNTRY_NEIGHBORS   nvarchar2(30)
 );
 create sequence COUNTRY_SEQ start with 1 increment by 1;
 

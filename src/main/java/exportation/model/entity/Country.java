@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class Country implements Serializable {
     private int id;
-    private int tariff;
     private String name;
+    private int tariff;
     private String phoneCode;
     private long importRate;
     private long population;

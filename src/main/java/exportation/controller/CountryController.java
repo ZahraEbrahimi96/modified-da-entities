@@ -8,16 +8,17 @@ import java.util.regex.Pattern;
 public class CountryController {
 
     //save
-    public static void save(String name, String phoneCode, long population, long carRate, int tariff, String neighbors) {
+    public static void save(String name, int tariff, String phoneCode, long importRate, long population, long carRate, String neighbors) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^\\d{4}|[\\+ + [0]{2} + \\d{2}]$", phoneCode)) {
                 Country country = Country
                         .builder()
                         .name(name)
+                        .tariff(tariff)
                         .phoneCode(phoneCode)
+                        .importRate(importRate)
                         .population(population)
                         .carRate(carRate)
-                        .tariff(tariff)
                         .neighbors(neighbors)
                         .build();
                 CountryBl.getCountryBl().save(country);
@@ -30,16 +31,18 @@ public class CountryController {
     }
 
     //edit
-    public static void edit(int id, String name, String phoneCode, long population, long carRate, int tariff, String neighbors) {
+    public static void edit(int id, String name, int tariff, String phoneCode, long importRate, long population, long carRate, String neighbors) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^\\d{4}|[\\+ + [0]{2} + \\d{2}]$", phoneCode)) {
                 Country country = Country
                         .builder()
+                        .id(id)
                         .name(name)
+                        .tariff(tariff)
                         .phoneCode(phoneCode)
+                        .importRate(importRate)
                         .population(population)
                         .carRate(carRate)
-                        .tariff(tariff)
                         .neighbors(neighbors)
                         .build();
                 CountryBl.getCountryBl().edit(country);
