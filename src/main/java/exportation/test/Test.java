@@ -57,8 +57,6 @@ public class Test {
 //
 
 
-//
-//
 
 //        User user =
 //                User
@@ -69,10 +67,8 @@ public class Test {
 //        UserBl.getUserBl().save(user);
 
 
-//
-//
-//
-//
+
+
 //        Person person =
 //                Person
 //                        .builder()
@@ -81,9 +77,9 @@ public class Test {
 //
 //        PersonBl.getPersonBl().save(person);
 //
-//
-//
-//
+
+
+
 //        Trade trade =
 //                Trade
 //                        .builder()
@@ -93,7 +89,7 @@ public class Test {
 //        TradeBl.getTradeBl().save(trade);
 
 
-//
+
 //        Item item =
 //                Item
 //                        .builder()
@@ -101,7 +97,7 @@ public class Test {
 //                        .build();
 //
 //        ItemBl.getItemBl().save(item);
-//
+
 
 
 //        Transportation transportation =
@@ -112,7 +108,8 @@ public class Test {
 //                        .build();
 //
 //        TransportationBl.getTransportationBl().save(transportation);
-//
+
+
 
 
 //        Payment payment =
@@ -121,7 +118,10 @@ public class Test {
 //                        .item(item)
 //                        .transportation(transportation)
 //                        .build();
-//
+//        PaymentBl.getPaymentBl().save(payment);
+
+
+
 //        ExportTracing exportTracing =
 //                ExportTracing
 //                        .builder()
@@ -129,6 +129,8 @@ public class Test {
 //                        .build();
 //
 //        ExportTracingBl.getExportTracingBl().save(exportTracing);
+
+
 
 //        exportation cost ???
     }
