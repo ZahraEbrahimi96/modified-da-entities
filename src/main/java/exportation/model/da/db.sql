@@ -64,18 +64,6 @@ create table TRADE_TABLE
 );
 create sequence TRADE_SEQ start with 1 increment by 1;
 
---PAYMENT
-create table PAYMENT_TABLE
-(
-    PAYMENT_ID        number primary key,
-    PAYMENT_TAX       number,
-    PAYMENT_INSURANCE number,
-    ITEM_ID references ITEM_TABLE,
-    TRANSPORTATION_ID references TRANSPORTATION_TABLE,
-    COMPANY_ID references COMPANY_TABLE
-);
-create sequence PAYMENT_SEQ start with 1 increment by 1;
-
 --ITEM
 create table ITEM_TABLE
 (
@@ -94,6 +82,17 @@ create table ITEM_TABLE
 );
 create sequence ITEM_SEQ start with 1 increment by 1;
 
+--EXPORTTRACING
+create table EXPORTTRACING_TABLE
+(
+    EXPORTTRACING_ID            number primary key,
+    EXPORTTRACING_LOADINGSTATUS number(1),
+    EXPORTTRACING_PREPAYMENT    number(1),
+    EXPORTTRACING_CHECKOUT      number(1),
+    TRADE_ID references TRADE_TABLE
+);
+create sequence EXPORTTRACING_SEQ start with 1 increment by 1;
+
 --TRANSPORTATION
 create table TRANSPORTATION_TABLE
 (
@@ -102,19 +101,20 @@ create table TRANSPORTATION_TABLE
     TRANSPORTATION_FREIGHT   number,
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
-    EXPORT_ID references EXPORT_TRACING_TABLE,
+    EXPORT_ID references EXPORTTRACING_TABLE,
     COUNTRY_ID references COUNTRY_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 
---EXPORT_TRACING
-create table EXPORT_TRACING_TABLE
+--PAYMENT
+create table PAYMENT_TABLE
 (
-    EXPORT_ID            number primary key,
-    EXPORT_LOADINGSTATUS number(1),
-    EXPORT_PREPAYMENT    number(1),
-    EXPORT_CHECKOUT      number(1),
+    PAYMENT_ID        number primary key,
+    PAYMENT_TAX       number,
+    PAYMENT_INSURANCE number,
+    ITEM_ID references ITEM_TABLE,
     TRANSPORTATION_ID references TRANSPORTATION_TABLE,
-    TRADE_ID references TRADE_TABLE
+    COMPANY_ID references COMPANY_TABLE
 );
-create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
+create sequence PAYMENT_SEQ start with 1 increment by 1;
+

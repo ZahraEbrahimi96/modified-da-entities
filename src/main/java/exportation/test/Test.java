@@ -29,14 +29,14 @@ public class Test {
         CountryBl.getCountryBl().save(country3);
 
 
-//
-//        Company company1 =
-//                Company
-//                        .builder()
-//                        .name("Iran Co.")
-//                        .country(country1)
-//                        .build();
-//
+
+        Company company =
+                Company
+                        .builder()
+                        .name("Iran Co.")
+                        .country(country1)
+                        .build();
+
 //        Company company2 =
 //                Company
 //                        .builder()
@@ -50,8 +50,8 @@ public class Test {
 //                        .name("UAE Co.")
 //                        .country(country3)
 //                        .build();
-//
-//        CompanyBl.getCompanyBl().save(company1);
+
+        CompanyBl.getCompanyBl().save(company);
 //        CompanyBl.getCompanyBl().save(company2);
 //        CompanyBl.getCompanyBl().save(company3);
 //

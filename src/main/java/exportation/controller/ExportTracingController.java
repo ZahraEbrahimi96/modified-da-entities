@@ -8,14 +8,13 @@ import exportation.model.entity.Transportation;
 public class ExportTracingController {
 
     //save
-    public static void save(boolean loadingStatus, boolean prePayment, boolean checkout, Transportation transportation, Trade trade) {
+    public static void save(boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade) {
         try {
             ExportTracing exportTracing = ExportTracing
                     .builder()
                     .loadingStatus(loadingStatus)
                     .prePayment(prePayment)
                     .checkout(checkout)
-                    .transportation(transportation)
                     .trade(trade)
                     .build();
             ExportTracingBl.getExportTracingBl().save(exportTracing);
@@ -25,14 +24,13 @@ public class ExportTracingController {
     }
 
     //edit
-    public static void edit(int id, boolean loadingStatus, boolean prePayment, boolean checkout, Transportation transportation, Trade trade) {
+    public static void edit(int id, boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade) {
         try {
             ExportTracing exportTracing = ExportTracing
                     .builder()
                     .loadingStatus(loadingStatus)
                     .prePayment(prePayment)
                     .checkout(checkout)
-                    .transportation(transportation)
                     .trade(trade)
                     .build();
             ExportTracingBl.getExportTracingBl().edit(exportTracing);

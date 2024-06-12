@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @SuperBuilder(toBuilder = true)
 @Getter
 
-public class Country implements Serializable {
+public class Country {
     private int id;
     private String name;
     private int tariff;
@@ -24,9 +24,6 @@ public class Country implements Serializable {
     private long carRate;
     private String neighbors;
 
-//    public void addNeighbors(String neighbors) {
-//        neighbors.add(neighbors);
-//    }
 
     public static long demand(long importRate,long productionRate,long carRate){
         return importRate +  productionRate - (carRate / 2);

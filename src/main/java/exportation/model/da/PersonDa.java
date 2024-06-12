@@ -128,7 +128,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     //FindByFamily
     public List<Person> findByFamily(String family) throws Exception {
         List<Person> personList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON_TABLE WHERE FAMILY LIKE? ORDER BY PERSON_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM PERSON_TABLE WHERE PERSON_FAMILY LIKE? ORDER BY PERSON_ID");
         preparedStatement.setString(1, family + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
 
