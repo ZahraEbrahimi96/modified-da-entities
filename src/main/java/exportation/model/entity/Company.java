@@ -18,8 +18,8 @@ public class Company {
     private String address;
     private String email;
     private String phoneNumber;
-    private Country country;
     private Person person;
+    private Country country;
 
     @Override
     public String toString() {
