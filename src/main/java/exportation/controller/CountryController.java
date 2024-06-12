@@ -8,15 +8,13 @@ import java.util.regex.Pattern;
 public class CountryController {
 
     //save
-    public static void save(String name, String phoneCode, Supplier supplier, Manufacturer manufacturer, long population, long carRate, int tariff, String neighbors) {
+    public static void save(String name, String phoneCode, long population, long carRate, int tariff, String neighbors) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^\\d{4}|[\\+ + [0]{2} + \\d{2}]$", phoneCode)) {
                 Country country = Country
                         .builder()
                         .name(name)
                         .phoneCode(phoneCode)
-                        .supplier(supplier)
-                        .manufacturer(manufacturer)
                         .population(population)
                         .carRate(carRate)
                         .tariff(tariff)
@@ -32,15 +30,13 @@ public class CountryController {
     }
 
     //edit
-    public static void edit(int id, String name, String phoneCode, Supplier supplier, Manufacturer manufacturer, long population, long carRate, int tariff, String neighbors) {
+    public static void edit(int id, String name, String phoneCode, long population, long carRate, int tariff, String neighbors) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{2,30}$", name) && Pattern.matches("^\\d{4}|[\\+ + [0]{2} + \\d{2}]$", phoneCode)) {
                 Country country = Country
                         .builder()
                         .name(name)
                         .phoneCode(phoneCode)
-                        .supplier(supplier)
-                        .manufacturer(manufacturer)
                         .population(population)
                         .carRate(carRate)
                         .tariff(tariff)

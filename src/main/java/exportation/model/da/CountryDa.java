@@ -23,17 +23,15 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     public Country save(Country country) throws Exception {
         country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COUNTRY_TABLE (COUNTRY_ID, COUNTRY_NAME, COUNTRY_PHONE_CODE, COUNTRY_SUPPLIER, COUNTRY_MANUFACTURER, COUNTRY_POPULATION, COUNTRY_CAR_RATE, COUNTRY_TARIFF, COUNTRY_NEIGHBORS) VALUES (?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO COUNTRY_TABLE (COUNTRY_ID, COUNTRY_NAME, COUNTRY_PHONE_CODE,COUNTRY_POPULATION, COUNTRY_CAR_RATE, COUNTRY_TARIFF, COUNTRY_NEIGHBORS) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, country.getId());
         preparedStatement.setString(2, country.getName());
         preparedStatement.setString(3, country.getPhoneCode());
-        preparedStatement.setString(4, String.valueOf(country.getSupplier()));
-        preparedStatement.setString(5, String.valueOf(country.getManufacturer()));
-        preparedStatement.setLong(6, country.getPopulation());
-        preparedStatement.setLong(7, country.getCarRate());
-        preparedStatement.setInt(8, country.getTariff());
-        preparedStatement.setString(9, country.getNeighbors());
+        preparedStatement.setLong(4, country.getPopulation());
+        preparedStatement.setLong(5, country.getCarRate());
+        preparedStatement.setInt(6, country.getTariff());
+        preparedStatement.setString(7, country.getNeighbors());
         preparedStatement.execute();
         return country;
     }
@@ -42,18 +40,16 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     @Override
     public Country edit(Country country) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COUNTRY_TABLE SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?, COUNTRY_SUPPLIER=?,COUNTRY_MANUFACTURER=?,COUNTRY_POPULATION=?, COUNTRY_CAR_RATE=?,  COUNTRY_TARIFF=?, COUNTRY_NEIGHBORS=? WHERE COUNTRY_ID=?"
+                "UPDATE COUNTRY_TABLE SET COUNTRY_NAME=?, COUNTRY_PHONE_CODE=?,COUNTRY_POPULATION=?, COUNTRY_CAR_RATE=?,  COUNTRY_TARIFF=?, COUNTRY_NEIGHBORS=? WHERE COUNTRY_ID=?"
         );
 
         preparedStatement.setString(1, country.getName());
         preparedStatement.setString(2, country.getPhoneCode());
-        preparedStatement.setString(3, String.valueOf(country.getSupplier()));
-        preparedStatement.setString(4, String.valueOf(country.getManufacturer()));
-        preparedStatement.setLong(5, country.getPopulation());
-        preparedStatement.setLong(6, country.getCarRate());
-        preparedStatement.setInt(7, country.getTariff());
-        preparedStatement.setString(9, country.getNeighbors());
-        preparedStatement.setInt(9, country.getId());
+        preparedStatement.setLong(3, country.getPopulation());
+        preparedStatement.setLong(4, country.getCarRate());
+        preparedStatement.setInt(5, country.getTariff());
+        preparedStatement.setString(6, country.getNeighbors());
+        preparedStatement.setInt(7, country.getId());
         preparedStatement.execute();
         return country;
     }
@@ -82,8 +78,6 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .phoneCode(resultSet.getString("PHONECODE"))
-                    .supplier(Supplier.builder().id(resultSet.getInt("SUPPLIER_ID")).build())
-                    .manufacturer(Manufacturer.builder().id(resultSet.getInt("MANUFACTURER_ID")).build())
                     .population(resultSet.getLong("COUNTRY_POPULATION"))
                     .carRate(resultSet.getLong("COUNTRY_CAR_RATE"))
                     .tariff(resultSet.getInt("COUNTRY_TARIFF"))
@@ -109,8 +103,6 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
                     .id(resultSet.getInt("ID"))
                     .name(resultSet.getString("NAME"))
                     .phoneCode(resultSet.getString("PHONECODE"))
-                    .supplier(Supplier.builder().id(resultSet.getInt("SUPPLIER_ID")).build())
-                    .manufacturer(Manufacturer.builder().id(resultSet.getInt("MANUFACTURER_ID")).build())
                     .population(resultSet.getLong("COUNTRY_POPULATION"))
                     .carRate(resultSet.getLong("COUNTRY_CAR_RATE"))
                     .tariff(resultSet.getInt("COUNTRY_TARIFF"))

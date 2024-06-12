@@ -5,7 +5,7 @@ import exportation.model.entity.*;
 
 public class PaymentController {
     //save
-    public static void save(float tax, float insurance, Item item, Transportation transportation, Country country) {
+    public static void save(float tax, float insurance, Item item, Transportation transportation, Company company) {
         try {
 
             Payment payment = Payment
@@ -14,7 +14,7 @@ public class PaymentController {
                     .insurance(insurance)
                     .item(item)
                     .transportation(transportation)
-                    .country(country)
+                    .company(company)
                     .build();
             PaymentBl.getPaymentBl().save(payment);
 
@@ -24,7 +24,7 @@ public class PaymentController {
     }
 
     //edit
-    public static void edit(int id, float tax, float insurance, Item item, Transportation transportation, Country country) {
+    public static void edit(int id, float tax, float insurance, Item item, Transportation transportation, Company company) {
         try {
 
             Payment payment = Payment
@@ -33,7 +33,7 @@ public class PaymentController {
                     .insurance(insurance)
                     .item(item)
                     .transportation(transportation)
-                    .country(country)
+                    .company(company)
                     .build();
             PaymentBl.getPaymentBl().edit(payment);
 

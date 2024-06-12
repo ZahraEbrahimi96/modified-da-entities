@@ -55,9 +55,9 @@ public class CountryBl implements CRUD<Country> {
     @Override
     public List<Country> findAll() throws Exception {
         try (CountryDa countryDa = new CountryDa()) {
-            List<Country> perosnList = countryDa.findAll();
-            if (!perosnList.isEmpty()) {
-                return perosnList;
+            List<Country> countryList = countryDa.findAll();
+            if (!countryList.isEmpty()) {
+                return countryList;
             } else {
                 throw new NoCountryFoundException();
             }

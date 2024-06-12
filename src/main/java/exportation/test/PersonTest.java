@@ -11,8 +11,8 @@ public class PersonTest {
 
 
         User user = User.builder()
-                .username("zahra")
-                .password("zahra123")
+                .username("ahmad")
+                .password("ahmad123")
                 .enabled(true)
                 .build();
 
@@ -34,7 +34,6 @@ public class PersonTest {
 
         PersonBl.getPersonBl().save(person);
         System.out.println(person);
-
 
     }
 }

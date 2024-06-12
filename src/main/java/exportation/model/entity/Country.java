@@ -23,9 +23,6 @@ public class Country implements Serializable {
     private long population;
     private long carRate;
     private String neighbors;
-    private Supplier supplier;
-    private Manufacturer manufacturer;
-
 
 //    public void addNeighbors(String neighbors) {
 //        neighbors.add(neighbors);
