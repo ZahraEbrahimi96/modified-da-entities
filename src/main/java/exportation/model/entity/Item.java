@@ -24,7 +24,7 @@ public class Item {
     private float cost;
     private float weightOfUnit;
     private float weightOfPallet;
-    private int amper;
+
 
 
 

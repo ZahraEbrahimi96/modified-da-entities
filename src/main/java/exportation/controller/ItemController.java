@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class ItemController {
 
     //save
-    public static void save(String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet, int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet, int amper) {
+    public static void save(String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet, int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{5,40}$", name) && Pattern.matches("^[H + \\d + L +\\d + w +\\d]$", dimensionOfUnite) && Pattern.matches("^[H + \\d + L +\\d + w +\\d]$", dimensionOfPallet)) {
                 Item item = Item
@@ -24,7 +24,6 @@ public class ItemController {
                         .Hs_Code(Hs_Code)
                         .weightOfUnit(weightOfUnit)
                         .weightOfPallet(weightOfPallet)
-                        .amper(amper)
                         .build();
                 ItemBl.getItemBl().save(item);
             } else {
@@ -36,7 +35,7 @@ public class ItemController {
     }
 
     //edit
-    public static void edit(int id, String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet, int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet, int amper) {
+    public static void edit(int id, String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet, int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet) {
         try {
             if (Pattern.matches("^[a-zA-Z\\s]{5,40}$", name) && Pattern.matches("^[H + \\d + L +\\d + w +\\d]$", dimensionOfUnite) && Pattern.matches("^[H + \\d + L +\\d + w +\\d]$", dimensionOfPallet)) {
                 Item item = Item
@@ -51,7 +50,6 @@ public class ItemController {
                         .Hs_Code(Hs_Code)
                         .weightOfUnit(weightOfUnit)
                         .weightOfPallet(weightOfPallet)
-                        .amper(amper)
                         .build();
                 ItemBl.getItemBl().edit(item);
             } else {

@@ -5,12 +5,13 @@ import exportation.model.bl.TradeBl;
 import exportation.model.entity.Person;
 import exportation.model.entity.Trade;
 
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class TradeController {
 
     //save
-    public static void save(String status, String correspondences, String contract, String agreement, Person person) {
+    public static void save(String status, String correspondences, String contract, String agreement, Person person, LocalDate date) {
         try {
             Trade trade = Trade
                     .builder()
@@ -19,6 +20,7 @@ public class TradeController {
                     .contract(contract)
                     .agreement(agreement)
                     .person(person)
+                    .date(date)
                     .build();
             TradeBl.getTradeBl().save(trade);
         } catch (Exception e) {
@@ -27,7 +29,7 @@ public class TradeController {
     }
 
     //edit
-    public static void edit(int id, String status, String correspondences, String contract, String agreement, Person person) {
+    public static void edit(int id, String status, String correspondences, String contract, String agreement, Person person, LocalDate date) {
         try {
             Trade trade = Trade
                     .builder()
@@ -36,6 +38,7 @@ public class TradeController {
                     .contract(contract)
                     .agreement(agreement)
                     .person(person)
+                    .date(date)
                     .build();
 
             TradeBl.getTradeBl().edit(trade);

@@ -24,7 +24,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET,ITEM_AMPER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
@@ -37,7 +37,6 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         preparedStatement.setLong(9, item.getHs_Code());
         preparedStatement.setFloat(10, item.getWeightOfUnit());
         preparedStatement.setFloat(11, item.getWeightOfPallet());
-        preparedStatement.setInt(12, item.getAmper());
         preparedStatement.execute();
         return item;
     }
@@ -46,7 +45,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     @Override
     public Item edit(Item item) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE ITEM_TABLE SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, DIMENSION_OF_UNIT=?,DIMENSION_OF_PALLET=?,PALLET_CAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,WEIGHT_OF_UNIT=?,WEIGHT_OF_PALLET=?,ITEM_AMPER=? WHERE ITEM_ID=?"
+                "UPDATE ITEM_TABLE SET ITEM_NAME=?, ITEM_BRAND=?, ITEM_MODEL=?, DIMENSION_OF_UNIT=?,DIMENSION_OF_PALLET=?,PALLET_CAPACITY=?,ITEM_COST=? ,ITEM_HS_CODE=?,WEIGHT_OF_UNIT=?,WEIGHT_OF_PALLET=? WHERE ITEM_ID=?"
         );
         preparedStatement.setString(1, item.getName());
         preparedStatement.setString(2, item.getBrand().toString());
@@ -58,8 +57,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         preparedStatement.setLong(8, item.getHs_Code());
         preparedStatement.setFloat(9, item.getWeightOfUnit());
         preparedStatement.setFloat(10, item.getWeightOfPallet());
-        preparedStatement.setInt(11, item.getAmper());
-        preparedStatement.setInt(12, item.getId());
+        preparedStatement.setInt(11, item.getId());
         preparedStatement.execute();
         return item;
     }
@@ -95,7 +93,6 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .cost(resultSet.getFloat("COST"))
                     .weightOfUnit(resultSet.getFloat("WOU"))
                     .weightOfPallet(resultSet.getFloat("WOP"))
-                    .amper(resultSet.getInt("AMPER"))
                     .build();
 
             itemList.add(item);
@@ -124,7 +121,6 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .cost(resultSet.getFloat("COST"))
                     .weightOfUnit(resultSet.getFloat("WOU"))
                     .weightOfPallet(resultSet.getFloat("WOP"))
-                    .amper(resultSet.getInt("AMPER"))
                     .build();
         }
         return item;
@@ -150,7 +146,6 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
                     .cost(resultSet.getFloat("COST"))
                     .weightOfUnit(resultSet.getFloat("WOU"))
                     .weightOfPallet(resultSet.getFloat("WOP"))
-                    .amper(resultSet.getInt("AMPER"))
                     .build();
 
             itemList.add(item);

@@ -22,9 +22,9 @@ public class Country {
     private String neighbors;
 
 
-    public static long demand(long importRate, long productionRate, long carRate) {
-        return importRate + productionRate - (carRate / 2);
-    }
+//    public static long demand(long importRate, long productionRate, long carRate) {
+//        return importRate + productionRate - (carRate / 2);
+//    }
 
 
     @Override

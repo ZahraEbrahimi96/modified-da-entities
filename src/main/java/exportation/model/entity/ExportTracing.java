@@ -18,7 +18,6 @@ public class ExportTracing {
     private boolean checkout;
     private Trade trade;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
