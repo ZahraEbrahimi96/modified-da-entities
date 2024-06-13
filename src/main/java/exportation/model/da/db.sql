@@ -61,7 +61,8 @@ create table TRADE_TABLE
     TRADE_CORRESPONDENCES nvarchar2(500),
     TRADE_CONTRACT        nvarchar2(500),
     TRADE_AGREEMENT       nvarchar2(500),
-    PERSON_ID references PERSON_TABLE
+    PERSON_ID references PERSON_TABLE,
+    TRADE_TIME             date
 );
 create sequence TRADE_SEQ start with 1 increment by 1;
 
@@ -78,8 +79,7 @@ create table ITEM_TABLE
     ITEM_HS_CODE        number,
     ITEM_COST           number,
     WEIGHT_OF_UNIT      number,
-    WEIGHT_OF_PALLET    number,
-    ITEM_AMPER          number
+    WEIGHT_OF_PALLET    number
 );
 create sequence ITEM_SEQ start with 1 increment by 1;
 
@@ -90,7 +90,8 @@ create table EXPORTTRACING_TABLE
     EXPORTTRACING_LOADINGSTATUS number(1),
     EXPORTTRACING_PREPAYMENT    number(1),
     EXPORTTRACING_CHECKOUT      number(1),
-    TRADE_ID references TRADE_TABLE
+    TRADE_ID references TRADE_TABLE,
+    EXPORT_DATE_TIME            date
 );
 create sequence EXPORTTRACING_SEQ start with 1 increment by 1;
 
@@ -103,7 +104,8 @@ create table TRANSPORTATION_TABLE
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
     EXPORT_ID references EXPORTTRACING_TABLE,
-    COUNTRY_ID references COUNTRY_TABLE
+    COUNTRY_ID references COUNTRY_TABLE,
+    TRANSPORTATION_DATE_TIME date
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 

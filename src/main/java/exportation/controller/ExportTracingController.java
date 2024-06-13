@@ -5,10 +5,12 @@ import exportation.model.entity.ExportTracing;
 import exportation.model.entity.Trade;
 import exportation.model.entity.Transportation;
 
+import java.time.LocalDateTime;
+
 public class ExportTracingController {
 
     //save
-    public static void save(boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade) {
+    public static void save(boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade, LocalDateTime dateTime) {
         try {
             ExportTracing exportTracing = ExportTracing
                     .builder()
@@ -16,6 +18,7 @@ public class ExportTracingController {
                     .prePayment(prePayment)
                     .checkout(checkout)
                     .trade(trade)
+                    .dateTime(dateTime)
                     .build();
             ExportTracingBl.getExportTracingBl().save(exportTracing);
         } catch (Exception e) {
@@ -24,7 +27,7 @@ public class ExportTracingController {
     }
 
     //edit
-    public static void edit(int id, boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade) {
+    public static void edit(int id, boolean loadingStatus, boolean prePayment, boolean checkout, Trade trade, LocalDateTime dateTime) {
         try {
             ExportTracing exportTracing = ExportTracing
                     .builder()
@@ -32,6 +35,7 @@ public class ExportTracingController {
                     .prePayment(prePayment)
                     .checkout(checkout)
                     .trade(trade)
+                    .dateTime(dateTime)
                     .build();
             ExportTracingBl.getExportTracingBl().edit(exportTracing);
         } catch (Exception e) {

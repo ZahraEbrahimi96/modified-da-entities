@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -19,6 +21,7 @@ public class Transportation {
     private Company company;
     private ExportTracing exportTracing;
     private Country country;
+    private LocalDateTime dateTime;
 
 
     @Override

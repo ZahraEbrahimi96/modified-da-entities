@@ -24,13 +24,15 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
         exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORT_TRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING_TABLE (EXPORT_ID, EXPORT_LOADINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT,TRADE_ID) VALUES (?,?,?,?,?)"
+                "INSERT INTO EXPORTTRACING_TABLE (EXPORT_ID, EXPORT_LOADINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, exportTracing.getId());
         preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(3, exportTracing.isPrePayment());
         preparedStatement.setBoolean(4, exportTracing.isCheckout());
         preparedStatement.setInt(5, exportTracing.getTrade().getId());
+        preparedStatement.setTimestamp(6, Timestamp.valueOf(exportTracing.getDateTime()));
+
 
         preparedStatement.execute();
         return exportTracing;
@@ -40,13 +42,14 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING_TABLE SET EXPORT_LOADINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, TRADE_ID=? WHERE EXPORT_ID=?"
+                "UPDATE EXPORTTRACING_TABLE SET EXPORT_LOADINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, TRADE_ID=?, EXPORT_DATE_TIME=? WHERE EXPORT_ID=?"
         );
         preparedStatement.setBoolean(1, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(2, exportTracing.isPrePayment());
         preparedStatement.setBoolean(3, exportTracing.isCheckout());
         preparedStatement.setInt(4, exportTracing.getTrade().getId());
-        preparedStatement.setInt(5, exportTracing.getId());
+        preparedStatement.setTimestamp(5, Timestamp.valueOf(exportTracing.getDateTime()));
+        preparedStatement.setInt(6, exportTracing.getId());
 
         preparedStatement.execute();
         return exportTracing;
@@ -78,6 +81,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
                     .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
+                    .dateTime(resultSet.getTimestamp("DATE_TIME").toLocalDateTime())
                     .build();
 
             exportTracingList.add(exportTracing);
@@ -101,6 +105,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
                     .prePayment(resultSet.getBoolean("PREPAYMENT"))
                     .checkout(resultSet.getBoolean("CHECKOUT"))
                     .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
+                    .dateTime(resultSet.getTimestamp("DATE_TIME").toLocalDateTime())
                     .build();
         }
         return exportTracing;

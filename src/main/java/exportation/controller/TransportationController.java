@@ -3,10 +3,12 @@ package exportation.controller;
 import exportation.model.bl.TransportationBl;
 import exportation.model.entity.*;
 
+import java.time.LocalDateTime;
+
 public class TransportationController {
 
     //save
-    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country) {
+    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country, LocalDateTime dateTime) {
         try {
             Transportation transportation = Transportation
                     .builder()
@@ -16,6 +18,7 @@ public class TransportationController {
                     .company(company)
                     .exportTracing(exportTracing)
                     .country(country)
+                    .dateTime(dateTime)
                     .build();
             TransportationBl.getTransportationBl().save(transportation);
 
@@ -25,7 +28,7 @@ public class TransportationController {
     }
 
     //edit
-    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country) {
+    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country,LocalDateTime dateTime) {
         try {
 
             Transportation transportation = Transportation
@@ -37,6 +40,7 @@ public class TransportationController {
                     .company(company)
                     .exportTracing(exportTracing)
                     .country(country)
+                    .dateTime(dateTime)
                     .build();
 
             TransportationBl.getTransportationBl().edit(transportation);
