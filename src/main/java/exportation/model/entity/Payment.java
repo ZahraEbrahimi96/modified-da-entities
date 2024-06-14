@@ -20,8 +20,7 @@ public class Payment {
     private Company company;
 
     public static long totalCost(int tariff, float cost, int palletCapacity, float insurance, float freight) {
-        Payment payment = new Payment();
-        long cif = payment.cif(cost, palletCapacity, insurance, freight);
+        long cif = cif(cost, palletCapacity, insurance, freight);
         tariff = (int) ((cif * tariff) / 100);
         return tariff + cif;
     }
