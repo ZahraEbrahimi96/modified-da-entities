@@ -58,7 +58,6 @@ create table TRADE_TABLE
 (
     TRADE_ID              number primary key,
     TRADE_STATUS          nvarchar2(30),
-    TRADE_CORRESPONDENCES nvarchar2(500),
     TRADE_CONTRACT        nvarchar2(500),
     TRADE_AGREEMENT       nvarchar2(500),
     PERSON_ID references PERSON_TABLE,

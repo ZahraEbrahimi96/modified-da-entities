@@ -19,13 +19,15 @@ public class Payment {
     private Transportation transportation;
     private Company company;
 
-    public static long totalCost(int tariff, float cost, int palletCapacity, float insurance, float freight) {
-        long cif = cif(cost, palletCapacity, insurance, freight);
+    public static long totalCost(int tariff,float cost, float tax, int palletCapacity, float insurance,float freight){
+        Payment payment = new Payment();
+        long cif = payment.cif(cost,palletCapacity,insurance,freight);
         tariff = (int) ((cif * tariff) / 100);
-        return tariff + cif;
+        tax = (cif * tax) / 100;
+        return (long) (tariff + cif + tax);
     }
 
-    public static long cif(float cost, int palletCapacity, float insurance, float freight) {
+    public static long cif(float cost, int palletCapacity, float insurance,float freight) {
         return (long) ((cost * palletCapacity) + insurance + freight);
     }
 

@@ -18,7 +18,6 @@ import java.util.Date;
 public class Trade {
     private int id;
     private String status;
-    private String correspondences;
     private String contract;
     private String agreement;
     private Person person;

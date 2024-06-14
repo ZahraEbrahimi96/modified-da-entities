@@ -11,12 +11,11 @@ import java.util.regex.Pattern;
 public class TradeController {
 
     //save
-    public static void save(String status, String correspondences, String contract, String agreement, Person person, LocalDate date) {
+    public static void save(String status, String contract, String agreement, Person person, LocalDate date) {
         try {
             Trade trade = Trade
                     .builder()
                     .status(status)
-                    .correspondences(correspondences)
                     .contract(contract)
                     .agreement(agreement)
                     .person(person)
@@ -29,12 +28,11 @@ public class TradeController {
     }
 
     //edit
-    public static void edit(int id, String status, String correspondences, String contract, String agreement, Person person, LocalDate date) {
+    public static void edit(int id, String status, String contract, String agreement, Person person, LocalDate date) {
         try {
             Trade trade = Trade
                     .builder()
                     .status(status)
-                    .correspondences(correspondences)
                     .contract(contract)
                     .agreement(agreement)
                     .person(person)

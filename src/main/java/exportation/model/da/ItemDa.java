@@ -126,8 +126,8 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         return item;
     }
 
-    //FindByName
-    public List<Item> findByName(String model) throws Exception {
+    //FindByModel
+    public List<Item> findByModel(String model) throws Exception {
         List<Item> itemList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM ITEM_TABLE WHERE ITEM_MODEL LIKE? ORDER BY ITEM_ID");
         preparedStatement.setString(1, model + "%");

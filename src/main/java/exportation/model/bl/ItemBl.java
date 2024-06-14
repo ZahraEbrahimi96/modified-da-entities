@@ -78,10 +78,10 @@ public class ItemBl implements CRUD<Item> {
     }
 
 
-    //findByName
+    //findByModel
     public List<Item> findByModel (String model) throws Exception {
         try (ItemDa itemDa = new ItemDa()) {
-            List<Item> perosnList = itemDa.findByName(model);
+            List<Item> perosnList = itemDa.findByModel(model);
             if (!perosnList.isEmpty()) {
                 return perosnList;
             } else {
