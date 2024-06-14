@@ -28,11 +28,11 @@
             <Label text="Date" GridPane.rowIndex="1" />
             <Label text="Costomer_Id" GridPane.rowIndex="2" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox layoutX="34.0" layoutY="407.0" prefHeight="76.0" prefWidth="296.0">

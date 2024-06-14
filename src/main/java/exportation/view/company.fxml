@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="14.0" layoutY="22.0" prefHeight="556.0" prefWidth="261.0">
@@ -38,7 +37,6 @@
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -47,6 +45,7 @@
                   <Insets top="10.0" />
                </GridPane.margin>
             </TextArea>
+            <ComboBox prefHeight="35.0" prefWidth="209.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <TableView layoutX="287.0" layoutY="92.0" prefHeight="585.0" prefWidth="678.0">
