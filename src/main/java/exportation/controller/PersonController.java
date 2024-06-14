@@ -36,9 +36,10 @@ public class PersonController {
     //edit
     public static void edit(int id, String name, String family, Gender gender, String nationalId, String phoneNumber, String email, String address, String position) {
         try {
-            if (Pattern.matches("^[a-zA-Z\\s]{5,40}$", name) && Pattern.matches("^[a-zA-Z\\s]{2,30}$", family) && Pattern.matches("^[a-zA-Z\\s\\@]{200}$", email) && Pattern.matches("\\d{3}-\\d{6}-\\d{1}|\\d[10]", nationalId) && Pattern.matches("^[a-zA-Z\\s]{300}$", address)) {
+            if (Pattern.matches("^[a-zA-Z\\s]{5,40}$", name) && Pattern.matches("^[a-zA-Z\\s]{2,30}$", family) && Pattern.matches("^[a-zA-Z\\s@]{200}$", email) && Pattern.matches("\\d{3}-\\d{6}-\\d|\\d[10]", nationalId) && Pattern.matches("^[a-zA-Z\\s]{300}$", address)) {
                 Person person = Person
                         .builder()
+                        .id(id)
                         .name(name)
                         .family(family)
                         .gender(gender)
