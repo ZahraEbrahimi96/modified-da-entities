@@ -9,14 +9,14 @@ import java.util.Objects;
 
 public class WindowsManager {
 
-    public static void showPersonForm() throws IOException {
+    public static void showMainSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/profile.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/main.fxml")))
         );
 
         stage.setScene(scene);
-        stage.setTitle("Profile");
+        stage.setTitle("Main");
         stage.show();
     }
 

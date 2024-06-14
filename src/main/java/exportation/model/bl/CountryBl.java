@@ -76,4 +76,15 @@ public class CountryBl implements CRUD<Country> {
             }
         }
     }
+
+    public List<Country> findByName(String name) throws Exception {
+        try (CountryDa countryDa = new CountryDa()) {
+            List<Country> countryList = countryDa.findByName(name);
+            if (!countryList.isEmpty()) {
+                return countryList;
+            } else {
+                throw new NoCountryFoundException();
+            }
+        }
+    }
 }

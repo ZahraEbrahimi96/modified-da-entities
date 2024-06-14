@@ -115,7 +115,32 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
         return country;
     }
 
-    //Close
+
+    public List<Country> findByName(String name) throws Exception {
+        List<Country> countryList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY_TABLE WHERE COUNTRY_NAME LIKE? ORDER BY COUNTRY_ID");
+        preparedStatement.setString(1, name + "%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Country country = Country
+                    .builder()
+                    .id(resultSet.getInt("ID"))
+                    .name(resultSet.getString("NAME"))
+                    .tariff(resultSet.getInt("COUNTRY_TARIFF"))
+                    .phoneCode(resultSet.getString("PHONE_CODE"))
+                    .importRate(resultSet.getLong("COUNTRY_IMPORT_RATE"))
+                    .population(resultSet.getLong("COUNTRY_POPULATION"))
+                    .carRate(resultSet.getLong("COUNTRY_CAR_RATE"))
+                    .neighbors(resultSet.getString("COUNTRY_NEIGHBORS"))
+                    .build();
+
+            countryList.add(country);
+        }
+
+        return countryList;
+    }
+        //Close
     @Override
     public void close() throws Exception {
         preparedStatement.close();
