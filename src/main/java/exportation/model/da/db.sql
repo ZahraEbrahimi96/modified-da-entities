@@ -62,7 +62,7 @@ create table TRADE_TABLE
     TRADE_CONTRACT        nvarchar2(500),
     TRADE_AGREEMENT       nvarchar2(500),
     PERSON_ID references PERSON_TABLE,
-    TRADE_TIME             date
+    TRADE_TIME            date
 );
 create sequence TRADE_SEQ start with 1 increment by 1;
 

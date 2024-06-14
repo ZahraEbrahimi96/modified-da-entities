@@ -24,7 +24,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
         exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORT_TRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING_TABLE (EXPORT_ID, EXPORT_LOADINGSTATUS, EXPORT_PREPAYMENT, EXPORT_CHECKOUT,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO EXPORTTRACING_TABLE (EXPORTTRACING_ID, EXPORTTRACING_LOADINGSTATUS, EXPORTTRACING_PREPAYMENT, EXPORTTRACING_CHECKOUT,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, exportTracing.getId());
         preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
@@ -32,8 +32,6 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
         preparedStatement.setBoolean(4, exportTracing.isCheckout());
         preparedStatement.setInt(5, exportTracing.getTrade().getId());
         preparedStatement.setTimestamp(6, Timestamp.valueOf(exportTracing.getDateTime()));
-
-
         preparedStatement.execute();
         return exportTracing;
     }
@@ -42,7 +40,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING_TABLE SET EXPORT_LOADINGSTATUS=?, EXPORT_PREPAYMENT=?, EXPORT_CHECKOUT=?, TRADE_ID=?, EXPORT_DATE_TIME=? WHERE EXPORT_ID=?"
+                "UPDATE EXPORTTRACING_TABLE SET EXPORTTRACING_LOADINGSTATUS=?, EXPORTTRACING_PREPAYMENT=?, EXPORTTRACING_CHECKOUT=?, TRADE_ID=?, EXPORT_DATE_TIME=? WHERE EXPORTTRACING_ID=?"
         );
         preparedStatement.setBoolean(1, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(2, exportTracing.isPrePayment());
@@ -59,7 +57,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM EXPORTTRACING_TABLE WHERE EXPORT_ID=?"
+                "DELETE FROM EXPORTTRACING_TABLE WHERE EXPORTTRACING_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -70,7 +68,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public List<ExportTracing> findAll() throws Exception {
         List<ExportTracing> exportTracingList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE ORDER BY EXPORT_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE ORDER BY EXPORTTRACING_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -93,7 +91,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //FindById
     @Override
     public ExportTracing findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE WHERE EXPORT_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE WHERE EXPORTTRACING_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         ExportTracing exportTracing = null;

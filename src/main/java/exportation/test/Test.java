@@ -9,58 +9,58 @@ import java.time.LocalDateTime;
 public class Test {
     public static void main(String[] args) throws Exception {
 
-//        Country country1 =
-//                Country
-//                        .builder()
-//                        .name("Iran")
-//                        .build();
-//    Payment payment = new Payment();
-//        System.out.println(payment.totalCost(5, 35, 72, 72, 3450));
+        Country country1 =
+                Country
+                        .builder()
+                        .name("Iran")
+                        .build();
+    Payment payment = new Payment();
+        System.out.println(payment.totalCost(5, 35, 72, 72, 3450));
 
 
-//
-//        Country country2 =
-//                Country
-//                        .builder()
-//                        .name("Iraq")
-//                        .build();
-//
-//        Country country3 =
-//                Country
-//                        .builder()
-//                        .name("UAE")
-//                        .build();
-//
-//        CountryBl.getCountryBl().save(country1);
-//        CountryBl.getCountryBl().save(country2);
-//        CountryBl.getCountryBl().save(country3);
-//
-//
-//        Company company =
-//                Company
-//                        .builder()
-//                        .name("Iran Co.")
-//                        .country(country1)
-//                        .build();
-//
-//        Company company2 =
-//                Company
-//                        .builder()
-//                        .name("Iraq Co.")
-//                        .country(country2)
-//                        .build();
-//
-//        Company company3 =
-//                Company
-//                        .builder()
-//                        .name("UAE Co.")
-//                        .country(country3)
-//                        .build();
-//
-//        CompanyBl.getCompanyBl().save(company);
-//        CompanyBl.getCompanyBl().save(company2);
-//        CompanyBl.getCompanyBl().save(company3);
-//
+
+        Country country2 =
+                Country
+                        .builder()
+                        .name("Iraq")
+                        .build();
+
+        Country country3 =
+                Country
+                        .builder()
+                        .name("UAE")
+                        .build();
+
+        CountryBl.getCountryBl().save(country1);
+        CountryBl.getCountryBl().save(country2);
+        CountryBl.getCountryBl().save(country3);
+
+
+        Company company =
+                Company
+                        .builder()
+                        .name("Iran Co.")
+                        .country(country1)
+                        .build();
+
+        Company company2 =
+                Company
+                        .builder()
+                        .name("Iraq Co.")
+                        .country(country2)
+                        .build();
+
+        Company company3 =
+                Company
+                        .builder()
+                        .name("UAE Co.")
+                        .country(country3)
+                        .build();
+
+        CompanyBl.getCompanyBl().save(company);
+        CompanyBl.getCompanyBl().save(company2);
+        CompanyBl.getCompanyBl().save(company3);
+
 //
 //        User user =
 //                User
