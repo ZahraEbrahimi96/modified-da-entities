@@ -3,10 +3,17 @@ package exportation.controller;
 import exportation.model.bl.ItemBl;
 import exportation.model.entity.Item;
 import exportation.model.entity.enums.Brand;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class ItemController {
+public class ItemController implements Initializable {
+
+    @FXML
+
 
     //save
     public static void save(String name, Brand brand, String model, String dimensionOfUnite, String dimensionOfPallet, int palletCapacity, float cost, long Hs_Code, float weightOfUnit, float weightOfPallet) {
@@ -69,5 +76,10 @@ public class ItemController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

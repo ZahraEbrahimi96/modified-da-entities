@@ -47,6 +47,7 @@ public class mainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        log.info("App Started");
 
         try {
             resetForm();
@@ -153,21 +154,21 @@ public class mainController implements Initializable {
 
         fByNameTxt.setOnKeyReleased((event) -> {
             try {
-                showDataOnTable((Country) CountryBl.getCountryBl().findByName(fByNameTxt.getText()));
+                showDataOnTable(CountryBl.getCountryBl().findByName(fByNameTxt.getText()));
                 log.info("Country Searched By Name : " + fByNameTxt.getText());
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Persons\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, " Country\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Family Error : " + e.getMessage());
+                log.error("Find By Name Error : " + e.getMessage());
             }
         });
 
         findBtn.setOnAction((event) -> {
             try {
-                showDataOnTable((Country) CountryBl.getCountryBl().findAll());
+                showDataOnTable(CountryBl.getCountryBl().findAll());
                 log.info("ALL Country Searched : " + findBtn);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Persons\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, " Country\n" + e.getMessage());
                 alert.show();
                 log.error("Find ALL Country Error : " + e.getMessage());
             }

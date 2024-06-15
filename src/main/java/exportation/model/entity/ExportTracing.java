@@ -18,6 +18,7 @@ public class ExportTracing {
     private boolean loadingStatus;
     private boolean prePayment;
     private boolean checkout;
+    private Transportation transportation;
     private Trade trade;
     private LocalDateTime dateTime;
 

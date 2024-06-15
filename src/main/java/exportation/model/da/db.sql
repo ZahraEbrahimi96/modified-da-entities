@@ -90,7 +90,8 @@ create table EXPORTTRACING_TABLE
     EXPORTTRACING_PREPAYMENT    number(1),
     EXPORTTRACING_CHECKOUT      number(1),
     TRADE_ID references TRADE_TABLE,
-    EXPORT_DATE_TIME            date
+    EXPORT_DATE_TIME            date,
+    EXPORT_TRANSPORT references TRANSPORTATION_TABLE
 );
 create sequence EXPORTTRACING_SEQ start with 1 increment by 1;
 

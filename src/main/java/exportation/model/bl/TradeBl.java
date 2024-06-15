@@ -55,9 +55,9 @@ public class TradeBl implements CRUD<Trade> {
     @Override
     public List<Trade> findAll() throws Exception {
         try (TradeDa tradeDa = new TradeDa()) {
-            List<Trade> perosnList = tradeDa.findAll();
-            if (!perosnList.isEmpty()) {
-                return perosnList;
+            List<Trade> tradeList = tradeDa.findAll();
+            if (!tradeList.isEmpty()) {
+                return tradeList;
             } else {
                 throw new NoTradeFoundException();
             }
