@@ -20,25 +20,93 @@ public class WindowsManager {
         stage.show();
     }
 
-    public static void showStuffForm() throws IOException {
+    public static void showCompanySheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/stuff.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/company.fxml")))
         );
 
         stage.setScene(scene);
-        stage.setTitle("Profile");
+        stage.setTitle("Company");
         stage.show();
     }
 
-    public static void showAboutForm() throws IOException {
+    public static void showCountrySheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("about.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/country.fxml")))
         );
 
         stage.setScene(scene);
-        stage.setTitle("About");
+        stage.setTitle("Country");
+        stage.show();
+    }
+
+
+    public static void showTradeSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/trade.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Trade");
+        stage.show();
+    }
+
+
+    public static void showExportSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/export.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Exportation");
+        stage.show();
+    }
+
+    public static void showItemSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/item.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Product");
+        stage.show();
+    }
+
+    public static void showPaymentSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/payment.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Price Structure");
+        stage.show();
+    }
+
+    public static void showPersonSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/person.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Middleman");
+        stage.show();
+    }
+
+    public static void showTransportationSheet() throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/transportation.fxml")))
+        );
+
+        stage.setScene(scene);
+        stage.setTitle("Transportation");
         stage.show();
     }
 }
