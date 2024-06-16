@@ -7,7 +7,6 @@ import exportation.model.entity.enums.CompanyType;
 import exportation.model.entity.enums.Gender;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Test {
     public static void main(String[] args) throws Exception {
@@ -223,6 +222,7 @@ public class Test {
                         .weightOfUnit(1000000)
                         .weightOfPallet(1000000)
                         .build();
+
         ItemBl.getItemBl().save(item);
 
 
@@ -237,6 +237,7 @@ public class Test {
                         .country(country1)
                         .date(LocalDate.ofYearDay(2024, 20))
                         .build();
+
         TransportationBl.getTransportationBl().save(transportation);
 
         //check ExportTracing
@@ -250,17 +251,20 @@ public class Test {
                         .trade(trade1)
                         .date(LocalDate.ofYearDay(2024, 30))
                         .build();
+
         ExportTracingBl.getExportTracingBl().save(exportTracing);
 
 //check Payment
         Payment payment =
                 Payment
                         .builder()
+                        .tax(15000)
+                        .insurance(12000)
                         .item(item)
                         .transportation(transportation)
+                        .company(company1)
                         .build();
-        PaymentBl.getPaymentBl().save(payment);
-//        System.out.println(Payment.totalCost(5, 35, 72, 72, 3450));
 
+        PaymentBl.getPaymentBl().save(payment);
     }
 }

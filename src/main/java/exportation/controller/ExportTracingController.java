@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ExportTracingController implements Initializable {
@@ -48,7 +49,7 @@ public class ExportTracingController implements Initializable {
                     .prePayment(prePayment)
                     .checkout(checkout)
                     .trade(trade)
-                    .dateTime(dateTime)
+                    .date(LocalDate.ofYearDay(2024, dateTime.getYear()))
                     .build();
             ExportTracingBl.getExportTracingBl().save(exportTracing);
         } catch (Exception e) {
@@ -65,7 +66,7 @@ public class ExportTracingController implements Initializable {
                     .prePayment(prePayment)
                     .checkout(checkout)
                     .trade(trade)
-                    .dateTime(dateTime)
+                    .date(LocalDate.ofYearDay(2024, dateTime.getYear()))
                     .build();
             ExportTracingBl.getExportTracingBl().edit(exportTracing);
         } catch (Exception e) {

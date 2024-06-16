@@ -22,7 +22,6 @@ public class ExportTracing {
     private Trade trade;
     private LocalDate date;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
