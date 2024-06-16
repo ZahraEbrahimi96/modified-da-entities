@@ -151,10 +151,15 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         return personList;
     }
 
+
+
     //Close
     @Override
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();
     }
+
+
+
 }
