@@ -9,13 +9,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 
 public class MyApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(
-                FXMLLoader.load(getClass().getClassLoader().getResource("/view/person.fxml")));
+                FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/person.fxml"))));
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("person");
@@ -27,5 +29,4 @@ public class MyApp extends Application {
         });
         primaryStage.show();
     }
-
 }

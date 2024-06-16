@@ -2,10 +2,7 @@ package exportation.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,13 +15,16 @@ public class PersonController implements Initializable {
     }
 
     @FXML
-    private TextField idTxt, nameTxt, familyTxt, nationalidTxt, emailTxt, phoneTxt, positionTxt;
+    private TextField idTxt, nameTxt, familyTxt, nationalidTxt, emailTxt, phoneTxt, positionTxt, findbyidTxt, findbyfamilyTxt;
     @FXML
     private RadioButton maleRbtn, femaleRbtn;
     @FXML
-    private Button saveBtn,editBtn,removeBtn;
+    private Button saveBtn, editBtn, removeBtn, findallBtn;
     @FXML
     private ToggleGroup genderToggle;
+    @FXML
+    private TextArea addressTxtarea;
+
 
 //
 //    //save
