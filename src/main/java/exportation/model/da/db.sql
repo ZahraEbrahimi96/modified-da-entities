@@ -2,7 +2,7 @@
 create table USER_TABLE
 (
     USER_ID       number primary key,
-    USERNAME      nvarchar2(30) unique,
+    USERNAME      nvarchar2(30),
     USER_PASSWORD nvarchar2(30),
     USER_ENABLED  number(1)
 );
@@ -46,10 +46,10 @@ create table COMPANY_TABLE
     COMPANY_PRODUCT      nvarchar2(30),
     COMPANY_ADDRESS      nvarchar2(250),
     COMPANY_EMAIL        nvarchar2(30),
-    COMPANY_PHONE_NUMBER nvarchar2(11),
+    COMPANY_PHONE nvarchar2(11),
     PERSON_ID references PERSON_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    COMPANY_TYPE         nvarchar2(10) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
+    COMPANY_TYPE         nvarchar2(20) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
 );
 create sequence COMPANY_SEQ start with 1 increment by 1;
 
