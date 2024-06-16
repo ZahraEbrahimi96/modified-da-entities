@@ -23,7 +23,6 @@ public class Trade {
     private Person person;
     private LocalDate date;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);

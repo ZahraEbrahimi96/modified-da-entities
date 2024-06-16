@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
@@ -19,14 +19,11 @@ public class Transportation {
     private float freight;
     private Item item;
     private Company company;
-    private ExportTracing exportTracing;
     private Country country;
-    private LocalDateTime dateTime;
-
+    private LocalDate date;
 
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
-
 }

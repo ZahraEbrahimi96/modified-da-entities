@@ -26,11 +26,8 @@ public class Item {
     private float weightOfPallet;
 
 
-
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
-
 }

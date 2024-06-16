@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -20,7 +20,7 @@ public class ExportTracing {
     private boolean checkout;
     private Transportation transportation;
     private Trade trade;
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
 
     @Override

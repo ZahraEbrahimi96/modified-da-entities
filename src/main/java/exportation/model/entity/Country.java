@@ -21,11 +21,9 @@ public class Country {
     private long carRate;
     private String neighbors;
 
-
 //    public static long demand(long importRate, long productionRate, long carRate) {
 //        return importRate + productionRate - (carRate / 2);
 //    }
-
 
     @Override
     public String toString() {

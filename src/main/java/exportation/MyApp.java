@@ -8,16 +8,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Objects;
 
-
+@Log4j
 public class MyApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view/person.fxml"))));
+                FXMLLoader.load(getClass().getResource("view/person.fxml")));
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("person");

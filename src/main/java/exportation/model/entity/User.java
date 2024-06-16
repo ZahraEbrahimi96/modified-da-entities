@@ -17,7 +17,6 @@ public class User {
     private String password;
     private boolean enabled;
 
-
     @Override
     public String toString() {
         return new Gson().toJson(this);

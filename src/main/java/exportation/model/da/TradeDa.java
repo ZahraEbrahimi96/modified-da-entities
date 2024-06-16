@@ -24,14 +24,14 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     public Trade save(Trade trade) throws Exception {
         trade.setId(ConnectionProvider.getConnectionProvider().getNextId("TRADE_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRADE_TABLE (TRADE_ID, TRADE_STATUS,TRADE_CONTRACT,TRADE_AGREEMENT,PERSON_ID, TRADE_TIME) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO TRADE_TABLE (TRADE_ID, TRADE_STATUS,TRADE_CONTRACT,TRADE_AGREEMENT,PERSON_ID,TRADE_TIME) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, trade.getId());
         preparedStatement.setString(2, trade.getStatus());
         preparedStatement.setString(3, trade.getContract());
         preparedStatement.setString(4, trade.getAgreement());
         preparedStatement.setInt(5, trade.getPerson().getId());
-        preparedStatement.setDate(6, Date.valueOf(trade.getDate()));
+        preparedStatement.setInt(6, trade.getDate().getYear());
         preparedStatement.execute();
         return trade;
     }
@@ -40,13 +40,13 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
     @Override
     public Trade edit(Trade trade) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRADE_TABLE SET TRADE_STATUS=?,TRADE_CONTRACT=?, TRADE_AGREEMENT=? ,PERSON_ID=?, TRADE_TIME=?  WHERE TRADE_ID=?"
+                "UPDATE TRADE_TABLE SET TRADE_STATUS=?,TRADE_CONTRACT=?, TRADE_AGREEMENT=? ,PERSON_ID=?, TRADE_TIME=? WHERE TRADE_ID=?"
         );
         preparedStatement.setString(1, trade.getStatus());
         preparedStatement.setString(2, trade.getContract());
         preparedStatement.setString(3, trade.getAgreement());
         preparedStatement.setInt(4, trade.getPerson().getId());
-        preparedStatement.setDate(5, Date.valueOf(trade.getDate()));
+        preparedStatement.setInt(5, trade.getDate().getYear());
         preparedStatement.setInt(6, trade.getId());
         preparedStatement.execute();
         return trade;

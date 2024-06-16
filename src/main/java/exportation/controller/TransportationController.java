@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class TransportationController {
 
     //save
-    public static void save(String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country, LocalDateTime dateTime) {
+    public static void save(String direction, float freight, Item item, Company company, Country country, LocalDateTime dateTime) {
         try {
             Transportation transportation = Transportation
                     .builder()
@@ -16,7 +16,7 @@ public class TransportationController {
                     .freight(freight)
                     .item(item)
                     .company(company)
-                    .exportTracing(exportTracing)
+
                     .country(country)
                     .dateTime(dateTime)
                     .build();
@@ -28,7 +28,7 @@ public class TransportationController {
     }
 
     //edit
-    public static void edit(int id, String direction, float freight, Item item, Company company, ExportTracing exportTracing, Country country,LocalDateTime dateTime) {
+    public static void edit(int id, String direction, float freight, Item item, Company company, Country country,LocalDateTime dateTime) {
         try {
 
             Transportation transportation = Transportation
@@ -38,7 +38,6 @@ public class TransportationController {
                     .freight(freight)
                     .item(item)
                     .company(company)
-                    .exportTracing(exportTracing)
                     .country(country)
                     .dateTime(dateTime)
                     .build();

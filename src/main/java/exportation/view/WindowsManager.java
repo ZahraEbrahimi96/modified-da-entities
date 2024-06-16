@@ -89,7 +89,7 @@ public class WindowsManager {
     public static void showPersonSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/person.fxml")))
+                FXMLLoader.load(WindowsManager.class.getResource("view/person.fxml"))
         );
 
         stage.setScene(scene);
