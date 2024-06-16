@@ -29,7 +29,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
         preparedStatement.setInt(4, transportation.getItem().getId());
         preparedStatement.setInt(5, transportation.getCompany().getId());
         preparedStatement.setInt(6, transportation.getCountry().getId());
-        preparedStatement.setInt(7, transportation.getDate().getYear());
+        preparedStatement.setDate(7, Date.valueOf(transportation.getDate()));
         preparedStatement.execute();
         return transportation;
     }
@@ -45,7 +45,7 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
         preparedStatement.setInt(3, transportation.getItem().getId());
         preparedStatement.setInt(4, transportation.getItem().getId());
         preparedStatement.setInt(5, transportation.getCountry().getId());
-        preparedStatement.setInt(6, transportation.getDate().getYear());
+        preparedStatement.setDate(6, Date.valueOf(transportation.getDate()));
         preparedStatement.setInt(7, transportation.getId());
         preparedStatement.execute();
         return transportation;

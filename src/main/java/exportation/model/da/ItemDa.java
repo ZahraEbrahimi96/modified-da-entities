@@ -24,7 +24,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());

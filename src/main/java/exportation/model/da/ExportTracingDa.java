@@ -23,7 +23,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //save
     @Override
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
-        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORT_TRACING_SEQ"));
+        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORTTRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO EXPORTTRACING_TABLE (EXPORTTRACING_ID, EXPORTTRACING_LOADINGSTATUS, EXPORTTRACING_PREPAYMENT, EXPORTTRACING_CHECKOUT,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?)"
         );
@@ -32,7 +32,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
         preparedStatement.setBoolean(3, exportTracing.isPrePayment());
         preparedStatement.setBoolean(4, exportTracing.isCheckout());
         preparedStatement.setInt(5, exportTracing.getTrade().getId());
-        preparedStatement.setInt(6, exportTracing.getDate().getYear());
+        preparedStatement.setDate(6, Date.valueOf(exportTracing.getDate()));
         preparedStatement.execute();
         return exportTracing;
     }
@@ -47,7 +47,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
         preparedStatement.setBoolean(2, exportTracing.isPrePayment());
         preparedStatement.setBoolean(3, exportTracing.isCheckout());
         preparedStatement.setInt(4, exportTracing.getTrade().getId());
-        preparedStatement.setInt(6, exportTracing.getDate().getYear());
+        preparedStatement.setDate(5, Date.valueOf(exportTracing.getDate()));
         preparedStatement.setInt(6, exportTracing.getTransportation().getId());
 
         preparedStatement.execute();

@@ -31,7 +31,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         preparedStatement.setString(3, trade.getContract());
         preparedStatement.setString(4, trade.getAgreement());
         preparedStatement.setInt(5, trade.getPerson().getId());
-        preparedStatement.setInt(6, trade.getDate().getYear());
+        preparedStatement.setDate(6, Date.valueOf(trade.getDate()));
         preparedStatement.execute();
         return trade;
     }
@@ -46,7 +46,7 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         preparedStatement.setString(2, trade.getContract());
         preparedStatement.setString(3, trade.getAgreement());
         preparedStatement.setInt(4, trade.getPerson().getId());
-        preparedStatement.setInt(5, trade.getDate().getYear());
+        preparedStatement.setDate(5, Date.valueOf(trade.getDate()));
         preparedStatement.setInt(6, trade.getId());
         preparedStatement.execute();
         return trade;
