@@ -109,7 +109,7 @@ public class Test {
                         .transportation(transportation)
                         .build();
         PaymentBl.getPaymentBl().save(payment);
-        System.out.println(Payment.totalCost(5, 35, 72, 72, 3450));
+//        System.out.println(Payment.totalCost(5, 35, 72, 72, 3450));
 
 
 //check ExportTracing
