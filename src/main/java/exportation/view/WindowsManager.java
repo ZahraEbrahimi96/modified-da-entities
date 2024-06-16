@@ -42,7 +42,6 @@ public class WindowsManager {
         stage.show();
     }
 
-
     public static void showTradeSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
@@ -53,7 +52,6 @@ public class WindowsManager {
         stage.setTitle("Trade");
         stage.show();
     }
-
 
     public static void showExportSheet() throws IOException {
         Stage stage = new Stage();
