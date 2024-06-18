@@ -1,5 +1,6 @@
 package exportation.controller;
 
+
 import exportation.model.bl.CountryBl;
 import exportation.model.entity.Country;
 import exportation.model.tools.Validator;
@@ -15,29 +16,26 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-
 @Log4j
 public class CountryController implements Initializable {
 
+    @FXML
+    private TextField idTxt, nameTxt, tariffTxt, phCodeTxt, importRTxt, popTxt, carRTxt, neighborsTxt, fByIdTxt, fByNameTxt;
 
     @FXML
-    private TextField idTxt,nameTxt,tariffTxt, phCodeTxt,importRTxt,popTxt,carRTxt,neighborsTxt,fByIdTxt,fByNameTxt;
+    private Button saveBtn, editBtn, removeBtn, findAllBtn;
 
     @FXML
-    private Button saveBtn,editBtn,removeBtn,findAllBtn;
+    private TableView<Country> countryTbl;
 
     @FXML
-    private TableView <Country> countryTbl;
+    private TableColumn<Country, Integer> idCln, tariffCln;
 
     @FXML
-    private TableColumn <Country, Integer> idCln, tariffCln;
+    private TableColumn<Country, Long> importRCln, popCln, carRCln;
 
     @FXML
-    private TableColumn <Country, Long> importRCln,popCln,carRCln;
-
-    @FXML
-    private TableColumn <Country, String> nameCln,phCodeCln,neighborCln;
+    private TableColumn<Country, String> nameCln, phCodeCln, neighborCln;
 
 
     @Override
@@ -56,16 +54,16 @@ public class CountryController implements Initializable {
         saveBtn.setOnAction(event -> {
             try {
 
-                    Country country = Country
-                            .builder()
-                            .name(Validator.nameValidator(nameTxt.getText(), "Invalid Name"))
-                            .tariff(Integer.parseInt(tariffTxt.getText()))
-                            .phoneCode(Validator.nameValidator(phCodeTxt.getText(), "Invalid Phone Code"))
-                            .importRate(Long.parseLong(importRTxt.getText()))
-                            .population(Long.parseLong(popTxt.getText()))
-                            .carRate(Long.parseLong(carRTxt.getText()))
-                            .neighbors(neighborsTxt.getText())
-                            .build();
+                Country country = Country
+                        .builder()
+                        .name(Validator.nameValidator(nameTxt.getText(), "Invalid Name"))
+                        .tariff(Integer.parseInt(tariffTxt.getText()))
+                        .phoneCode(Validator.nameValidator(phCodeTxt.getText(), "Invalid Phone Code"))
+                        .importRate(Long.parseLong(importRTxt.getText()))
+                        .population(Long.parseLong(popTxt.getText()))
+                        .carRate(Long.parseLong(carRTxt.getText()))
+                        .neighbors(neighborsTxt.getText())
+                        .build();
                 CountryBl.getCountryBl().save(country);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Country Saved\n" + country);
                 alert.show();
@@ -166,31 +164,32 @@ public class CountryController implements Initializable {
             neighborsTxt.setText(country.getNeighbors());
         });
     }
-        private void showDataOnTable(List<Country> countryList) {
-            ObservableList<Country> observableList = FXCollections.observableList(countryList);
-            idCln.setCellValueFactory(new PropertyValueFactory<>("id"));
-            nameCln.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tariffCln.setCellValueFactory(new PropertyValueFactory<>("tariff"));
-            phCodeCln.setCellValueFactory(new PropertyValueFactory<>("phoneCode"));
-            importRCln.setCellValueFactory(new PropertyValueFactory<>("importRate"));
-            popCln.setCellValueFactory(new PropertyValueFactory<>("population"));
-            carRCln.setCellValueFactory(new PropertyValueFactory<>("carRate"));
-            neighborCln.setCellValueFactory(new PropertyValueFactory<>("neighbors"));
-            countryTbl.setItems(observableList);
-        }
 
-        private void resetForm() throws Exception {
-            idTxt.clear();
-            nameTxt.clear();
-            tariffTxt.clear();
-            phCodeTxt.clear();
-            importRTxt.clear();
-            popTxt.clear();
-            carRTxt.clear();
-            neighborsTxt.clear();
-                showDataOnTable(CountryBl.getCountryBl().findAll());
+    private void showDataOnTable(List<Country> countryList) {
+        ObservableList<Country> observableList = FXCollections.observableList(countryList);
+        idCln.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCln.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tariffCln.setCellValueFactory(new PropertyValueFactory<>("tariff"));
+        phCodeCln.setCellValueFactory(new PropertyValueFactory<>("phoneCode"));
+        importRCln.setCellValueFactory(new PropertyValueFactory<>("importRate"));
+        popCln.setCellValueFactory(new PropertyValueFactory<>("population"));
+        carRCln.setCellValueFactory(new PropertyValueFactory<>("carRate"));
+        neighborCln.setCellValueFactory(new PropertyValueFactory<>("neighbors"));
+        countryTbl.setItems(observableList);
+    }
 
-        }
+    private void resetForm() throws Exception {
+        idTxt.clear();
+        nameTxt.clear();
+        tariffTxt.clear();
+        phCodeTxt.clear();
+        importRTxt.clear();
+        popTxt.clear();
+        carRTxt.clear();
+        neighborsTxt.clear();
+        showDataOnTable(CountryBl.getCountryBl().findAll());
+
+    }
 }
 
 
