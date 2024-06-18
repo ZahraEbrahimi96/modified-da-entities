@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static java.lang.Float.parseFloat;
+import static java.lang.Float.valueOf;
+
 
 @Log4j
 public class mainController implements Initializable {
@@ -23,8 +26,8 @@ public class mainController implements Initializable {
     @FXML
     private MenuItem closeMenuItem, tradeMenuItem, TargetMenuItem, exportMenuItem, PriceMenuItem, transMenuItem, midMenuItem, CompanyMenuItem, batteryMenuItem, Acount;
 
-    @FXML
-    private Tab aboutTab, countryTab, priceTab;
+//    @FXML
+//    private Tab aboutTab, countryTab, priceTab;
 
     @FXML
     private TableView<Country> countryTable;
@@ -177,21 +180,22 @@ public class mainController implements Initializable {
 
         totalBtn.setOnAction((event) ->{
             try {
-                Payment payment=Payment
-                        .builder()
-                        .tax(Float.parseFloat(taxTxt.getText()))
-                        .insurance(Float.parseFloat(insureTxt.getText()))
-                        .item(Item.builder().cost(Float.parseFloat(costTxt.getText())).build())
-                        .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
-                        .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
-                        .build();
-//                totalTxt.
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + payment);
+                float tax = Float.parseFloat(taxTxt.getText());
+                float insurance = Float.parseFloat(insureTxt.getText());
+                float cost = Float.parseFloat(costTxt.getText());
+                float freight = Float.parseFloat(freightTxt.getText());
+                int tariff = Integer.parseInt(tariffTxt.getText());
+                int pallet = Integer.parseInt(palletTxt.getText());
+
+                long total = Payment.totalCost(tariff,cost,tax,pallet,insurance,freight);
+
+                totalTxt.setText(String.valueOf(total));
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + total);
                 alert.show();
                 resetForm1();
-                log.info("Calculation Done" + payment);
+                log.info("Calculation Done" + total);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Calculation Error\n" + e.getMessage());
                 alert.show();
@@ -202,20 +206,21 @@ public class mainController implements Initializable {
 
         cifBtn.setOnAction((event) ->{
             try {
-                Payment payment= Payment
-                        .builder()
-                        .tax(Float.parseFloat(taxTxt.getText()))
-                        .insurance(Float.parseFloat(insureTxt.getText()))
-                        .item(Item.builder().cost(Float.parseFloat(costTxt.getText())).build())
-                        .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
-                        .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
-                        .build();
-//                long c = payment.cif(costTxt,palletTxt,insureTxt,freightTxt);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + payment);
+                float tax = Float.parseFloat(taxTxt.getText());
+                float insurance = Float.parseFloat(insureTxt.getText());
+                float cost = Float.parseFloat(costTxt.getText());
+                float freight = Float.parseFloat(freightTxt.getText());
+                int tariff = Integer.parseInt(tariffTxt.getText());
+                int pallet = Integer.parseInt(palletTxt.getText());
+
+                long cif = Payment.cif(cost,pallet,insurance,freight);
+
+                cifTxt.setText(String.valueOf(cif));
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + cif);
                 alert.show();
                 resetForm1();
-                log.info("Calculation Done" + payment);
+                log.info("Calculation Done" + cif);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Calculation Error\n" + e.getMessage());
                 alert.show();
