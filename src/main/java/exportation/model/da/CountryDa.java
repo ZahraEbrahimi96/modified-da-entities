@@ -23,16 +23,15 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
     public Country save(Country country) throws Exception {
         country.setId(ConnectionProvider.getConnectionProvider().getNextId("COUNTRY_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO COUNTRY_TABLE (COUNTRY_ID,COUNTRY_NAME,COUNTRY_TARIFF,COUNTRY_PHONE_CODE,COUNTRY_IMPORT_RATE,COUNTRY_POPULATION,COUNTRY_CAR_RATE,COUNTRY_NEIGHBORS) VALUES(?,?,?,?,?,?,?,?)"
+                "INSERT INTO COUNTRY_TABLE (COUNTRY_NAME,COUNTRY_TARIFF,COUNTRY_PHONE_CODE,COUNTRY_IMPORT_RATE,COUNTRY_POPULATION,COUNTRY_CAR_RATE,COUNTRY_NEIGHBORS) VALUES(?,?,?,?,?,?,?)"
         );
-        preparedStatement.setInt(1, country.getId());
-        preparedStatement.setString(2, country.getName());
-        preparedStatement.setInt(3, country.getTariff());
-        preparedStatement.setString(4, country.getPhoneCode());
-        preparedStatement.setDouble(5, country.getImportRate());
-        preparedStatement.setLong(6, country.getPopulation());
-        preparedStatement.setLong(7, country.getCarRate());
-        preparedStatement.setString(8, country.getNeighbors());
+        preparedStatement.setString(1, country.getName());
+        preparedStatement.setInt(2, country.getTariff());
+        preparedStatement.setString(3, country.getPhoneCode());
+        preparedStatement.setDouble(4, country.getImportRate());
+        preparedStatement.setLong(5, country.getPopulation());
+        preparedStatement.setLong(6, country.getCarRate());
+        preparedStatement.setString(7, country.getNeighbors());
         preparedStatement.execute();
         return country;
     }

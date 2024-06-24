@@ -58,7 +58,7 @@ public class CountryController implements Initializable {
                         .builder()
                         .name(Validator.nameValidator(nameTxt.getText(), "Invalid Name"))
                         .tariff(Integer.parseInt(tariffTxt.getText()))
-                        .phoneCode(Validator.nameValidator(phCodeTxt.getText(), "Invalid Phone Code"))
+                        .phoneCode(phCodeTxt.getText())
                         .importRate(Long.parseLong(importRTxt.getText()))
                         .population(Long.parseLong(popTxt.getText()))
                         .carRate(Long.parseLong(carRTxt.getText()))

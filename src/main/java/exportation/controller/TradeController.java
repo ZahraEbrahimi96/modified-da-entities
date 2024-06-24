@@ -114,7 +114,7 @@ public class TradeController implements Initializable {
 
         exportBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("export.fxml"));
+                FXMLLoader.load(getClass().getResource("view/export.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -123,7 +123,7 @@ public class TradeController implements Initializable {
 
         transportBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("transportation.fxml"));
+                FXMLLoader.load(getClass().getResource("exportation/view/transportation.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -132,7 +132,7 @@ public class TradeController implements Initializable {
 
         cInfoBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("person.fxml"));
+                FXMLLoader.load(getClass().getResource("view/person.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
