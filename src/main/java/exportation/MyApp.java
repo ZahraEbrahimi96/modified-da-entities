@@ -19,10 +19,10 @@ public class MyApp extends Application {
     public void start(Stage primaryStage) {
         try {
             Scene scene = new Scene(
-                    FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/exportation/view/person.fxml"))));
+                    FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/exportation/view/main.fxml"))));
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Transportation");
+            primaryStage.setTitle("Main");
             primaryStage.setOnCloseRequest((event) -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to exit the application?");
                 if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
