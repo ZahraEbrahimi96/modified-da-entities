@@ -37,32 +37,32 @@
             <Label text="Weight Of Pallet" GridPane.rowIndex="8" />
             <Label text="Pallet Capacity" GridPane.rowIndex="9" />
             <Label text="Cost" GridPane.rowIndex="10" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <ComboBox prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="idTxt" prefHeight="35.0" GridPane.columnIndex="1" />
+            <TextField fx:id="nameTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="hsTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="modelTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="dOfUnitTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="dOfPalletTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="wOfUnitTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="wOfPalletTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="pCapacityTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="costTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ComboBox fx:id="brandCombo" prefHeight="35.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <TableView layoutX="306.0" layoutY="79.0" prefHeight="568.0" prefWidth="767.0">
+      <TableView fx:id="itemTbl" layoutX="306.0" layoutY="79.0" prefHeight="568.0" prefWidth="767.0">
         <columns>
-          <TableColumn prefWidth="44.0" text="Id" />
-          <TableColumn prefWidth="69.0" text="Name" />
-            <TableColumn prefWidth="72.0" text="HS-Code" />
-            <TableColumn prefWidth="71.0" text="Brand" />
-            <TableColumn prefWidth="75.0" text="Model" />
-            <TableColumn prefWidth="73.0" text="D-Unit" />
-            <TableColumn prefWidth="78.0" text="D-Pallet" />
-            <TableColumn prefWidth="68.0" text="W-Unit" />
-            <TableColumn prefWidth="73.0" text="W-Pallet" />
-            <TableColumn prefWidth="73.0" text="Pallet-C" />
-            <TableColumn prefWidth="73.0" text="Cost" />
+          <TableColumn fx:id="idCln" prefWidth="44.0" text="Id" />
+          <TableColumn fx:id="nameCln" prefWidth="69.0" text="Name" />
+            <TableColumn fx:id="hsCln" prefWidth="72.0" text="HS-Code" />
+            <TableColumn fx:id="brandCln" prefWidth="71.0" text="Brand" />
+            <TableColumn fx:id="modelCln" prefWidth="75.0" text="Model" />
+            <TableColumn fx:id="dOfUnitCln" prefWidth="73.0" text="D-Unit" />
+            <TableColumn fx:id="dOfPalletCln" prefWidth="78.0" text="D-Pallet" />
+            <TableColumn fx:id="wOfUnitCln" prefWidth="68.0" text="W-Unit" />
+            <TableColumn fx:id="wOfPalletCln" prefWidth="73.0" text="W-Pallet" />
+            <TableColumn fx:id="pCapacityCln" prefWidth="73.0" text="Pallet-C" />
+            <TableColumn fx:id="costCln" prefWidth="73.0" text="Cost" />
         </columns>
       </TableView>
       <HBox layoutX="303.0" layoutY="14.0" prefHeight="65.0" prefWidth="222.0">
@@ -72,7 +72,7 @@
                   <Insets top="25.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="31.0" prefWidth="127.0">
+            <TextField fx:id="fByIdTxt" prefHeight="31.0" prefWidth="127.0">
                <HBox.margin>
                   <Insets left="10.0" top="20.0" />
                </HBox.margin>
@@ -86,27 +86,27 @@
                   <Insets top="25.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="31.0" prefWidth="191.0">
+            <TextField fx:id="fByModelTxt" prefHeight="31.0" prefWidth="191.0">
                <HBox.margin>
                   <Insets left="10.0" top="20.0" />
                </HBox.margin>
             </TextField>
          </children>
       </HBox>
-      <Button layoutX="951.0" layoutY="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="109.0" text="Find All" />
+      <Button fx:id="findAllBtn" layoutX="951.0" layoutY="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="109.0" text="Find All" />
       <HBox layoutX="26.0" layoutY="561.0" prefHeight="86.0" prefWidth="261.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="74.0" text="Save">
+            <Button fx:id="saveBtn" mnemonicParsing="false" prefWidth="74.0" text="Save">
                <HBox.margin>
                   <Insets top="25.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="74.0" text="Edit">
+            <Button fx:id="editBtn" mnemonicParsing="false" prefWidth="74.0" text="Edit">
                <HBox.margin>
                   <Insets left="20.0" top="25.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Remove">
+            <Button fx:id="removeBtn" mnemonicParsing="false" text="Remove">
                <HBox.margin>
                   <Insets left="20.0" top="25.0" />
                </HBox.margin>

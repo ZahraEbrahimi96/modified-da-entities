@@ -26,9 +26,6 @@ public class mainController implements Initializable {
     @FXML
     private MenuItem closeMenuItem, tradeMenuItem, TargetMenuItem, exportMenuItem, PriceMenuItem, transMenuItem, midMenuItem, CompanyMenuItem, batteryMenuItem, Acount;
 
-//    @FXML
-//    private Tab aboutTab, countryTab, priceTab;
-
     @FXML
     private TableView<Country> countryTable;
 
@@ -70,7 +67,7 @@ public class mainController implements Initializable {
 
         tradeMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("trade.fxml"));
+                FXMLLoader.load(getClass().getResource("view/trade.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -79,7 +76,7 @@ public class mainController implements Initializable {
 
         TargetMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("country.fxml"));
+                FXMLLoader.load(getClass().getResource("view/country.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -88,7 +85,7 @@ public class mainController implements Initializable {
 
         exportMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("export.fxml"));
+                FXMLLoader.load(getClass().getResource("view/export.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -97,7 +94,7 @@ public class mainController implements Initializable {
 
         PriceMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("payment.fxml"));
+                FXMLLoader.load(getClass().getResource("view/payment.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -106,7 +103,7 @@ public class mainController implements Initializable {
 
         transMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("transportation.fxml"));
+                FXMLLoader.load(getClass().getResource("view/transportation.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -115,7 +112,7 @@ public class mainController implements Initializable {
 
         midMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("person.fxml"));
+                FXMLLoader.load(getClass().getResource("view/person.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -124,7 +121,7 @@ public class mainController implements Initializable {
 
         CompanyMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("company.fxml"));
+                FXMLLoader.load(getClass().getResource("view/company.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -133,7 +130,7 @@ public class mainController implements Initializable {
 
         batteryMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("Item.fxml"));
+                FXMLLoader.load(getClass().getResource("view/Item.fxml"));
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -264,4 +261,3 @@ public class mainController implements Initializable {
 
 
 }
-//

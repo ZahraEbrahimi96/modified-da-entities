@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exportation.controller.TransportationController">
    <children>
       <GridPane layoutX="24.0" layoutY="14.0" prefHeight="484.0" prefWidth="301.0">
         <columnConstraints>
@@ -26,7 +25,7 @@
         </rowConstraints>
          <children>
             <Label text="Id" />
-            <Label text="Date &amp; Time" GridPane.rowIndex="1" />
+            <Label text="Date" GridPane.rowIndex="1" />
             <Label text="Company" GridPane.rowIndex="2" />
             <Label text="Product" GridPane.rowIndex="3" />
             <Label prefHeight="21.0" prefWidth="77.0" text="Country" GridPane.rowIndex="4" />
@@ -34,47 +33,47 @@
             <Label text="Freight" GridPane.rowIndex="6" />
             <Label text="Exportation_Id" GridPane.rowIndex="7" />
             <Label text="Trade_Id" GridPane.rowIndex="8" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="idTxt" prefHeight="35.0" GridPane.columnIndex="1" />
+            <TextField fx:id="coIdTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="productTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="countryTx" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="directionTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="freightTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="expoIdTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="tradeIdTxt" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <DatePicker fx:id="datePicker" prefHeight="35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox layoutX="24.0" layoutY="492.0" prefHeight="68.0" prefWidth="301.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="74.0" text="Save">
+            <Button fx:id="saveBtn" mnemonicParsing="false" prefWidth="74.0" text="Save">
                <HBox.margin>
                   <Insets top="16.5" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefWidth="74.0" text="Edit">
+            <Button fx:id="editBtn" mnemonicParsing="false" prefWidth="74.0" text="Edit">
                <HBox.margin>
                   <Insets left="39.5" top="16.5" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Remove">
+            <Button fx:id="removeBtn" mnemonicParsing="false" text="Remove">
                <HBox.margin>
                   <Insets left="39.5" top="16.5" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <TableView layoutX="353.0" layoutY="78.0" prefHeight="603.0" prefWidth="737.0">
+      <TableView fx:id="transportTbl" layoutX="353.0" layoutY="78.0" prefHeight="603.0" prefWidth="737.0">
         <columns>
-          <TableColumn prefWidth="59.0" text="Id" />
-          <TableColumn prefWidth="84.7" text="Date &amp; Time" />
-            <TableColumn prefWidth="84.7" text="Company" />
-            <TableColumn prefWidth="84.7" text="Product" />
-            <TableColumn prefWidth="84.7" text="Country" />
-            <TableColumn prefWidth="84.7" text="Direction" />
-            <TableColumn prefWidth="84.7" text="Freight" />
-            <TableColumn prefWidth="84.7" text="EX_Id" />
-            <TableColumn prefWidth="84.7" text="Trade_Id" />
+          <TableColumn fx:id="idCln" prefWidth="59.0" text="Id" />
+          <TableColumn fx:id="dateCln" prefWidth="84.7" text="Date " />
+            <TableColumn fx:id="companyCln" prefWidth="84.7" text="Company" />
+            <TableColumn fx:id="productCln" prefWidth="84.7" text="Product" />
+            <TableColumn fx:id="countryCln" prefWidth="84.7" text="Country" />
+            <TableColumn fx:id="directionCln" prefWidth="84.7" text="Direction" />
+            <TableColumn fx:id="freightCln" prefWidth="84.7" text="Freight" />
+            <TableColumn fx:id="expoCln" prefWidth="84.7" text="EX_Id" />
+            <TableColumn fx:id="tradeCln" prefWidth="84.7" text="Trade_Id" />
         </columns>
       </TableView>
       <HBox layoutX="362.0" layoutY="10.0" prefHeight="68.0" prefWidth="288.0">
@@ -84,23 +83,23 @@
                   <Insets top="19.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="35.0" prefWidth="131.0">
+            <TextField fx:id="fByIdTxt" prefHeight="35.0" prefWidth="131.0">
                <HBox.margin>
                   <Insets left="20.0" top="13.0" />
                </HBox.margin>
             </TextField>
          </children>
       </HBox>
-      <Button layoutX="969.0" layoutY="29.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="113.0" text="Find All" />
+      <Button fx:id="findAllBtn" layoutX="969.0" layoutY="29.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="113.0" text="Find All" />
       <VBox layoutX="24.0" layoutY="560.0" prefHeight="120.0" prefWidth="192.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Countries Info" />
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Trade Info">
+            <Button fx:id="countryBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Countries Info" />
+            <Button fx:id="tradeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="127.0" text="Trade Info">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="35.0" text="Exportation Info">
+            <Button fx:id="exportationBtn" mnemonicParsing="false" prefHeight="35.0" text="Exportation Info">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

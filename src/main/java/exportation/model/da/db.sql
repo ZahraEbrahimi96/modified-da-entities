@@ -91,7 +91,8 @@ create table TRANSPORTATION_TABLE
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    TRANSPORTATION_DATE_TIME date
+    TRANSPORTATION_DATE     date,
+    TRANSPORTATION_EXPORTATION  references EXPORTTRACING_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 

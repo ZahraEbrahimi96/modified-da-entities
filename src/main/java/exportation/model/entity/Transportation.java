@@ -21,6 +21,7 @@ public class Transportation {
     private Company company;
     private Country country;
     private LocalDate date;
+    private ExportTracing exportTracing;
 
     @Override
     public String toString() {
