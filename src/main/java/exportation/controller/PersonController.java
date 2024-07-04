@@ -1,7 +1,9 @@
 package exportation.controller;
+
 import exportation.model.bl.PersonBl;
 import exportation.model.entity.Person;
 import exportation.model.entity.enums.Gender;
+import exportation.model.tools.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,10 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
+
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-
 
 @Log4j
 public class PersonController implements Initializable {
@@ -28,18 +31,16 @@ public class PersonController implements Initializable {
     @FXML
     private TextArea addressTxtarea;
     @FXML
-    private TableView <Person> personTbl;
+    private TableView<Person> personTbl;
     @FXML
-    private TableColumn <Person, Integer > idCln;
+    private TableColumn<Person, Integer> idCln;
     @FXML
-    private TableColumn <Person, String >nameCln,familyCln,nationalCln,emailCln,phoneCln,position,addressCln;
+    private TableColumn<Person, String> nameCln, familyCln, nationalCln, emailCln, phoneCln, positionCln, addressCln;
     @FXML
-    private TableColumn <Person, Gender>genderCln;
-
+    private TableColumn<Person, Gender> genderCln;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         log.info("App Started");
         try {
             resetForm();
@@ -54,26 +55,26 @@ public class PersonController implements Initializable {
 
                 Person person = Person
                         .builder()
-                        .name(nameTxt.getText())
-                        .family(familyTxt.getText())
-                        .gender(Gender.valueOf(gender.getText()))
-                        .nationalId(nationalidTxt.getText())
-                        .phoneNumber(phoneTxt.getText())
-                        .email(emailTxt.getText())
-                        .address(addressTxtarea.getText())
-                        .position(positionTxt.getText())
+                        .name(Validator.nameValidator(nameTxt.getText(), "Invalid name"))
+                        .family(Validator.nameValidator(familyTxt.getText(), "Invalid family name"))
+                        .gender(Gender.valueOf(gender.getText().toLowerCase()))
+                        .nationalId(Validator.nationalIdValidator(nationalidTxt.getText(), "Invalid national ID"))
+                        .phoneNumber(Validator.phoneNumberValidator(phoneTxt.getText(), "Invalid phone number"))
+                        .email(Validator.emailValidator(emailTxt.getText(), "Invalid email"))
+                        .address(Validator.addressValidator(addressTxtarea.getText(), "Invalid address"))
+                        .position(Validator.positionValidator(positionTxt.getText(), "Invalid position"))
                         .build();
+
                 PersonBl.getPersonBl().save(person);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Person Saved\n" + person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Person Saved\n" + person);
                 alert.show();
                 resetForm();
                 log.info("Person Saved " + person);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person Save Error\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person Save Error\n" + e.getMessage());
                 alert.show();
-                log.error("Save Error : " + e.getMessage());
+                log.error("Save Error: " + e.getMessage());
             }
-
         });
 
         editBtn.setOnAction(event -> {
@@ -83,88 +84,91 @@ public class PersonController implements Initializable {
                 Person person = Person
                         .builder()
                         .id(Integer.parseInt(idTxt.getText()))
-                        .name(nameTxt.getText())
-                        .family(familyTxt.getText())
-                        .gender(Gender.valueOf(gender.getText()))
-                        .nationalId(nationalidTxt.getText())
-                        .phoneNumber(phoneTxt.getText())
-                        .email(emailTxt.getText())
-                        .address(addressTxtarea.getText())
-                        .position(positionTxt.getText())
+                        .name(Validator.nameValidator(nameTxt.getText(), "Invalid name"))
+                        .family(Validator.nameValidator(familyTxt.getText(), "Invalid family name"))
+                        .gender(Gender.valueOf(gender.getText().toLowerCase()))
+                        .nationalId(Validator.nationalIdValidator(nationalidTxt.getText(), "Invalid national ID"))
+                        .phoneNumber(Validator.phoneNumberValidator(phoneTxt.getText(), "Invalid phone number"))
+                        .email(Validator.emailValidator(emailTxt.getText(), "Invalid email"))
+                        .address(Validator.addressValidator(addressTxtarea.getText(), "Invalid address"))
+                        .position(Validator.positionValidator(positionTxt.getText(), "Invalid position"))
                         .build();
+
                 PersonBl.getPersonBl().edit(person);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Person Edited\n" + person);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Person Edited\n" + person);
                 alert.show();
                 resetForm();
                 log.info("Person Edited " + person);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person Edit Error\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person Edit Error\n" + e.getMessage());
                 alert.show();
-                log.error("Edit Error : " + e.getMessage());
+                log.error("Edit Error: " + e.getMessage());
             }
-
         });
 
         removeBtn.setOnAction(event -> {
             try {
                 PersonBl.getPersonBl().remove(Integer.parseInt(idTxt.getText()));
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Person Removed\n" + idTxt.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Person Removed\n" + idTxt.getText());
                 alert.show();
                 log.info("Person Removed " + idTxt.getText());
                 resetForm();
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person Remove Error\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person Remove Error\n" + e.getMessage());
                 alert.show();
-                log.error("Remove Error : " + e.getMessage());
+                log.error("Remove Error: " + e.getMessage());
             }
         });
 
-        findbyidTxt.setOnKeyReleased((event) -> {
+        findbyidTxt.setOnKeyReleased(event -> {
             try {
-
-                showDataOnTable((List<Person>) PersonBl.getPersonBl().findById(Integer.parseInt(findbyidTxt.getText())));
-                log.info("Person Searched By Id : " + findbyidTxt.getText());
+                Person person = PersonBl.getPersonBl().findById(Integer.parseInt(findbyidTxt.getText()));
+                if (person != null) {
+                    showDataOnTable(Collections.singletonList(person));
+                    log.info("Person Searched By Id: " + findbyidTxt.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 
-        findbyfamilyTxt.setOnKeyReleased((event) -> {
+        findbyfamilyTxt.setOnKeyReleased(event -> {
             try {
-
-                showDataOnTable((List<Person>) PersonBl.getPersonBl().findByFamily(findbyfamilyTxt.getText()));
-                log.info("Person Searched By Id : " + findbyfamilyTxt.getText());
+                showDataOnTable(PersonBl.getPersonBl().findByFamily(findbyfamilyTxt.getText()));
+                log.info("Person Searched By Family: " + findbyfamilyTxt.getText());
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Family Error: " + e.getMessage());
             }
         });
 
-        findallBtn.setOnAction((event) -> {
+        findallBtn.setOnAction(event -> {
             try {
                 showDataOnTable(PersonBl.getPersonBl().findAll());
-                log.info("ALL Person Searched : " + findallBtn);
+                log.info("All Persons Searched: " + findallBtn);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Person\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Person\n" + e.getMessage());
                 alert.show();
-                log.error("Find ALL Person Error : " + e.getMessage());
+                log.error("Find All Persons Error: " + e.getMessage());
             }
         });
 
-        personTbl.setOnMouseClicked((event) -> {
+        personTbl.setOnMouseClicked(event -> {
             Person person = personTbl.getSelectionModel().getSelectedItem();
             idTxt.setText(String.valueOf(person.getId()));
             nameTxt.setText(person.getName());
-            familyTxt.setText(person.getName());
+            familyTxt.setText(person.getFamily());
             if (person.getGender().equals(Gender.male)) {
                 maleRbtn.setSelected(true);
             } else {
                 femaleRbtn.setSelected(true);
             }
-            nationalidTxt.setText((person.getNationalId()));
+            nationalidTxt.setText(person.getNationalId());
             phoneTxt.setText(person.getPhoneNumber());
             emailTxt.setText(person.getEmail());
             addressTxtarea.setText(person.getAddress());
@@ -180,7 +184,7 @@ public class PersonController implements Initializable {
         nationalCln.setCellValueFactory(new PropertyValueFactory<>("nationalId"));
         emailCln.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneCln.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        position.setCellValueFactory(new PropertyValueFactory<>("position"));
+        positionCln.setCellValueFactory(new PropertyValueFactory<>("position"));
         addressCln.setCellValueFactory(new PropertyValueFactory<>("address"));
         genderCln.setCellValueFactory(new PropertyValueFactory<>("gender"));
         personTbl.setItems(observableList);
@@ -197,6 +201,5 @@ public class PersonController implements Initializable {
         nationalidTxt.clear();
         positionTxt.clear();
         showDataOnTable(PersonBl.getPersonBl().findAll());
-
     }
 }
