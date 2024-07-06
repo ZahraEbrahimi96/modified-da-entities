@@ -114,7 +114,7 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
         return country;
     }
 
-
+    //findByName
     public List<Country> findByName(String name) throws Exception {
         List<Country> countryList = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * FROM COUNTRY_TABLE WHERE COUNTRY_NAME LIKE? ORDER BY COUNTRY_ID");
@@ -139,7 +139,8 @@ public class CountryDa implements AutoCloseable, CRUD<Country> {
 
         return countryList;
     }
-        //Close
+
+    //Close
     @Override
     public void close() throws Exception {
         preparedStatement.close();

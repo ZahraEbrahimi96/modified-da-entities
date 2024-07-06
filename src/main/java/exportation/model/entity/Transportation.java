@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Transportation {
     private int id;
     private String direction;
-    private float freight;
+    private double freight;
     private Item item;
     private Company company;
     private Country country;
