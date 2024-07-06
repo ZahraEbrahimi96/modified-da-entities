@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Getter
-
 public class Country {
     private int id;
     private String name;
@@ -21,13 +20,8 @@ public class Country {
     private long carRate;
     private String neighbors;
 
-//    public static long demand(long importRate, long productionRate, long carRate) {
-//        return importRate + productionRate - (carRate / 2);
-//    }
-
     @Override
     public String toString() {
         return new Gson().toJson(this);
     }
-
 }

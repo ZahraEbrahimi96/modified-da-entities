@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 public class Company {
     private int id;
     private String name;
@@ -28,5 +27,3 @@ public class Company {
         return new Gson().toJson(this);
     }
 }
-
-

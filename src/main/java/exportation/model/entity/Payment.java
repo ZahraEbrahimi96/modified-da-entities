@@ -1,7 +1,6 @@
 package exportation.model.entity;
 
 import com.google.gson.Gson;
-import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 public class Payment {
     private int id;
     private float tax;
@@ -20,9 +18,8 @@ public class Payment {
     private Transportation transportation;
     private Company company;
 
-    public static long totalCost(int tariff, float cost, float tax, int palletCapacity, float insurance, float freight){
-        Payment payment = new Payment();
-        long cif = payment.cif(cost,palletCapacity,insurance,freight);
+    public static long totalCost(int tariff, float cost, float tax, int palletCapacity, float insurance, float freight) {
+        long cif = cif(cost, palletCapacity, insurance, freight);
         tariff = (int) ((cif * tariff) / 100);
         tax = (cif * tax) / 100;
         return (long) (tariff + cif + tax);

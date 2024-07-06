@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-
 public class ExportTracing {
     private int id;
     private boolean loadingStatus;

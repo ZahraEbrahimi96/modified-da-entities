@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 public class Item {
     private int id;
     private String name;
@@ -24,7 +23,6 @@ public class Item {
     private float cost;
     private float weightOfUnit;
     private float weightOfPallet;
-
 
     @Override
     public String toString() {

@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 public class Transportation {
     private int id;
     private String direction;
@@ -21,7 +20,6 @@ public class Transportation {
     private Company company;
     private Country country;
     private LocalDate date;
-    private ExportTracing exportTracing;
 
     @Override
     public String toString() {

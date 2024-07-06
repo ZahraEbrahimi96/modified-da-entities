@@ -7,14 +7,11 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 public class Trade {
     private int id;
     private String status;

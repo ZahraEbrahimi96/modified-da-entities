@@ -41,15 +41,15 @@ create sequence COUNTRY_SEQ start with 1 increment by 1;
 --COMPANY
 create table COMPANY_TABLE
 (
-    COMPANY_ID           number primary key,
-    COMPANY_NAME         nvarchar2(30),
-    COMPANY_PRODUCT      nvarchar2(30),
-    COMPANY_ADDRESS      nvarchar2(250),
-    COMPANY_EMAIL        nvarchar2(30),
-    COMPANY_PHONE nvarchar2(11),
+    COMPANY_ID      number primary key,
+    COMPANY_NAME    nvarchar2(30),
+    COMPANY_PRODUCT nvarchar2(30),
+    COMPANY_ADDRESS nvarchar2(250),
+    COMPANY_EMAIL   nvarchar2(30),
+    COMPANY_PHONE   nvarchar2(11),
     PERSON_ID references PERSON_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    COMPANY_TYPE         nvarchar2(20) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
+    COMPANY_TYPE    nvarchar2(20) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
 );
 create sequence COMPANY_SEQ start with 1 increment by 1;
 
@@ -91,8 +91,7 @@ create table TRANSPORTATION_TABLE
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    TRANSPORTATION_DATE     date,
-    TRANSPORTATION_EXPORTATION  references EXPORTTRACING_TABLE
+    TRANSPORTATION_DATE      date
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 
