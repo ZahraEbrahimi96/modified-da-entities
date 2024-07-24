@@ -12,7 +12,7 @@ public class WindowsManager {
     public static void showMainSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/main.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/main.fxml")))
         );
 
         stage.setScene(scene);
@@ -23,7 +23,7 @@ public class WindowsManager {
     public static void showCompanySheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/company.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/company.fxml")))
         );
 
         stage.setScene(scene);
@@ -34,7 +34,7 @@ public class WindowsManager {
     public static void showCountrySheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/country.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/country.fxml")))
         );
 
         stage.setScene(scene);
@@ -45,7 +45,7 @@ public class WindowsManager {
     public static void showTradeSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/trade.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/trade.fxml")))
         );
 
         stage.setScene(scene);
@@ -56,7 +56,7 @@ public class WindowsManager {
     public static void showExportSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/export.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/export.fxml")))
         );
 
         stage.setScene(scene);
@@ -67,7 +67,7 @@ public class WindowsManager {
     public static void showItemSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/item.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/item.fxml")))
         );
 
         stage.setScene(scene);
@@ -78,7 +78,7 @@ public class WindowsManager {
     public static void showPaymentSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/payment.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/payment.fxml")))
         );
 
         stage.setScene(scene);
@@ -89,7 +89,7 @@ public class WindowsManager {
     public static void showPersonSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(WindowsManager.class.getResource("view/person.fxml"))
+                FXMLLoader.load(WindowsManager.class.getResource("/exportation/view/person.fxml"))
         );
 
         stage.setScene(scene);
@@ -100,7 +100,7 @@ public class WindowsManager {
     public static void showTransportationSheet() throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(
-                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("view/transportation.fxml")))
+                FXMLLoader.load(Objects.requireNonNull(WindowsManager.class.getResource("/exportation/view/transportation.fxml")))
         );
 
         stage.setScene(scene);

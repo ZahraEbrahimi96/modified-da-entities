@@ -23,16 +23,17 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //save
     @Override
     public ExportTracing save(ExportTracing exportTracing) throws Exception {
-        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORTTRACING_SEQ"));
+        exportTracing.setId(ConnectionProvider.getConnectionProvider().getNextId("EXPORT_TRACING_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO EXPORTTRACING_TABLE (EXPORTTRACING_ID, EXPORTTRACING_LOADINGSTATUS, EXPORTTRACING_PREPAYMENT, EXPORTTRACING_CHECKOUT,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO EXPORT_TRACING_TABLE (EXPORT_TRACING_ID, EXPORT_TRACING_LOADING_STATUS, EXPORT_TRACING_PREPAYMENT, EXPORT_TRACING_CHECKOUT,TRANSPORTATION_ID,TRADE_ID,EXPORT_DATE_TIME) VALUES (?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, exportTracing.getId());
         preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
         preparedStatement.setBoolean(3, exportTracing.isPrePayment());
         preparedStatement.setBoolean(4, exportTracing.isCheckout());
-        preparedStatement.setInt(5, exportTracing.getTrade().getId());
-        preparedStatement.setDate(6, Date.valueOf(exportTracing.getDate()));
+        preparedStatement.setInt(5, exportTracing.getTransportation().getId());
+        preparedStatement.setInt(6, exportTracing.getTrade().getId());
+        preparedStatement.setDate(7, Date.valueOf(exportTracing.getDate()));
         preparedStatement.execute();
         return exportTracing;
     }
@@ -41,14 +42,15 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing edit(ExportTracing exportTracing) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE EXPORTTRACING_TABLE SET EXPORTTRACING_LOADINGSTATUS=?, EXPORTTRACING_PREPAYMENT=?, EXPORTTRACING_CHECKOUT=?, TRADE_ID=?, EXPORT_DATE_TIME=? WHERE EXPORTTRACING_ID=?"
+                "UPDATE EXPORT_TRACING_TABLE SET EXPORT_TRACING_LOADING_STATUS=?, EXPORT_TRACING_PREPAYMENT=?, EXPORT_TRACING_CHECKOUT=?,TRANSPORTATION_ID=?, TRADE_ID=?, EXPORT_DATE_TIME=? WHERE EXPORT_TRACING_ID=?"
         );
-        preparedStatement.setBoolean(1, exportTracing.isLoadingStatus());
-        preparedStatement.setBoolean(2, exportTracing.isPrePayment());
-        preparedStatement.setBoolean(3, exportTracing.isCheckout());
-        preparedStatement.setInt(4, exportTracing.getTrade().getId());
-        preparedStatement.setDate(5, Date.valueOf(exportTracing.getDate()));
-        preparedStatement.setInt(6, exportTracing.getTransportation().getId());
+        preparedStatement.setInt(1, exportTracing.getId());
+        preparedStatement.setBoolean(2, exportTracing.isLoadingStatus());
+        preparedStatement.setBoolean(3, exportTracing.isPrePayment());
+        preparedStatement.setBoolean(4, exportTracing.isCheckout());
+        preparedStatement.setInt(5, exportTracing.getTransportation().getId());
+        preparedStatement.setInt(6, exportTracing.getTrade().getId());
+        preparedStatement.setDate(7, Date.valueOf(exportTracing.getDate()));
 
         preparedStatement.execute();
         return exportTracing;
@@ -58,7 +60,7 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public ExportTracing remove(int id) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM EXPORTTRACING_TABLE WHERE EXPORTTRACING_ID=?"
+                "DELETE FROM EXPORT_TRACING_TABLE WHERE EXPORT_TRACING_ID=?"
         );
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
@@ -69,19 +71,19 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     @Override
     public List<ExportTracing> findAll() throws Exception {
         List<ExportTracing> exportTracingList = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE ORDER BY EXPORTTRACING_ID");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORT_TRACING_TABLE ORDER BY EXPORT_TRACING_ID");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
             ExportTracing exportTracing = ExportTracing
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LOADINGSTATUS"))
-                    .prePayment(resultSet.getBoolean("PREPAYMENT"))
-                    .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
-                    .date(resultSet.getDate("Date").toLocalDate())
+                    .id(resultSet.getInt(" EXPORT_TRACING_ID"))
+                    .loadingStatus(resultSet.getBoolean("EXPORT_TRACING_LOADING_STATUS"))
+                    .prePayment(resultSet.getBoolean("EXPORT_TRACING_PREPAYMENT"))
+                    .checkout(resultSet.getBoolean("EXPORT_TRACING_CHECKOUT"))
                     .transportation(Transportation.builder().id(resultSet.getInt("TRANSPORTATION_ID")).build())
+                    .trade(Trade.builder().id(resultSet.getInt("TRADE_ID")).build())
+                    .date(resultSet.getDate("EXPORT_DATE_TIME").toLocalDate())
                     .build();
 
             exportTracingList.add(exportTracing);
@@ -93,20 +95,20 @@ public class ExportTracingDa implements AutoCloseable, CRUD<ExportTracing> {
     //FindById
     @Override
     public ExportTracing findById(int id) throws Exception {
-        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORTTRACING_TABLE WHERE EXPORTTRACING_ID=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM EXPORT_TRACING_TABLE WHERE EXPORT_TRACING_ID=?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         ExportTracing exportTracing = null;
         if (resultSet.next()) {
             exportTracing = ExportTracing
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .loadingStatus(resultSet.getBoolean("LOADINGSTATUS"))
-                    .prePayment(resultSet.getBoolean("PREPAYMENT"))
-                    .checkout(resultSet.getBoolean("CHECKOUT"))
-                    .trade(Trade.builder().id(resultSet.getInt("EXPORT_TRADE_ID")).build())
-                    .date(resultSet.getDate("Date").toLocalDate())
+                    .id(resultSet.getInt(" EXPORTTRACING_ID"))
+                    .loadingStatus(resultSet.getBoolean("EXPORTTRACING_LOADINGSTATUS"))
+                    .prePayment(resultSet.getBoolean("EXPORTTRACING_PREPAYMENT"))
+                    .checkout(resultSet.getBoolean("EXPORTTRACING_CHECKOUT"))
                     .transportation(Transportation.builder().id(resultSet.getInt("TRANSPORTATION_ID")).build())
+                    .trade(Trade.builder().id(resultSet.getInt("TRADE_ID")).build())
+                    .date(resultSet.getDate("EXPORT_DATE_TIME").toLocalDate())
                     .build();
         }
         return exportTracing;

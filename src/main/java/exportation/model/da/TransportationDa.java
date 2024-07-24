@@ -19,17 +19,18 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     //save
     @Override
     public Transportation save(Transportation transportation) throws Exception {
-        transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("Transportation_SEQ"));
+        transportation.setId(ConnectionProvider.getConnectionProvider().getNextId("TRANSPORTATION_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO TRANSPORTATION_TABLE (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, ITEM_ID, COMPANY_ID,COUNTRY_ID,TRANSPORTATION_DATE) VALUES (?,?,?,?,?,?,?)"
+                "INSERT INTO TRANSPORTATION_TABLE (TRANSPORTATION_ID,TRANSPORTATION_DIRECTION,TRANSPORTATION_FREIGHT, ITEM_ID, COMPANY_ID,COUNTRY_ID,TRANSPORTATION_DATE,TRANSPORTATION_EXPORTATION ) VALUES (?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, transportation.getId());
         preparedStatement.setString(2, transportation.getDirection());
         preparedStatement.setDouble(3, transportation.getFreight());
         preparedStatement.setInt(4, transportation.getItem().getId());
-        preparedStatement.setInt(5, transportation.getCompany().getId());
+        preparedStatement.setString(5, transportation.getCompany().getName());
         preparedStatement.setInt(6, transportation.getCountry().getId());
         preparedStatement.setDate(7, Date.valueOf(transportation.getDate()));
+        preparedStatement.setInt(8, transportation.getExportTracing().getTrade().getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -38,15 +39,16 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     @Override
     public Transportation edit(Transportation transportation) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE TRANSPORTATION_TABLE SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,ITEM_ID=?, COMPANY_ID=?,COUNTRY_ID=?, TRANSPORTATION_DATE=? WHERE TRANSPORTATION_ID=? "
+                "UPDATE TRANSPORTATION_TABLE SET TRANSPORTATION_DIRECTION=?, TRANSPORTATION_FREIGHT=?,ITEM_ID=?, COMPANY_ID=?,COUNTRY_ID=?, TRANSPORTATION_DATE=?,  TRANSPORTATION_EXPORTATION=? WHERE TRANSPORTATION_ID=? "
         );
         preparedStatement.setString(1, transportation.getDirection());
         preparedStatement.setDouble(2, transportation.getFreight());
         preparedStatement.setInt(3, transportation.getItem().getId());
-        preparedStatement.setInt(4, transportation.getCompany().getId());
+        preparedStatement.setInt(4, transportation.getItem().getId());
         preparedStatement.setInt(5, transportation.getCountry().getId());
         preparedStatement.setDate(6, Date.valueOf(transportation.getDate()));
-        preparedStatement.setInt(7, transportation.getId());
+        preparedStatement.setInt(7, transportation.getExportTracing().getTrade().getId());
+        preparedStatement.setInt(8, transportation.getId());
         preparedStatement.execute();
         return transportation;
     }
@@ -74,11 +76,12 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .builder()
                     .id(resultSet.getInt("TRANSPORTATION_ID"))
                     .direction(resultSet.getString("TRANSPORTATION_DIRECTION"))
-                    .freight(resultSet.getDouble("TRANSPORTATION_FREIGHT"))
+                    .freight(resultSet.getFloat("TRANSPORTATION_FREIGHT"))
                     .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
-                    .company(Company.builder().id(resultSet.getInt("COMPANY_ID")).build())
+                    .company(Company.builder().name(resultSet.getString("COMPANY_ID")).build())
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .date(resultSet.getDate("TRANSPORTATION_DATE").toLocalDate())
+                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(resultSet.getInt("TRANSPORTATION_EXPORTATION")).build()).build())
                     .build();
 
             transportationList.add(transportation);
@@ -99,11 +102,12 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
                     .builder()
                     .id(resultSet.getInt("TRANSPORTATION_ID"))
                     .direction(resultSet.getString("TRANSPORTATION_DIRECTION"))
-                    .freight(resultSet.getDouble("TRANSPORTATION_FREIGHT"))
+                    .freight(resultSet.getFloat("TRANSPORTATION_FREIGHT"))
                     .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
-                    .company(Company.builder().id(resultSet.getInt("COMPANY_ID")).build())
+                    .company(Company.builder().name(resultSet.getString("COMPANY_ID")).build())
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .date(resultSet.getDate("TRANSPORTATION_DATE").toLocalDate())
+                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(resultSet.getInt("TRANSPORTATION_EXPORTATION")).build()).build())
                     .build();
         }
         return transportation;
@@ -112,7 +116,6 @@ public class TransportationDa implements AutoCloseable, CRUD<Transportation> {
     //Close
     @Override
     public void close() throws Exception {
-        preparedStatement.close();
-        connection.close();
+
     }
 }

@@ -2,7 +2,9 @@ package exportation.controller;
 
 
 import exportation.model.bl.CountryBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.entity.Country;
+import exportation.model.entity.Person;
 import exportation.model.tools.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -85,7 +88,7 @@ public class CountryController implements Initializable {
                         .id(Integer.parseInt(idTxt.getText()))
                         .name(Validator.nameValidator(nameTxt.getText(), "Invalid Name"))
                         .tariff(Integer.parseInt(tariffTxt.getText()))
-                        .phoneCode(Validator.nameValidator(phCodeTxt.getText(), "Invalid Phone Code"))
+                        .phoneCode(phCodeTxt.getText())
                         .importRate(Long.parseLong(importRTxt.getText()))
                         .population(Long.parseLong(popTxt.getText()))
                         .carRate(Long.parseLong(carRTxt.getText()))
@@ -97,6 +100,7 @@ public class CountryController implements Initializable {
                 resetForm();
                 log.info("Country Edited " + country);
             } catch (Exception e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Country Edit Error\n" + e.getMessage());
                 alert.show();
                 log.error("Edit Error : " + e.getMessage());
@@ -120,13 +124,17 @@ public class CountryController implements Initializable {
 
         fByIdTxt.setOnKeyReleased((event) -> {
             try {
-
-                showDataOnTable((List<Country>) CountryBl.getCountryBl().findById(Integer.parseInt(fByIdTxt.getText())));
-                log.info("Country Searched By Id : " + fByIdTxt.getText());
+                Country country = CountryBl.getCountryBl().findById(Integer.parseInt(fByIdTxt.getText()));
+                if (country != null) {
+                    showDataOnTable(Collections.singletonList(country));
+                    log.info("Country Searched By Id: " + fByIdTxt.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Country\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Country\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 
@@ -144,7 +152,7 @@ public class CountryController implements Initializable {
         findAllBtn.setOnAction((event) -> {
             try {
                 showDataOnTable(CountryBl.getCountryBl().findAll());
-                log.info("ALL Country Searched : " + findAllBtn);
+                log.info("ALL Country Searched : ");
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Country\n" + e.getMessage());
                 alert.show();
@@ -166,6 +174,7 @@ public class CountryController implements Initializable {
     }
 
     private void showDataOnTable(List<Country> countryList) {
+        System.out.println(countryList);
         ObservableList<Country> observableList = FXCollections.observableList(countryList);
         idCln.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCln.setCellValueFactory(new PropertyValueFactory<>("name"));

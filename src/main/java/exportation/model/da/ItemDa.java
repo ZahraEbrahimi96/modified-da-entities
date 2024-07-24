@@ -24,7 +24,7 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
     public Item save(Item item) throws Exception {
         item.setId(ConnectionProvider.getConnectionProvider().getNextId("ITEM_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_HS_CODE,ITEM_COST,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO ITEM_TABLE (ITEM_ID, ITEM_NAME, ITEM_BRAND, ITEM_MODEL,DIMENSION_OF_UNIT,DIMENSION_OF_PALLET,PALLET_CAPACITY,ITEM_COST,ITEM_HS_CODE,WEIGHT_OF_UNIT,WEIGHT_OF_PALLET) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         preparedStatement.setInt(1, item.getId());
         preparedStatement.setString(2, item.getName());
@@ -83,16 +83,17 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         while (resultSet.next()) {
             Item item = Item
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .brand(resultSet.getObject("BRAND", Brand.class))
-                    .model(resultSet.getString("MODEL"))
-                    .dimensionOfUnite(resultSet.getString("DOU"))
-                    .dimensionOfPallet(resultSet.getString("DOP"))
-                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
-                    .cost(resultSet.getFloat("COST"))
-                    .weightOfUnit(resultSet.getFloat("WOU"))
-                    .weightOfPallet(resultSet.getFloat("WOP"))
+                    .id(resultSet.getInt("ITEM_ID"))
+                    .name(resultSet.getString("ITEM_NAME"))
+                    .brand(resultSet.getObject("ITEM_BRAND", Brand.class))
+                    .model(resultSet.getString("ITEM_MODEL"))
+                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
+                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
+                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
+                    .Hs_Code(Long.parseLong(resultSet.getString("ITEM_HS_CODE")))
+                    .cost(resultSet.getFloat("ITEM_COST"))
+                    .weightOfUnit(resultSet.getFloat("WEIGHT_OF_UNIT"))
+                    .weightOfPallet(resultSet.getFloat("WEIGHT_OF_PALLET"))
                     .build();
 
             itemList.add(item);
@@ -111,16 +112,17 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         if (resultSet.next()) {
             item = Item
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .brand(resultSet.getObject("BRAND", Brand.class))
-                    .model(resultSet.getString("MODEL"))
-                    .dimensionOfUnite(resultSet.getString("DOU"))
-                    .dimensionOfPallet(resultSet.getString("DOP"))
-                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
-                    .cost(resultSet.getFloat("COST"))
-                    .weightOfUnit(resultSet.getFloat("WOU"))
-                    .weightOfPallet(resultSet.getFloat("WOP"))
+                    .id(resultSet.getInt("ITEM_ID"))
+                    .name(resultSet.getString("ITEM_NAME"))
+                    .brand(resultSet.getObject("ITEM_BRAND", Brand.class))
+                    .model(resultSet.getString("ITEM_MODEL"))
+                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
+                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
+                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
+                    .Hs_Code(Long.parseLong(resultSet.getString("ITEM_HS_CODE")))
+                    .cost(resultSet.getFloat("ITEM_COST"))
+                    .weightOfUnit(resultSet.getFloat("WEIGHT_OF_UNIT"))
+                    .weightOfPallet(resultSet.getFloat("WEIGHT_OF_PALLET"))
                     .build();
         }
         return item;
@@ -136,16 +138,17 @@ public class ItemDa implements AutoCloseable, CRUD<Item> {
         while (resultSet.next()) {
             Item item = Item
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .brand(resultSet.getObject("BRAND", Brand.class))
-                    .model(resultSet.getString("MODEL"))
-                    .dimensionOfUnite(resultSet.getString("DOU"))
-                    .dimensionOfPallet(resultSet.getString("DOP"))
-                    .palletCapacity(resultSet.getInt("PALLETCAPACITY"))
-                    .cost(resultSet.getFloat("COST"))
-                    .weightOfUnit(resultSet.getFloat("WOU"))
-                    .weightOfPallet(resultSet.getFloat("WOP"))
+                    .id(resultSet.getInt("ITEM_ID"))
+                    .name(resultSet.getString("ITEM_NAME"))
+                    .brand(resultSet.getObject("ITEM_BRAND", Brand.class))
+                    .model(resultSet.getString("ITEM_MODEL"))
+                    .dimensionOfUnite(resultSet.getString("DIMENSION_OF_UNIT"))
+                    .dimensionOfPallet(resultSet.getString("DIMENSION_OF_PALLET"))
+                    .palletCapacity(resultSet.getInt("PALLET_CAPACITY"))
+                    .Hs_Code(Long.parseLong(resultSet.getString("ITEM_HS_CODE")))
+                    .cost(resultSet.getFloat("ITEM_COST"))
+                    .weightOfUnit(resultSet.getFloat("WEIGHT_OF_UNIT"))
+                    .weightOfPallet(resultSet.getFloat("WEIGHT_OF_PALLET"))
                     .build();
 
             itemList.add(item);

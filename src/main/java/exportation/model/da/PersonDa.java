@@ -25,7 +25,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     public Person save(Person person) throws Exception {
         person.setId(ConnectionProvider.getConnectionProvider().getNextId("PERSON_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PERSON_TABLE (PERSON_ID,PERSON_NAME,PERSON_FAMILY,PERSON_GENDER,NATIONAL_ID,PERSON_PHONE_NUMBER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION,USER_ID) VALUES (?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO PERSON_TABLE (PERSON_ID,PERSON_NAME,PERSON_FAMILY,PERSON_GENDER,NATIONAL_ID,PERSON_PHONE_NUMBER,PERSON_EMAIL,PERSON_ADDRESS,PERSON_POSITION) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, person.getId());
         preparedStatement.setString(2, person.getName());
@@ -36,7 +36,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(7, person.getEmail());
         preparedStatement.setString(8, person.getAddress());
         preparedStatement.setString(9, person.getPosition());
-        preparedStatement.setInt(10, person.getUser().getId());
+//        preparedStatement.setInt(10, person.getUser()==null?null:person.getUser().getId());
         preparedStatement.execute();
         return person;
     }
@@ -45,7 +45,7 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
     @Override
     public Person edit(Person person) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PERSON_TABLE SET PERSON_NAME=?, PERSON_FAMILY=?, PERSON_GENDER=?, NATIONAL_ID=?, PERSON_PHONE_NUMBER=?,PERSON_EMAIL=?,PERSON_ADDRESS=?,PERSON_POSITION=?,USER_ID=? WHERE PERSON_ID=?"
+                "UPDATE PERSON_TABLE SET PERSON_NAME=?, PERSON_FAMILY=?, PERSON_GENDER=?, NATIONAL_ID=?, PERSON_PHONE_NUMBER=?,PERSON_EMAIL=?,PERSON_ADDRESS=?,PERSON_POSITION=? WHERE PERSON_ID=?"
         );
         preparedStatement.setString(1, person.getName());
         preparedStatement.setString(2, person.getFamily());
@@ -55,8 +55,8 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         preparedStatement.setString(6, person.getEmail());
         preparedStatement.setString(7, person.getAddress());
         preparedStatement.setString(8, person.getPosition());
-        preparedStatement.setInt(9, person.getUser().getId());
-        preparedStatement.setInt(10, person.getId());
+//        preparedStatement.setInt(9, person.getUser().getId());
+        preparedStatement.setInt(9, person.getId());
         preparedStatement.execute();
         return person;
     }
@@ -82,16 +82,16 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         while (resultSet.next()) {
             Person person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .family(resultSet.getString("FAMILY"))
-                    .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .email(resultSet.getString("EMAIL"))
-                    .address(resultSet.getString("ADDRESS"))
-                    .position(resultSet.getString("POSITION"))
-                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
+                    .id(resultSet.getInt("PERSON_ID"))
+                    .name(resultSet.getString("PERSON_NAME"))
+                    .family(resultSet.getString("PERSON_FAMILY"))
+                    .gender(Gender.valueOf(resultSet.getString("PERSON_GENDER")))
+                    .nationalId(resultSet.getString("NATIONAL_ID"))
+                    .phoneNumber(resultSet.getString("PERSON_PHONE_NUMBER"))
+                    .email(resultSet.getString("PERSON_EMAIL"))
+                    .address(resultSet.getString("PERSON_ADDRESS"))
+                    .position(resultSet.getString("PERSON_POSITION"))
+//                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
 
             personList.add(person);
@@ -110,16 +110,16 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         if (resultSet.next()) {
             person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .family(resultSet.getString("FAMILY"))
-                    .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .email(resultSet.getString("EMAIL"))
-                    .address(resultSet.getString("ADDRESS"))
-                    .position(resultSet.getString("POSITION"))
-                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
+                    .id(resultSet.getInt("PERSON_ID"))
+                    .name(resultSet.getString("PERSON_NAME"))
+                    .family(resultSet.getString("PERSON_FAMILY"))
+                    .gender(Gender.valueOf(resultSet.getString("PERSON_GENDER")))
+                    .nationalId(resultSet.getString("NATIONAL_ID"))
+                    .phoneNumber(resultSet.getString("PERSON_PHONE_NUMBER"))
+                    .email(resultSet.getString("PERSON_EMAIL"))
+                    .address(resultSet.getString("PERSON_ADDRESS"))
+                    .position(resultSet.getString("PERSON_POSITION"))
+//                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
         }
         return person;
@@ -135,16 +135,16 @@ public class PersonDa implements AutoCloseable, CRUD<Person> {
         while (resultSet.next()) {
             Person person = Person
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .family(resultSet.getString("FAMILY"))
-                    .gender(Gender.valueOf(resultSet.getString("GENDER")))
-                    .nationalId(resultSet.getString("NATIONALID"))
-                    .phoneNumber(resultSet.getString("PHONENUMBER"))
-                    .email(resultSet.getString("EMAIL"))
-                    .address(resultSet.getString("ADDRESS"))
-                    .position(resultSet.getString("POSITION"))
-                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
+                    .id(resultSet.getInt("PERSON_ID"))
+                    .name(resultSet.getString("PERSON_NAME"))
+                    .family(resultSet.getString("PERSON_FAMILY"))
+                    .gender(Gender.valueOf(resultSet.getString("PERSON_GENDER")))
+                    .nationalId(resultSet.getString("NATIONAL_ID"))
+                    .phoneNumber(resultSet.getString("PERSON_PHONE_NUMBER"))
+                    .email(resultSet.getString("PERSON_EMAIL"))
+                    .address(resultSet.getString("PERSON_ADDRESS"))
+                    .position(resultSet.getString("PERSON_POSITION"))
+//                    .user(User.builder().id(resultSet.getInt("USER_ID")).build())
                     .build();
             personList.add(person);
         }

@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exportation.controller.CompanyController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exportation.controller.CompanyController">
    <children>
-      <GridPane layoutX="14.0" layoutY="22.0" prefHeight="556.0" prefWidth="261.0">
+      <GridPane layoutX="14.0" layoutY="22.0" prefHeight="556.0" prefWidth="300.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="68.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="200.0" />
@@ -27,9 +27,9 @@
             <Label text="Id" />
             <Label text="Name" GridPane.rowIndex="1" />
             <Label text="Product" GridPane.rowIndex="2" />
-            <Label text="Manager" GridPane.rowIndex="3" />
+            <Label text="Manager-Id" GridPane.rowIndex="3" />
             <Label text="Type" GridPane.rowIndex="4" />
-            <Label text="Country" GridPane.rowIndex="5" />
+            <Label text="Country-Id" GridPane.rowIndex="5" />
             <Label text="Email" GridPane.rowIndex="6" />
             <Label text="Phone" GridPane.rowIndex="7" />
             <Label text="Address" GridPane.rowIndex="8" />
@@ -48,7 +48,7 @@
             <ComboBox fx:id="typeCombo" prefHeight="35.0" prefWidth="209.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <TableView fx:id="companyTbl" layoutX="287.0" layoutY="92.0" prefHeight="585.0" prefWidth="678.0">
+      <TableView fx:id="companyTbl" layoutX="321.0" layoutY="84.0" prefHeight="597.0" prefWidth="678.0">
         <columns>
           <TableColumn fx:id="idCln" prefWidth="46.0" text="Id" />
           <TableColumn fx:id="nameCln" prefWidth="79.0" text="Name" />
@@ -61,7 +61,7 @@
             <TableColumn fx:id="addressCln" prefWidth="79.0" text="Address" />
         </columns>
       </TableView>
-      <HBox layoutX="293.0" layoutY="9.0" prefHeight="83.0" prefWidth="223.0">
+      <HBox layoutX="327.0" layoutY="6.0" prefHeight="83.0" prefWidth="223.0">
          <children>
             <Label text="Find By Id">
                <HBox.margin>
@@ -75,8 +75,8 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="findAllBtn" layoutX="830.0" layoutY="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="126.0" text="Find All" />
-      <HBox layoutX="13.0" layoutY="594.0" prefHeight="76.0" prefWidth="261.0">
+      <Button fx:id="findAllBtn" layoutX="865.0" layoutY="30.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="126.0" text="Find All" />
+      <HBox layoutX="13.0" layoutY="594.0" prefHeight="76.0" prefWidth="300.0">
          <children>
             <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Save">
                <HBox.margin>
@@ -85,12 +85,12 @@
             </Button>
             <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="74.0" text="Edit">
                <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets left="40.0" top="20.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="removeBtn" mnemonicParsing="false" prefHeight="35.0" text="Remove">
                <HBox.margin>
-                  <Insets left="20.0" top="20.0" />
+                  <Insets left="40.0" top="20.0" />
                </HBox.margin>
             </Button>
          </children>

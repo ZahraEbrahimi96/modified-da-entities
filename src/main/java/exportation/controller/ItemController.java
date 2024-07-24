@@ -2,9 +2,11 @@ package exportation.controller;
 
 import exportation.model.bl.CountryBl;
 import exportation.model.bl.ItemBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.da.ItemDa;
 import exportation.model.entity.Country;
 import exportation.model.entity.Item;
+import exportation.model.entity.Person;
 import exportation.model.entity.enums.Brand;
 import exportation.model.tools.Validator;
 import javafx.collections.FXCollections;
@@ -16,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -142,13 +145,17 @@ public class ItemController implements Initializable {
 
         fByIdTxt.setOnKeyReleased((event) -> {
             try {
-
-                showDataOnTable((List<Item>)  ItemBl.getItemBl().findById(Integer.parseInt(fByIdTxt.getText())));
-                log.info("Item Searched By Id : " + fByIdTxt.getText());
+                Item item = ItemBl.getItemBl().findById(Integer.parseInt(fByIdTxt.getText()));
+                if (item != null) {
+                    showDataOnTable(Collections.singletonList(item));
+                    log.info("Item Searched By Id: " + fByIdTxt.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Item\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Item\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 
@@ -179,6 +186,7 @@ public class ItemController implements Initializable {
             idTxt.setText(String.valueOf(item.getId()));
             nameTxt.setText(item.getName());
             brandCombo.getSelectionModel().select(item.getBrand().ordinal());
+            modelTxt.setText(item.getModel());
             dOfUnitTxt.setText(item.getDimensionOfUnite());
             dOfPalletTxt.setText(item.getDimensionOfUnite());
             pCapacityTxt.setText(String.valueOf(item.getPalletCapacity()));
@@ -209,6 +217,7 @@ public class ItemController implements Initializable {
         idTxt.clear();
         nameTxt.clear();
         brandCombo.getSelectionModel().select(0);
+        modelTxt.clear();
         dOfUnitTxt.clear();
         dOfPalletTxt.clear();
         pCapacityTxt.clear();

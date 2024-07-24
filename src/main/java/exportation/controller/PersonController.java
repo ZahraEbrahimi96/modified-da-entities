@@ -73,6 +73,7 @@ public class PersonController implements Initializable {
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Person Save Error\n" + e.getMessage());
                 alert.show();
+                e.printStackTrace();
                 log.error("Save Error: " + e.getMessage());
             }
         });

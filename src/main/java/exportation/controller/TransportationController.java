@@ -1,6 +1,7 @@
 package exportation.controller;
 
 import exportation.model.bl.ItemBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.bl.TradeBl;
 import exportation.model.bl.TransportationBl;
 import exportation.model.entity.*;
@@ -10,16 +11,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
 import java.awt.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,7 +31,7 @@ import java.util.ResourceBundle;
 public class TransportationController implements Initializable {
 
     @FXML
-    private TextField idTxt,coIdTxt,productTxt,countryTx,directionTxt,freightTxt,expoIdTxt,tradeIdTxt,fByIdTxt;
+    private TextField idTxt,coIdTxt,productTxt,countryTx,directionTxt,freightTxt,tradeIdTxt,fByIdTxt;
     @FXML
     private Button saveBtn,editBtn,removeBtn,countryBtn,tradeBtn,exportationBtn,findAllBtn;
     @FXML
@@ -53,57 +57,6 @@ public class TransportationController implements Initializable {
     @FXML
     private TableColumn<Transportation,ExportTracing>expoCln;
 
-//    //save
-//    public static void save(String direction, float freight, Item item, Company company, Country country, LocalDateTime dateTime) {
-//        try {
-//            Transportation transportation = Transportation
-//                    .builder()
-//                    .direction(direction)
-//                    .freight(freight)
-//                    .item(item)
-//                    .company(company)
-//                    .country(country)
-//                    .date(LocalDate.ofYearDay(2024, dateTime.getYear()))
-//                    .build();
-//            TransportationBl.getTransportationBl().save(transportation);
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-//    //edit
-//    public static void edit(int id, String direction, float freight, Item item, Company company, Country country, LocalDateTime dateTime) {
-//        try {
-//
-//            Transportation transportation = Transportation
-//                    .builder()
-//                    .id(id)
-//                    .direction(direction)
-//                    .freight(freight)
-//                    .item(item)
-//                    .company(company)
-//                    .country(country)
-//                    .date(LocalDate.ofYearDay(2024, dateTime.getYear()))
-//                    .build();
-//
-//            TransportationBl.getTransportationBl().edit(transportation);
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-//    //remove
-//    public static void remove(int id) {
-//        try {
-//            Transportation transportation = new Transportation();
-//            transportation.setId(id);
-//            TransportationBl.getTransportationBl().remove(id);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -118,7 +71,11 @@ public class TransportationController implements Initializable {
 
         countryBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("view/country.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/country.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Country Info");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -127,7 +84,11 @@ public class TransportationController implements Initializable {
 
         tradeBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("view/trade.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/trade.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Trade Info");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -136,7 +97,11 @@ public class TransportationController implements Initializable {
 
         exportationBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("view/export.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Exportation Info");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -150,8 +115,9 @@ public class TransportationController implements Initializable {
                     .direction(directionTxt.getText())
                     .freight(Float.parseFloat(freightTxt.getText()))
                     .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
-                    .company(Company.builder().id(Integer.parseInt(coIdTxt.getText())).build())
+                    .company(Company.builder().name((coIdTxt.getText())).build())
                     .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
+                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(Integer.parseInt(tradeIdTxt.getText())).build()).build())
                     .date(datePicker.getValue())
                     .build();
             TransportationBl.getTransportationBl().save(transportation);
@@ -160,6 +126,7 @@ public class TransportationController implements Initializable {
                 resetForm();
                 log.info("Transportation Saved " + transportation);
             } catch (Exception e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Transportation Save Error\n" + e.getMessage());
                 alert.show();
                 log.error("Save Error : " + e.getMessage());
@@ -176,8 +143,9 @@ public class TransportationController implements Initializable {
                     .direction(directionTxt.getText())
                     .freight(Float.parseFloat(freightTxt.getText()))
                     .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
-                    .company(Company.builder().id(Integer.parseInt(coIdTxt.getText())).build())
+                    .company(Company.builder().name((coIdTxt.getText())).build())
                     .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
+                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(Integer.parseInt(tradeIdTxt.getText())).build()).build())
                     .date(datePicker.getValue())
                     .build();
             TransportationBl.getTransportationBl().edit(transportation);
@@ -220,12 +188,17 @@ public class TransportationController implements Initializable {
 
         fByIdTxt.setOnKeyReleased((event) -> {
             try {
-                showDataOnTable((List<Transportation>) TransportationBl.getTransportationBl().findById(Integer.parseInt(fByIdTxt.getText())));
-                log.info("Transportation Searched By Id : " + fByIdTxt.getText());
+                Transportation transportation = TransportationBl.getTransportationBl().findById(Integer.parseInt(fByIdTxt.getText()));
+                if (transportation != null) {
+                    showDataOnTable(Collections.singletonList(transportation));
+                    log.info("Transportation Searched By Id: " + fByIdTxt.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Transportation\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Transportation\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 
@@ -246,12 +219,11 @@ public class TransportationController implements Initializable {
         idCln.setCellValueFactory(new PropertyValueFactory<>("id"));
         directionCln.setCellValueFactory(new PropertyValueFactory<>("direction"));
         freightCln.setCellValueFactory(new PropertyValueFactory<>("freight"));
-        tradeCln.setCellValueFactory(new PropertyValueFactory<>("trade"));
+        tradeCln.setCellValueFactory(new PropertyValueFactory<>("exportTracing"));
         productCln.setCellValueFactory(new PropertyValueFactory<>("item"));
         companyCln.setCellValueFactory(new PropertyValueFactory<>("company"));
         countryCln.setCellValueFactory(new PropertyValueFactory<>("country"));
-        dateCln.setCellValueFactory(new PropertyValueFactory<>("LocalDate"));
-        expoCln.setCellValueFactory(new PropertyValueFactory<>("exportTracing"));
+        dateCln.setCellValueFactory(new PropertyValueFactory<>("date"));
         transportTbl.setItems(observableList);
     }
 

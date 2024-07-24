@@ -1,6 +1,5 @@
 package exportation.controller;
 import exportation.model.bl.CountryBl;
-import exportation.model.bl.PaymentBl;
 import exportation.model.entity.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -8,20 +7,21 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static java.lang.Float.parseFloat;
 import static java.lang.Float.valueOf;
 
 
 @Log4j
-public class mainController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     private MenuItem closeMenuItem, tradeMenuItem, TargetMenuItem, exportMenuItem, PriceMenuItem, transMenuItem, midMenuItem, CompanyMenuItem, batteryMenuItem, Acount;
@@ -33,7 +33,7 @@ public class mainController implements Initializable {
     private TableColumn<Country, Integer> idClmn, tariffClmn;
 
     @FXML
-    private TableColumn<Country, Long> ImportClmn, popClmn, carClmn;
+    private TableColumn<Country, Long> importClmn, popClmn, carClmn;
 
     @FXML
     private TableColumn<Country, String> nameClmn, phcodeClmn, neighberClmn;
@@ -67,7 +67,11 @@ public class mainController implements Initializable {
 
         tradeMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/trade.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/trade.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Trade");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -76,7 +80,11 @@ public class mainController implements Initializable {
 
         TargetMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/country.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/country.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Target Countries");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -85,7 +93,11 @@ public class mainController implements Initializable {
 
         exportMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Exportation");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -94,7 +106,11 @@ public class mainController implements Initializable {
 
         PriceMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/payment.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/payment.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Price Structure");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -103,7 +119,11 @@ public class mainController implements Initializable {
 
         transMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/transportation.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/transportation.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Transportation");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -112,7 +132,11 @@ public class mainController implements Initializable {
 
         midMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/person.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/person.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Middle Man");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -121,7 +145,11 @@ public class mainController implements Initializable {
 
         CompanyMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/company.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/company.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Company");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -130,7 +158,11 @@ public class mainController implements Initializable {
 
         batteryMenuItem.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("/exportation/view/Item.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/Item.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Battery");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -191,7 +223,6 @@ public class mainController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + total);
                 alert.show();
-                resetForm1();
                 log.info("Calculation Done" + total);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Calculation Error\n" + e.getMessage());
@@ -216,7 +247,6 @@ public class mainController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Calculation Done\n" + cif);
                 alert.show();
-                resetForm1();
                 log.info("Calculation Done" + cif);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Calculation Error\n" + e.getMessage());
@@ -242,11 +272,11 @@ public class mainController implements Initializable {
             idClmn.setCellValueFactory(new PropertyValueFactory<>("id"));
             nameClmn.setCellValueFactory(new PropertyValueFactory<>("name"));
             tariffClmn.setCellValueFactory(new PropertyValueFactory<>("tariff"));
-            phcodeClmn.setCellValueFactory(new PropertyValueFactory<>("phone code"));
-            ImportClmn.setCellValueFactory(new PropertyValueFactory<>("import rate"));
+            phcodeClmn.setCellValueFactory(new PropertyValueFactory<>("phoneCode"));
+            importClmn.setCellValueFactory(new PropertyValueFactory<>("importRate"));
             popClmn.setCellValueFactory(new PropertyValueFactory<>("population"));
-            carClmn.setCellValueFactory(new PropertyValueFactory<>("car rate"));
-            neighberClmn.setCellValueFactory(new PropertyValueFactory<>("neighbor"));
+            carClmn.setCellValueFactory(new PropertyValueFactory<>("carRate"));
+            neighberClmn.setCellValueFactory(new PropertyValueFactory<>("neighbors"));
             countryTable.setItems(observableList);
         }
 
@@ -257,6 +287,8 @@ public class mainController implements Initializable {
             freightTxt.clear();
             tariffTxt.clear();
             palletTxt.clear();
+            cifTxt.clear();
+            totalTxt.clear();
         }
 
 

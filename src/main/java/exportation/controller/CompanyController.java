@@ -1,8 +1,10 @@
 package exportation.controller;
 import exportation.model.bl.CompanyBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.entity.Company;
 import exportation.model.entity.Country;
 import exportation.model.entity.Person;
+import exportation.model.entity.enums.Brand;
 import exportation.model.entity.enums.CompanyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 @Log4j
@@ -43,6 +46,9 @@ public class CompanyController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         log.info("App Started");
+        for (CompanyType value : CompanyType.values()) {
+            typeCombo.getItems().add(value.name());
+        }
 
         try {
             resetForm();
@@ -99,6 +105,7 @@ public class CompanyController implements Initializable {
                     resetForm();
                     log.info("Company Edited" + company);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     Alert alert = new Alert(Alert.AlertType.ERROR, " Company Edit Error\n" + e.getMessage());
                     alert.show();
                     log.error("Edit Error : " + e.getMessage());
@@ -121,12 +128,17 @@ public class CompanyController implements Initializable {
 
             findByIdTxt.setOnKeyReleased((event) -> {
                 try {
-                    showDataOnTable((List<Company>) CompanyBl.getCompanyBl().findById(Integer.parseInt(findByIdTxt.getText())));
-                    log.info("Company Searched By Id : " + findByIdTxt.getText());
+                    Company company = CompanyBl.getCompanyBl().findById(Integer.parseInt(findByIdTxt.getText()));
+                    if (company != null) {
+                        showDataOnTable(Collections.singletonList(company));
+                        log.info("Company Searched By Id: " + findByIdTxt.getText());
+                    } else {
+                        showDataOnTable(Collections.emptyList());
+                    }
                 } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, " Company\n" + e.getMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Company\n" + e.getMessage());
                     alert.show();
-                    log.error("Find By Id Error : " + e.getMessage());
+                    log.error("Find By Id Error: " + e.getMessage());
                 }
             });
 

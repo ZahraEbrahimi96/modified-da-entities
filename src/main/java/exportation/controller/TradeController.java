@@ -1,4 +1,5 @@
 package exportation.controller;
+import exportation.model.bl.PersonBl;
 import exportation.model.bl.TradeBl;
 import exportation.model.entity.Person;
 import exportation.model.entity.Trade;
@@ -7,12 +8,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
 import java.net.URL;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -114,7 +118,11 @@ public class TradeController implements Initializable {
 
         exportBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("view/export.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Exportation");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -123,7 +131,11 @@ public class TradeController implements Initializable {
 
         transportBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("exportation/view/transportation.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/transportation.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Transportation");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -132,7 +144,11 @@ public class TradeController implements Initializable {
 
         cInfoBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("view/person.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/person.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Person");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -141,12 +157,17 @@ public class TradeController implements Initializable {
 
         fByIdTxt.setOnKeyReleased((event) -> {
             try {
-                showDataOnTable((List<Trade>) TradeBl.getTradeBl().findById(Integer.parseInt(fByIdTxt.getText())));
-                log.info("Trade Searched By Id : " + fByIdTxt.getText());
+                Trade trade = TradeBl.getTradeBl().findById(Integer.parseInt(fByIdTxt.getText()));
+                if (trade != null) {
+                    showDataOnTable(Collections.singletonList(trade));
+                    log.info("Trade Searched By Id: " + fByIdTxt.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Trade\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Trade\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 

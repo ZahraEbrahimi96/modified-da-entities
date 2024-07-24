@@ -18,8 +18,8 @@ public class MyApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Scene scene = new Scene(
-                    FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/exportation/view/main.fxml"))));
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/payment.fxml")));
+
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Main");

@@ -3,6 +3,7 @@ package exportation.controller;
 import exportation.model.bl.CountryBl;
 import exportation.model.bl.ExportTracingBl;
 import exportation.model.bl.PaymentBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.entity.*;
 import exportation.model.tools.Validator;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.extern.log4j.Log4j;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 @Log4j
@@ -57,7 +59,7 @@ public class PaymentController  implements Initializable {
                         .item(Item.builder().cost(Float.parseFloat(cOfPerTxt.getText())).build())
                         .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
                         .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(cOfPerTxt.getText())).build())
+                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
                         .build();
                 PaymentBl.getPaymentBl().save(payment);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Payment Saved\n" + payment);
@@ -65,6 +67,7 @@ public class PaymentController  implements Initializable {
                 resetForm();
                 log.info("Payment Saved " + payment);
             } catch (Exception e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Payment Save Error\n" + e.getMessage());
                 alert.show();
                 log.error("Save Error : " + e.getMessage());
@@ -83,7 +86,7 @@ public class PaymentController  implements Initializable {
                         .item(Item.builder().cost(Float.parseFloat(cOfPerTxt.getText())).build())
                         .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
                         .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(cOfPerTxt.getText())).build())
+                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
                         .build();
                 PaymentBl.getPaymentBl().save(payment);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Payment Edited\n" + payment);
@@ -116,13 +119,17 @@ public class PaymentController  implements Initializable {
 
         fById.setOnKeyReleased((event) -> {
             try {
-
-                showDataOnTable((List<Payment>)PaymentBl.getPaymentBl().findById(Integer.parseInt(fById.getText())));
-                log.info("Payment Searched By Id : " + fById.getText());
+                Payment payment = PaymentBl.getPaymentBl().findById(Integer.parseInt(fById.getText()));
+                if (payment != null) {
+                    showDataOnTable(Collections.singletonList(payment));
+                    log.info("Payment Searched By Id: " + fById.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Payment\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Payment\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 

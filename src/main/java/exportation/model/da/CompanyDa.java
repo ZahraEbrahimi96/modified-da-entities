@@ -43,7 +43,7 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
     @Override
     public Company edit(Company company) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE COMPANY_TABLE SET COMPANY_NAME=?,COMPANY_PRODUCT=?,COMPANY_ADDRESS=?,COMPANY_EMAIL=?,COMPANY_PHONE=?,PERSON_ID=?,COUNTRY_ID=?,COMPANY_TYPE=? WHERE COMPANY_ID=?;"
+                "UPDATE COMPANY_TABLE SET COMPANY_NAME=?,COMPANY_PRODUCT=?,COMPANY_ADDRESS=?,COMPANY_EMAIL=?,COMPANY_PHONE=?,PERSON_ID=?,COUNTRY_ID=?,COMPANY_TYPE=? WHERE COMPANY_ID=?"
         );
         preparedStatement.setString(1, company.getName());
         preparedStatement.setString(2, company.getProduct());
@@ -79,15 +79,15 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
         while (resultSet.next()) {
             Company company = Company
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .product(resultSet.getString("PRODUCT"))
-                    .address(resultSet.getString("ADDRESS"))
-                    .email(resultSet.getString("EMAIL"))
-                    .phoneNumber(resultSet.getString("PHONE_NUMBER"))
+                    .id(resultSet.getInt("COMPANY_ID"))
+                    .name(resultSet.getString("COMPANY_NAME"))
+                    .product(resultSet.getString("COMPANY_PRODUCT"))
+                    .address(resultSet.getString("COMPANY_ADDRESS"))
+                    .email(resultSet.getString("COMPANY_EMAIL"))
+                    .phoneNumber(resultSet.getString("COMPANY_PHONE"))
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
-                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANYTYPE")))
+                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANY_TYPE")))
                     .build();
 
             companyList.add(company);
@@ -105,15 +105,15 @@ public class CompanyDa implements AutoCloseable, CRUD<Company> {
         if (resultSet.next()) {
             company = Company
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .name(resultSet.getString("NAME"))
-                    .product(resultSet.getString("PRODUCT"))
-                    .address(resultSet.getString("ADDRESS"))
-                    .email(resultSet.getString("EMAIL"))
-                    .phoneNumber(resultSet.getString("PHONE_NUMBER"))
+                    .id(resultSet.getInt("COMPANY_ID"))
+                    .name(resultSet.getString("COMPANY_NAME"))
+                    .product(resultSet.getString("COMPANY_PRODUCT"))
+                    .address(resultSet.getString("COMPANY_ADDRESS"))
+                    .email(resultSet.getString("COMPANY_EMAIL"))
+                    .phoneNumber(resultSet.getString("COMPANY_PHONE"))
                     .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
-                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANYTYPE")))
+                    .companyType(CompanyType.valueOf(resultSet.getString("COMPANY_TYPE")))
                     .build();
         }
         return company;

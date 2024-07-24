@@ -73,10 +73,10 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         while (resultSet.next()) {
             Trade trade = Trade
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .status(resultSet.getString("STATUS"))
-                    .contract(resultSet.getString("CONTRACT"))
-                    .agreement(resultSet.getString("AGREEMENT"))
+                    .id(resultSet.getInt("TRADE_ID"))
+                    .status(resultSet.getString("TRADE_STATUS"))
+                    .contract(resultSet.getString("TRADE_CONTRACT"))
+                    .agreement(resultSet.getString("TRADE_AGREEMENT"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .date(resultSet.getDate("TRADE_TIME").toLocalDate())
                     .build();
@@ -97,14 +97,15 @@ public class TradeDa implements AutoCloseable, CRUD<Trade> {
         if (resultSet.next()) {
             trade = Trade
                     .builder()
-                    .id(resultSet.getInt("ID"))
-                    .status(resultSet.getString("STATUS"))
-                    .contract(resultSet.getString("CONTRACT"))
-                    .agreement(resultSet.getString("AGREEMENT"))
+                    .id(resultSet.getInt("TRADE_ID"))
+                    .status(resultSet.getString("TRADE_STATUS"))
+                    .contract(resultSet.getString("TRADE_CONTRACT"))
+                    .agreement(resultSet.getString("TRADE_AGREEMENT"))
                     .person(Person.builder().id(resultSet.getInt("PERSON_ID")).build())
                     .date(resultSet.getDate("TRADE_TIME").toLocalDate())
                     .build();
         }
+        System.out.println(trade);
         return trade;
     }
 

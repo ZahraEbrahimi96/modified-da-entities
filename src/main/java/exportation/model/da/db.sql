@@ -19,8 +19,8 @@ create table PERSON_TABLE
     PERSON_PHONE_NUMBER nvarchar2(11),
     PERSON_EMAIL        nvarchar2(300),
     PERSON_ADDRESS      nvarchar2(300),
-    PERSON_POSITION     nvarchar2(30),
-    USER_ID references USER_TABLE
+    PERSON_POSITION     nvarchar2(30)
+    --USER_ID references USER_TABLE
 );
 create sequence PERSON_SEQ start with 1 increment by 1;
 
@@ -41,15 +41,15 @@ create sequence COUNTRY_SEQ start with 1 increment by 1;
 --COMPANY
 create table COMPANY_TABLE
 (
-    COMPANY_ID      number primary key,
-    COMPANY_NAME    nvarchar2(30),
-    COMPANY_PRODUCT nvarchar2(30),
-    COMPANY_ADDRESS nvarchar2(250),
-    COMPANY_EMAIL   nvarchar2(30),
-    COMPANY_PHONE   nvarchar2(11),
+    COMPANY_ID           number primary key,
+    COMPANY_NAME         nvarchar2(30),
+    COMPANY_PRODUCT      nvarchar2(30),
+    COMPANY_ADDRESS      nvarchar2(250),
+    COMPANY_EMAIL        nvarchar2(30),
+    COMPANY_PHONE nvarchar2(11),
     PERSON_ID references PERSON_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    COMPANY_TYPE    nvarchar2(20) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
+    COMPANY_TYPE         nvarchar2(20) CHECK (COMPANY_TYPE IN ('supplier', 'manufacturer'))
 );
 create sequence COMPANY_SEQ start with 1 increment by 1;
 
@@ -91,22 +91,23 @@ create table TRANSPORTATION_TABLE
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    TRANSPORTATION_DATE      date
+    TRANSPORTATION_DATE     date,
+    TRANSPORTATION_EXPORTATION  references EXPORT_TRACING_TABLE
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 
 --EXPORTTRACING
-create table EXPORTTRACING_TABLE
+create table EXPORT_TRACING_TABLE
 (
-    EXPORTTRACING_ID            number primary key,
-    EXPORTTRACING_LOADINGSTATUS number(1),
-    EXPORTTRACING_PREPAYMENT    number(1),
-    EXPORTTRACING_CHECKOUT      number(1),
+    EXPORT_TRACING_ID            number primary key,
+    EXPORT_TRACING_LOADING_STATUS number(1),
+    EXPORT_TRACING_PREPAYMENT    number(1),
+    EXPORT_TRACING_CHECKOUT      number(1),
     TRANSPORTATION_ID references TRANSPORTATION_TABLE,
     TRADE_ID references TRADE_TABLE,
     EXPORT_DATE_TIME            date
 );
-create sequence EXPORTTRACING_SEQ start with 1 increment by 1;
+create sequence EXPORT_TRACING_SEQ start with 1 increment by 1;
 
 --PAYMENT
 create table PAYMENT_TABLE
@@ -116,7 +117,7 @@ create table PAYMENT_TABLE
     PAYMENT_INSURANCE number,
     ITEM_ID references ITEM_TABLE,
     TRANSPORTATION_ID references TRANSPORTATION_TABLE,
-    COMPANY_ID references COMPANY_TABLE
+    COUNTRY_ID  references COMPANY_TABLE
 );
 create sequence PAYMENT_SEQ start with 1 increment by 1;
 

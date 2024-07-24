@@ -1,6 +1,8 @@
 package exportation.controller;
 import exportation.model.bl.ExportTracingBl;
+import exportation.model.bl.PersonBl;
 import exportation.model.entity.ExportTracing;
+import exportation.model.entity.Person;
 import exportation.model.entity.Trade;
 import exportation.model.entity.Transportation;
 import javafx.collections.FXCollections;
@@ -8,11 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -69,8 +74,8 @@ public class ExportTracingController implements Initializable {
                         .loadingStatus(loadingStatus.isSelected())
                         .prePayment(prePayment.isSelected())
                         .checkout(checkout.isSelected())
-                        .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .transportation(Transportation.builder().id(Integer.parseInt(transIdText.getText())).build())
+                        .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .date(date.getValue())
                         .build();
                 ExportTracingBl.getExportTracingBl().save(exportTracing);
@@ -97,8 +102,8 @@ public class ExportTracingController implements Initializable {
                         .loadingStatus(loadingStatus.isSelected())
                         .prePayment(prePayment.isSelected())
                         .checkout(checkout.isSelected())
-                        .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .transportation(Transportation.builder().id(Integer.parseInt(transIdText.getText())).build())
+                        .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .date(date.getValue())
                         .build();
                 ExportTracingBl.getExportTracingBl().edit(exportTracing);
@@ -129,7 +134,11 @@ public class ExportTracingController implements Initializable {
 
         tradeBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("trade.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/trade.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Trade");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -138,7 +147,11 @@ public class ExportTracingController implements Initializable {
 
         transBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("transportation.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/transportation.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Transportation");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -147,7 +160,11 @@ public class ExportTracingController implements Initializable {
 
         payBtn.setOnAction(event -> {
             try {
-                FXMLLoader.load(getClass().getResource("payment.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/payment.fxml")));
+                stage.setScene(scene);
+                stage.setTitle("Price Structure");
+                stage.show();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Load Error\n" + e.getMessage());
                 alert.show();
@@ -156,24 +173,28 @@ public class ExportTracingController implements Initializable {
 
         fById.setOnKeyReleased((event) -> {
             try {
-
-                showDataOnTable((List<ExportTracing>)ExportTracingBl.getExportTracingBl().findById(Integer.parseInt(fById.getText())));
-                log.info("Exportation Searched By Id : " + fById.getText());
+                ExportTracing exportTracing = ExportTracingBl.getExportTracingBl().findById(Integer.parseInt(fById.getText()));
+                if (exportTracing != null) {
+                    showDataOnTable(Collections.singletonList(exportTracing));
+                    log.info("Exportation Searched By Id: " + fById.getText());
+                } else {
+                    showDataOnTable(Collections.emptyList());
+                }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Exportation\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Exportation\n" + e.getMessage());
                 alert.show();
-                log.error("Find By Id Error : " + e.getMessage());
+                log.error("Find By Id Error: " + e.getMessage());
             }
         });
 
         findAllBtn.setOnAction((event) -> {
             try {
                 showDataOnTable(ExportTracingBl.getExportTracingBl().findAll());
-                log.info("ALL Exportation Searched : " + findAllBtn);
+                log.info("All Exportation Searched: " + findAllBtn);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Exportation\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Exportation\n" + e.getMessage());
                 alert.show();
-                log.error("Find ALL Exportation Error : " + e.getMessage());
+                log.error("Find All Exportation Error: " + e.getMessage());
             }
         });
 
