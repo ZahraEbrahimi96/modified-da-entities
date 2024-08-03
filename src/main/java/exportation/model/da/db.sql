@@ -19,8 +19,8 @@ create table PERSON_TABLE
     PERSON_PHONE_NUMBER nvarchar2(11),
     PERSON_EMAIL        nvarchar2(300),
     PERSON_ADDRESS      nvarchar2(300),
-    PERSON_POSITION     nvarchar2(30)
-    --USER_ID references USER_TABLE
+    PERSON_POSITION     nvarchar2(30),
+    USER_ID references USER_TABLE
 );
 create sequence PERSON_SEQ start with 1 increment by 1;
 
@@ -91,8 +91,7 @@ create table TRANSPORTATION_TABLE
     ITEM_ID references ITEM_TABLE,
     COMPANY_ID references COMPANY_TABLE,
     COUNTRY_ID references COUNTRY_TABLE,
-    TRANSPORTATION_DATE     date,
-    TRANSPORTATION_EXPORTATION  references EXPORT_TRACING_TABLE
+    TRANSPORTATION_DATE     date
 );
 create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 
