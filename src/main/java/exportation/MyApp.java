@@ -22,7 +22,7 @@ public class MyApp extends Application {
 
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Main");
+            primaryStage.setTitle("payment");
             primaryStage.setOnCloseRequest((event) -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to exit the application?");
                 if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
