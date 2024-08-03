@@ -31,31 +31,31 @@ import java.util.ResourceBundle;
 public class TransportationController implements Initializable {
 
     @FXML
-    private TextField idTxt,coIdTxt,productTxt,countryTx,directionTxt,freightTxt,tradeIdTxt,fByIdTxt;
+    private TextField idTxt, coIdTxt, productTxt, countryTx, directionTxt, freightTxt, tradeIdTxt, fByIdTxt;
     @FXML
-    private Button saveBtn,editBtn,removeBtn,countryBtn,tradeBtn,exportationBtn,findAllBtn;
+    private Button saveBtn, editBtn, removeBtn, countryBtn, tradeBtn, exportationBtn, findAllBtn;
     @FXML
     private DatePicker datePicker;
     @FXML
-    private TableView<Transportation>transportTbl;
+    private TableView<Transportation> transportTbl;
     @FXML
-    private TableColumn<Transportation,Integer>idCln;
+    private TableColumn<Transportation, Integer> idCln;
     @FXML
-    private TableColumn<Transportation,String>directionCln;
+    private TableColumn<Transportation, String> directionCln;
     @FXML
-    private TableColumn<Transportation,Float>freightCln;
+    private TableColumn<Transportation, Float> freightCln;
     @FXML
-    private TableColumn<Transportation,Trade>tradeCln;
+    private TableColumn<Transportation, Trade> tradeCln;
     @FXML
-    private TableColumn<Transportation,Item>productCln;
+    private TableColumn<Transportation, Item> productCln;
     @FXML
-    private TableColumn<Transportation,Company>companyCln;
+    private TableColumn<Transportation, Company> companyCln;
     @FXML
-    private TableColumn<Transportation,Country>countryCln;
+    private TableColumn<Transportation, Country> countryCln;
     @FXML
-    private TableColumn<Transportation,LocalDate>dateCln;
+    private TableColumn<Transportation, LocalDate> dateCln;
     @FXML
-    private TableColumn<Transportation,ExportTracing>expoCln;
+    private TableColumn<Transportation, ExportTracing> expoCln;
 
 
     @Override
@@ -110,17 +110,16 @@ public class TransportationController implements Initializable {
 
         saveBtn.setOnAction(event -> {
             try {
-            Transportation transportation = Transportation
-                    .builder()
-                    .direction(directionTxt.getText())
-                    .freight(Float.parseFloat(freightTxt.getText()))
-                    .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
-                    .company(Company.builder().name((coIdTxt.getText())).build())
-                    .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
-                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(Integer.parseInt(tradeIdTxt.getText())).build()).build())
-                    .date(datePicker.getValue())
-                    .build();
-            TransportationBl.getTransportationBl().save(transportation);
+                Transportation transportation = Transportation
+                        .builder()
+                        .direction(directionTxt.getText())
+                        .freight(Float.parseFloat(freightTxt.getText()))
+                        .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
+                        .company(Company.builder().name((coIdTxt.getText())).build())
+                        .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
+                        .date(datePicker.getValue())
+                        .build();
+                TransportationBl.getTransportationBl().save(transportation);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Transportation Saved\n" + transportation);
                 alert.show();
                 resetForm();
@@ -134,21 +133,20 @@ public class TransportationController implements Initializable {
 
         });
 
-        editBtn.setOnAction (event -> {
+        editBtn.setOnAction(event -> {
             try {
 
-            Transportation transportation = Transportation
-                    .builder()
-                    .id(Integer.parseInt(idTxt.getText()))
-                    .direction(directionTxt.getText())
-                    .freight(Float.parseFloat(freightTxt.getText()))
-                    .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
-                    .company(Company.builder().name((coIdTxt.getText())).build())
-                    .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
-                    .exportTracing(ExportTracing.builder().trade(Trade.builder().id(Integer.parseInt(tradeIdTxt.getText())).build()).build())
-                    .date(datePicker.getValue())
-                    .build();
-            TransportationBl.getTransportationBl().edit(transportation);
+                Transportation transportation = Transportation
+                        .builder()
+                        .id(Integer.parseInt(idTxt.getText()))
+                        .direction(directionTxt.getText())
+                        .freight(Float.parseFloat(freightTxt.getText()))
+                        .item(Item.builder().id(Integer.parseInt(productTxt.getText())).build())
+                        .company(Company.builder().name((coIdTxt.getText())).build())
+                        .country(Country.builder().id(Integer.parseInt(countryTx.getText())).build())
+                        .date(datePicker.getValue())
+                        .build();
+                TransportationBl.getTransportationBl().edit(transportation);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "  Transportation Edited\n" + transportation);
                 alert.show();
                 resetForm();
@@ -177,7 +175,7 @@ public class TransportationController implements Initializable {
 
         findAllBtn.setOnAction((event) -> {
             try {
-                showDataOnTable(  TransportationBl.getTransportationBl().findAll());
+                showDataOnTable(TransportationBl.getTransportationBl().findAll());
                 log.info("All Transportation Searched : " + findAllBtn);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Transportation\n" + e.getMessage());
@@ -213,7 +211,8 @@ public class TransportationController implements Initializable {
             datePicker.setValue(LocalDate.now());
         });
     }
-    private void showDataOnTable (List <Transportation> transportationList) {
+
+    private void showDataOnTable(List<Transportation> transportationList) {
 
         ObservableList<Transportation> observableList = FXCollections.observableList(transportationList);
         idCln.setCellValueFactory(new PropertyValueFactory<>("id"));

@@ -23,7 +23,7 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("PAYMENT_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT_TABLE (PAYMENT_ID, PAYMENT_TAX,PAYMENT_INSURANCE,ITEM_ID,TRANSPORTATION_ID,COUNTRY_ID) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT_TABLE (PAYMENT_ID, PAYMENT_TAX,PAYMENT_INSURANCE,ITEM_ID,TRANSPORTATION_ID,COMPANY_ID) VALUES (?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setFloat(2, payment.getTax());
@@ -31,7 +31,6 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
         preparedStatement.setFloat(4, payment.getItem().getId());
         preparedStatement.setFloat(5, payment.getTransportation().getId());
         preparedStatement.setInt(6, payment.getCompany().getCountry().getId());
-//        preparedStatement.setInt(7, payment.getItem().getPalletCapacity());
         preparedStatement.execute();
         return payment;
     }
@@ -40,14 +39,13 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT_TABLE SET PAYMENT_TAX=? , PAYMENT_INSURANCE=? ,ITEM_ID=? ,TRANSPORTATION_ID=? ,COUNTRY_ID=? WHERE PAYMENT_ID=?"
+                "UPDATE PAYMENT_TABLE SET PAYMENT_TAX=? , PAYMENT_INSURANCE=? ,ITEM_ID=? ,TRANSPORTATION_ID=?,COMPANY_ID=? WHERE PAYMENT_ID=?"
         );
         preparedStatement.setFloat(1, payment.getTax());
         preparedStatement.setFloat(2, payment.getInsurance());
         preparedStatement.setFloat(3, payment.getItem().getCost());
-        preparedStatement.setFloat(4, payment.getTransportation().getFreight());
+        preparedStatement.setFloat(4, (float) payment.getTransportation().getFreight());
         preparedStatement.setInt(5, payment.getCompany().getCountry().getTariff());
-//        preparedStatement.setInt(6, payment.getItem().getPalletCapacity());
         preparedStatement.setInt(6, payment.getId());
         preparedStatement.execute();
         return payment;
