@@ -39,7 +39,7 @@ public class MainController implements Initializable {
     private TableColumn<Country, String> nameClmn, phcodeClmn, neighberClmn;
 
     @FXML
-    private TextField fByIdTxt, fByNameTxt, taxTxt, insureTxt, costTxt, freightTxt, tariffTxt, palletTxt, totalTxt, cifTxt;
+    private TextField fByIdTxt, fByNameTxt, taxTxt, insureTxt, costTxt, freightTxt, tariffTxt, totalTxt, cifTxt;
 
 
     @FXML
@@ -94,7 +94,7 @@ public class MainController implements Initializable {
         exportMenuItem.setOnAction(event -> {
             try {
                 Stage stage = new Stage();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/exportation.fxml")));
                 stage.setScene(scene);
                 stage.setTitle("Exportation");
                 stage.show();
@@ -215,9 +215,9 @@ public class MainController implements Initializable {
                 float cost = Float.parseFloat(costTxt.getText());
                 float freight = Float.parseFloat(freightTxt.getText());
                 int tariff = Integer.parseInt(tariffTxt.getText());
-                int pallet = Integer.parseInt(palletTxt.getText());
+//                int pallet = Integer.parseInt(palletTxt.getText());
 
-                long total = Payment.totalCost(tariff,cost,tax,pallet,insurance,freight);
+                long total = Payment.totalCost(tariff,cost,tax,insurance,freight);
 
                 totalTxt.setText(String.valueOf(total));
 
@@ -239,9 +239,9 @@ public class MainController implements Initializable {
                 float cost = Float.parseFloat(costTxt.getText());
                 float freight = Float.parseFloat(freightTxt.getText());
                 int tariff = Integer.parseInt(tariffTxt.getText());
-                int pallet = Integer.parseInt(palletTxt.getText());
+//                int pallet = Integer.parseInt(palletTxt.getText());
 
-                long cif = Payment.cif(cost,pallet,insurance,freight);
+                float cif = Payment.cif(cost,insurance,freight);
 
                 cifTxt.setText(String.valueOf(cif));
 
@@ -286,7 +286,6 @@ public class MainController implements Initializable {
             costTxt.clear();
             freightTxt.clear();
             tariffTxt.clear();
-            palletTxt.clear();
             cifTxt.clear();
             totalTxt.clear();
         }

@@ -157,7 +157,7 @@ public class CompanyController implements Initializable {
                 Company company =companyTbl.getSelectionModel().getSelectedItem();
                 idTxt.setText(String.valueOf(company.getId()));
                 nameTxt.setText(company.getName());
-                prodTxt.setText(company.getAddress());
+                prodTxt.setText(company.getProduct());
                 addressTxtA.setText(company.getAddress());
                 emailTxt.setText(company.getEmail());
                 phoneTxt.setText(company.getPhoneNumber());

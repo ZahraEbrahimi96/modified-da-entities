@@ -1,10 +1,9 @@
 package exportation.controller;
 import exportation.model.bl.ExportTracingBl;
-import exportation.model.bl.PersonBl;
 import exportation.model.entity.ExportTracing;
-import exportation.model.entity.Person;
 import exportation.model.entity.Trade;
 import exportation.model.entity.Transportation;
+import exportation.model.entity.enums.Status;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,10 +42,16 @@ public class ExportTracingController implements Initializable {
     private TableView < ExportTracing> exportTbl;
 
     @FXML
-    private TableColumn < ExportTracing, Integer> idCln,tradeCln,transportCln;
+    private TableColumn < ExportTracing, Integer> idCln;
 
     @FXML
-    private TableColumn < ExportTracing, Boolean> loadingCln,payCln,checkCln;
+    private TableColumn < ExportTracing, Trade> tradeCln;
+
+    @FXML
+    private TableColumn < ExportTracing, Transportation> transportCln;
+
+    @FXML
+    private TableColumn < ExportTracing, Status> loadingCln,payCln,checkCln;
 
     @FXML
     private TableColumn < ExportTracing, LocalDate> dateCln;
@@ -71,9 +76,9 @@ public class ExportTracingController implements Initializable {
                 RadioButton checkout = (RadioButton) checkToggle.getSelectedToggle();
                 ExportTracing exportTracing = ExportTracing
                         .builder()
-                        .loadingStatus(loadingStatus.isSelected())
-                        .prePayment(prePayment.isSelected())
-                        .checkout(checkout.isSelected())
+                        .loadingStatus(Status.valueOf(loadingStatus.getText().toLowerCase()))
+                        .prePayment(Status.valueOf(prePayment.getText().toLowerCase()))
+                        .checkout(Status.valueOf(checkout.getText().toLowerCase()))
                         .transportation(Transportation.builder().id(Integer.parseInt(transIdText.getText())).build())
                         .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .date(date.getValue())
@@ -84,6 +89,7 @@ public class ExportTracingController implements Initializable {
                 resetForm();
                 log.info("Exportation Saved " + exportTracing);
             } catch (Exception e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, " Exportation Save Error\n" + e.getMessage());
                 alert.show();
                 log.error("Save Error : " + e.getMessage());
@@ -99,20 +105,22 @@ public class ExportTracingController implements Initializable {
                 RadioButton checkout = (RadioButton) checkToggle.getSelectedToggle();
                 ExportTracing exportTracing = ExportTracing
                         .builder()
-                        .loadingStatus(loadingStatus.isSelected())
-                        .prePayment(prePayment.isSelected())
-                        .checkout(checkout.isSelected())
+                        .id(Integer.parseInt(idTxt.getText()))
+                        .loadingStatus(Status.valueOf(loadingStatus.getText().toLowerCase()))
+                        .prePayment(Status.valueOf(prePayment.getText().toLowerCase()))
+                        .checkout(Status.valueOf(checkout.getText().toLowerCase()))
                         .transportation(Transportation.builder().id(Integer.parseInt(transIdText.getText())).build())
                         .trade(Trade.builder().id(Integer.parseInt(tradeTxt.getText())).build())
                         .date(date.getValue())
                         .build();
                 ExportTracingBl.getExportTracingBl().edit(exportTracing);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, " Exportation Edited\n" + exportTracing);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Exportation Edited\n" + exportTracing);
                 alert.show();
                 resetForm();
                 log.info("Exportation Edited " + exportTracing);
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Exportation Edit Error\n" + e.getMessage());
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Exportation Edit Error\n" + e.getMessage());
                 alert.show();
                 log.error("Edit Error : " + e.getMessage());
             }
@@ -122,11 +130,11 @@ public class ExportTracingController implements Initializable {
         removeBtn.setOnAction(event -> {
             try {
                 ExportTracingBl.getExportTracingBl().remove(Integer.parseInt(idTxt.getText()));
-                Alert alert = new Alert(Alert.AlertType.INFORMATION," Exportation removed\n" + idTxt.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"Exportation removed\n" + idTxt.getText());
                 log.info("Exportation Removed " + idTxt.getText());
                 resetForm();
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, " Exportation Remove Error\n" + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Exportation Remove Error\n" + e.getMessage());
                 alert.show();
                 log.error("Remove Error : " + e.getMessage());
             }
@@ -201,17 +209,17 @@ public class ExportTracingController implements Initializable {
         exportTbl.setOnMouseClicked((event) -> {
             ExportTracing exportTracing =exportTbl.getSelectionModel().getSelectedItem();
             idTxt.setText(String.valueOf(exportTracing.getId()));
-            if (exportTracing.isLoadingStatus()) {
+            if (exportTracing.getLoadingStatus().equals(Status.yes)) {
                 loadY.setSelected(true);
             } else {
                 loadN.setSelected(true);
             }
-            if (exportTracing.isPrePayment()) {
+            if (exportTracing.getPrePayment().equals(Status.yes)) {
                 payY.setSelected(true);
             } else {
                 payN.setSelected(true);
             }
-            if (exportTracing.isPrePayment()) {
+            if (exportTracing.getCheckout().equals(Status.yes)) {
                 checkY.setSelected(true);
             } else {
                 checkN.setSelected(true);

@@ -119,7 +119,7 @@ public class TradeController implements Initializable {
         exportBtn.setOnAction(event -> {
             try {
                 Stage stage = new Stage();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/export.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/exportation/view/exportation.fxml")));
                 stage.setScene(scene);
                 stage.setTitle("Exportation");
                 stage.show();

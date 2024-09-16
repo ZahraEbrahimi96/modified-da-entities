@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class PaymentController  implements Initializable {
 
     @FXML
-    private TextField idTxt, taxTxt,insureTxt,cOfPerTxt,freightTxt,tariffTxt,cifTxt,totalTxt,fById, palletTxt;
+    private TextField idTxt, taxTxt,insureTxt,cOfPerTxt,freightTxt,tariffTxt,cifTxt,totalTxt,fById,pId,tId,cId;
 
     @FXML
     private Button saveBtn, editBtn, removeBtn, findAllBtn,cifBtn,totalBtn;
@@ -32,7 +32,7 @@ public class PaymentController  implements Initializable {
     private TableView<Payment> payTbl;
 
     @FXML
-    private TableColumn<Payment, Integer> idCln,tariffCln,palletCln;
+    private TableColumn<Payment, Integer> idCln,tariffCln;
 
     @FXML
     private TableColumn<Payment, Float>  taxCln,insureCln,cOfPerCln,freightCln;
@@ -57,9 +57,11 @@ public class PaymentController  implements Initializable {
                         .tax(Float.parseFloat(taxTxt.getText()))
                         .insurance(Float.parseFloat(insureTxt.getText()))
                         .item(Item.builder().cost(Float.parseFloat(cOfPerTxt.getText())).build())
+                        .item(Item.builder().id(Integer.parseInt(pId.getText())).build())
                         .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
-                        .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
+                        .transportation(Transportation.builder().id(Integer.parseInt(tId.getText())).build())
+                        .country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build())
+                        .country(Country.builder().id(Integer.parseInt(cId.getText())).build())
                         .build();
                 PaymentBl.getPaymentBl().save(payment);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Payment Saved\n" + payment);
@@ -84,9 +86,11 @@ public class PaymentController  implements Initializable {
                         .tax(Float.parseFloat(taxTxt.getText()))
                         .insurance(Float.parseFloat(insureTxt.getText()))
                         .item(Item.builder().cost(Float.parseFloat(cOfPerTxt.getText())).build())
+                        .item(Item.builder().id(Integer.parseInt(pId.getText())).build())
                         .transportation(Transportation.builder().freight(Float.parseFloat(freightTxt.getText())).build())
-                        .company(Company.builder().country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build()).build())
-                        .item(Item.builder().palletCapacity(Integer.parseInt(palletTxt.getText())).build())
+                        .transportation(Transportation.builder().id(Integer.parseInt(tId.getText())).build())
+                        .country(Country.builder().tariff(Integer.parseInt(tariffTxt.getText())).build())
+                        .country(Country.builder().id(Integer.parseInt(cId.getText())).build())
                         .build();
                 PaymentBl.getPaymentBl().save(payment);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, " Payment Edited\n" + payment);
@@ -154,9 +158,8 @@ public class PaymentController  implements Initializable {
                 float cost = Float.parseFloat(cOfPerTxt.getText());
                 float freight = Float.parseFloat(freightTxt.getText());
                 int tariff = Integer.parseInt(tariffTxt.getText());
-                int pallet = Integer.parseInt(palletTxt.getText());
 
-                long total = Payment.totalCost(tariff,cost,tax,pallet,insurance,freight);
+                long total = Payment.totalCost(tariff,cost,tax,insurance,freight);
 
                 totalTxt.setText(String.valueOf(total));
 
@@ -179,9 +182,8 @@ public class PaymentController  implements Initializable {
                 float cost = Float.parseFloat(cOfPerTxt.getText());
                 float freight = Float.parseFloat(freightTxt.getText());
                 int tariff = Integer.parseInt(tariffTxt.getText());
-                int pallet = Integer.parseInt(palletTxt.getText());
 
-                long cif = Payment.cif(cost,pallet,insurance,freight);
+                float cif = Payment.cif(cost,insurance,freight);
 
                 cifTxt.setText(String.valueOf(cif));
 
@@ -204,7 +206,7 @@ public class PaymentController  implements Initializable {
             cOfPerTxt.setText(String.valueOf(payment.getItem().getCost()));
             freightTxt.setText(String.valueOf(payment.getTransportation().getFreight()));
             tariffTxt.setText(String.valueOf(payment.getTransportation().getCountry().getTariff()));
-            palletTxt.setText(String.valueOf(payment.getItem().getPalletCapacity()));
+
         });
 
    }
@@ -217,7 +219,6 @@ public class PaymentController  implements Initializable {
         cOfPerCln.setCellValueFactory(new PropertyValueFactory<>("cost"));
         freightCln.setCellValueFactory(new PropertyValueFactory<>("freight"));
         tariffCln.setCellValueFactory(new PropertyValueFactory<>("tariff"));
-        palletCln.setCellValueFactory(new PropertyValueFactory<>("palletCapacity"));
         payTbl.setItems(observableList);
     }
 
@@ -228,7 +229,7 @@ public class PaymentController  implements Initializable {
         cOfPerTxt.clear();
         freightTxt.clear();
         tariffTxt.clear();
-        palletTxt.clear();
+//        palletTxt.clear();
         showDataOnTable(PaymentBl.getPaymentBl().findAll());
 
     }

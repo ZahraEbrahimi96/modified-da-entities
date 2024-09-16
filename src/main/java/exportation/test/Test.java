@@ -5,6 +5,7 @@ import exportation.model.entity.*;
 import exportation.model.entity.enums.Brand;
 import exportation.model.entity.enums.CompanyType;
 import exportation.model.entity.enums.Gender;
+import exportation.model.entity.enums.Status;
 
 import java.time.LocalDate;
 
@@ -16,7 +17,7 @@ public class Test {
                 Country
                         .builder()
                         .name("Iran")
-                        .tariff(100)
+                        .tariff(5)
                         .phoneCode("0098")
                         .importRate(100)
                         .population(85)
@@ -171,7 +172,7 @@ public class Test {
         CompanyBl.getCompanyBl().save(company3);
 
 
-        //check Trade
+//        check Trade
         Trade trade1 =
                 Trade
                         .builder()
@@ -207,7 +208,7 @@ public class Test {
         TradeBl.getTradeBl().save(trade3);
 
 
-        //check Item
+//        check Item
         Item item =
                 Item
                         .builder()
@@ -218,7 +219,7 @@ public class Test {
                         .dimensionOfPallet("1000")
                         .palletCapacity(1)
                         .Hs_Code(1000000)
-                        .cost(1000)
+                        .cost(53)
                         .weightOfUnit(1000000)
                         .weightOfPallet(1000000)
                         .build();
@@ -231,7 +232,7 @@ public class Test {
                 Transportation
                         .builder()
                         .direction("direction1")
-                        .freight(1000000)
+                        .freight(1500F)
                         .item(item)
                         .company(company1)
                         .country(country1)
@@ -240,31 +241,38 @@ public class Test {
 
         TransportationBl.getTransportationBl().save(transportation);
 
-        //check ExportTracing
+//        check ExportTracing
         ExportTracing exportTracing =
                 ExportTracing
                         .builder()
-                        .loadingStatus(true)
-                        .prePayment(true)
-                        .checkout(false)
+                        .id(5)
+                        .loadingStatus(Status.yes)
+                        .prePayment(Status.yes)
+                        .checkout(Status.yes)
                         .transportation(transportation)
                         .trade(trade1)
                         .date(LocalDate.ofYearDay(2024, 30))
                         .build();
 
         ExportTracingBl.getExportTracingBl().save(exportTracing);
+        // Example logging
+//        System.out.println("Editing ExportTracing with ID: " + exportTracing.getId());
+
 
 //check Payment
-        Payment payment =
-                Payment
-                        .builder()
-                        .tax(15000)
-                        .insurance(12000)
-                        .item(item)
-                        .transportation(transportation)
-                        .company(company1)
-                        .build();
-
-        PaymentBl.getPaymentBl().save(payment);
+//        Payment payment =
+//                Payment
+//                        .builder()
+//                        .tax(15000)
+//                        .insurance(12000)
+//                        .item(Item.builder().id(2).cost(53).build())
+//                        .transportation(Transportation.builder().id(21).freight(1200F).build())
+//                        .country(Country.builder().id(21).tariff(10).build())
+//                        .build();
+//
+//        PaymentBl.getPaymentBl().save(payment);
+//        System.out.println(payment);
+//
     }
+
 }

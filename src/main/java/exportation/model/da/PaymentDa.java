@@ -23,14 +23,17 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     public Payment save(Payment payment) throws Exception {
         payment.setId(ConnectionProvider.getConnectionProvider().getNextId("PAYMENT_SEQ"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO PAYMENT_TABLE (PAYMENT_ID, PAYMENT_TAX,PAYMENT_INSURANCE,ITEM_ID,TRANSPORTATION_ID,COMPANY_ID) VALUES (?,?,?,?,?,?)"
+                "INSERT INTO PAYMENT_TABLE (PAYMENT_ID, PAYMENT_TAX,PAYMENT_INSURANCE,ITEM_COST,ITEM_ID,TRANSPORTATION_FREIGHT,TRANSPORTATION_ID,COUNTRY_TARIFF,COUNTRY_ID) VALUES (?,?,?,?,?,?,?,?,?)"
         );
         preparedStatement.setInt(1, payment.getId());
         preparedStatement.setFloat(2, payment.getTax());
         preparedStatement.setFloat(3, payment.getInsurance());
-        preparedStatement.setFloat(4, payment.getItem().getId());
-        preparedStatement.setFloat(5, payment.getTransportation().getId());
-        preparedStatement.setInt(6, payment.getCompany().getCountry().getId());
+        preparedStatement.setFloat(4, payment.getItem().getCost());
+        preparedStatement.setInt(5, payment.getItem().getId());
+        preparedStatement.setFloat(6,payment.getTransportation().getFreight());
+        preparedStatement.setInt(7, payment.getTransportation().getId());
+        preparedStatement.setInt(8, payment.getCountry().getTariff());
+        preparedStatement.setInt(9, payment.getCountry().getId());
         preparedStatement.execute();
         return payment;
     }
@@ -39,14 +42,17 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
     @Override
     public Payment edit(Payment payment) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "UPDATE PAYMENT_TABLE SET PAYMENT_TAX=? , PAYMENT_INSURANCE=? ,ITEM_ID=? ,TRANSPORTATION_ID=?,COMPANY_ID=? WHERE PAYMENT_ID=?"
+                "UPDATE PAYMENT_TABLE SET PAYMENT_TAX=? , PAYMENT_INSURANCE=? ,ITEM_COST=?, ITEM_ID=? ,TRANSPORTATION_FREIGHT=?, TRANSPORTATION_ID=? ,COUNTRY_TARIFF=?, COUNTRY_ID=? WHERE PAYMENT_ID=?"
         );
         preparedStatement.setFloat(1, payment.getTax());
         preparedStatement.setFloat(2, payment.getInsurance());
         preparedStatement.setFloat(3, payment.getItem().getCost());
-        preparedStatement.setFloat(4, (float) payment.getTransportation().getFreight());
-        preparedStatement.setInt(5, payment.getCompany().getCountry().getTariff());
-        preparedStatement.setInt(6, payment.getId());
+        preparedStatement.setInt(4, payment.getItem().getId());
+        preparedStatement.setFloat(5, payment.getTransportation().getFreight());
+        preparedStatement.setInt(6, payment.getTransportation().getId());
+        preparedStatement.setInt(7, payment.getCountry().getTariff());
+        preparedStatement.setInt(8, payment.getCountry().getId());
+        preparedStatement.setInt(9, payment.getId());
         preparedStatement.execute();
         return payment;
     }
@@ -76,9 +82,11 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .tax(resultSet.getFloat("PAYMENT_TAX"))
                     .insurance(resultSet.getFloat("PAYMENT_INSURANCE"))
                     .item(Item.builder().cost(resultSet.getInt("ITEM_COST")).build())
-                    .transportation(Transportation.builder().freight(resultSet.getInt("TRANSPORTATION_FREIGHT")).build())
-                    .company(Company.builder().country(Country.builder().tariff(resultSet.getInt("COUNTRY_TARIFF")).build()).build())
-                    .item(Item.builder().palletCapacity(resultSet.getInt("PALLET_CAPACITY")).build())
+                    .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
+                    .transportation(Transportation.builder().freight(resultSet.getFloat("TRANSPORTATION_FREIGHT")).build())
+                    .transportation(Transportation.builder().id(resultSet.getInt("TRANSPORTATION_ID")).build())
+                    .country(Country.builder().tariff(resultSet.getInt("COUNTRY_TARIFF")).build())
+                    .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .build();
 
             paymentList.add(payment);
@@ -101,9 +109,11 @@ public class PaymentDa implements AutoCloseable, CRUD<Payment> {
                     .tax(resultSet.getFloat("PAYMENT_TAX"))
                     .insurance(resultSet.getFloat("PAYMENT_INSURANCE"))
                     .item(Item.builder().cost(resultSet.getInt("ITEM_COST")).build())
-                    .transportation(Transportation.builder().freight(resultSet.getInt("TRANSPORTATION_FREIGHT")).build())
-                    .company(Company.builder().country(Country.builder().tariff(resultSet.getInt("COUNTRY_TARIFF")).build()).build())
-                    .item(Item.builder().palletCapacity(resultSet.getInt("PALLET_CAPACITY")).build())
+                    .item(Item.builder().id(resultSet.getInt("ITEM_ID")).build())
+                    .transportation(Transportation.builder().freight(resultSet.getFloat("TRANSPORTATION_FREIGHT")).build())
+                    .transportation(Transportation.builder().id(resultSet.getInt("TRANSPORTATION_ID")).build())
+                    .country(Country.builder().tariff(resultSet.getInt("COUNTRY_TARIFF")).build())
+                    .country(Country.builder().id(resultSet.getInt("COUNTRY_ID")).build())
                     .build();
         }
         return payment;

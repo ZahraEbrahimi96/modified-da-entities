@@ -16,17 +16,17 @@ public class Payment {
     private float insurance;
     private Item item;
     private Transportation transportation;
-    private Company company;
+    private Country country;
 
-    public static long totalCost(int tariff, float cost, float tax, int palletCapacity, float insurance, float freight) {
-        long cif = cif(cost, palletCapacity, insurance, freight);
+    public static long totalCost(int tariff, float cost, float tax, float insurance, float freight) {
+        float cif = cif(cost,  insurance, freight);
         tariff = (int) ((cif * tariff) / 100);
         tax = (cif * tax) / 100;
         return (long) (tariff + cif + tax);
     }
 
-    public static long cif(float cost, int palletCapacity, float insurance, float freight) {
-        return (long) ((cost * palletCapacity) + insurance + freight);
+    public static float cif(float cost,  float insurance, float freight) {
+        return (long) (cost  + insurance + freight);
     }
 
     @Override

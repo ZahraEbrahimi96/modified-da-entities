@@ -99,9 +99,9 @@ create sequence TRANSPORTATION_SEQ start with 1 increment by 1;
 create table EXPORT_TRACING_TABLE
 (
     EXPORT_TRACING_ID            number primary key,
-    EXPORT_TRACING_LOADING_STATUS number(1),
-    EXPORT_TRACING_PREPAYMENT    number(1),
-    EXPORT_TRACING_CHECKOUT      number(1),
+    EXPORT_TRACING_LOADING_STATUS nvarchar2(10) CHECK ( EXPORT_TRACING_LOADING_STATUS IN ('yes', 'no')),
+    EXPORT_TRACING_PREPAYMENT    nvarchar2(10) CHECK ( EXPORT_TRACING_PREPAYMENT IN ('yes', 'no')),
+    EXPORT_TRACING_CHECKOUT      nvarchar2(10) CHECK ( EXPORT_TRACING_CHECKOUT IN ('yes', 'no')),
     TRANSPORTATION_ID references TRANSPORTATION_TABLE,
     TRADE_ID references TRADE_TABLE,
     EXPORT_DATE_TIME            date
@@ -114,9 +114,15 @@ create table PAYMENT_TABLE
     PAYMENT_ID        number primary key,
     PAYMENT_TAX       number,
     PAYMENT_INSURANCE number,
-    ITEM_ID references ITEM_TABLE,
-    TRANSPORTATION_ID references TRANSPORTATION_TABLE,
-    COUNTRY_ID  references COMPANY_TABLE
+    ITEM_COST         number,
+    ITEM_ID           number,
+    FOREIGN KEY (ITEM_ID) references ITEM_TABLE (ITEM_ID),
+    TRANSPORTATION_FREIGHT   number,
+    TRANSPORTATION_ID      number,
+    FOREIGN KEY (TRANSPORTATION_ID) references TRANSPORTATION_TABLE (TRANSPORTATION_ID),
+    COUNTRY_TARIFF      nvarchar2(4),
+    COUNTRY_ID       number,
+    FOREIGN KEY (COUNTRY_ID)  references COUNTRY_TABLE (COUNTRY_ID)
 );
 create sequence PAYMENT_SEQ start with 1 increment by 1;
 

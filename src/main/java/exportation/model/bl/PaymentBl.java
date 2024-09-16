@@ -59,7 +59,7 @@ public class PaymentBl implements CRUD<Payment> {
 
             for (Payment payment : paymentList) {
                 payment.setItem(ItemBl.getItemBl().findById(payment.getItem().getId()));
-                payment.setCompany(CompanyBl.getCompanyBl().findById(payment.getCompany().getId()));
+                payment.setCountry(CountryBl.getCountryBl().findById(payment.getCountry().getId()));
                 payment.setTransportation(TransportationBl.getTransportationBl().findById(payment.getTransportation().getId()));
             }
 

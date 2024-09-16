@@ -24,7 +24,7 @@ public class TransportationTest {
 
         Payment payment = Payment.builder()
                 .id(1)
-                .transportation(Transportation.builder().freight(1500).build())
+                .transportation(Transportation.builder().freight(1500F).build())
                 .tax(10)
                 .item(Item.builder().cost(850710).build())
 //                .item(Item.builder().palletCapacity(1800).build())
